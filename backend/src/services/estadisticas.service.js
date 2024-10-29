@@ -1,10 +1,10 @@
 "use strict";
 //aquí irá lo de la actualización periódica de las estadísticas
-//import { getEstadisticas } from "../services/estadisticas.service.js";
 import { AppDataSource } from "../config/configDb.js";
-import { Estadisticas } from "../entity/estadisticas.entity.js";
+import Estadisticas from "../entity/estadisticas.entity.js";
+import Inventario  from "../entity/inventario.entity.js";
 
-//Guarda interacción del operador
+//Guarda interacción del operador (aún falta implementar)
 export async function saveOperatorInteractionService(interactionData){
     try {
         const estadisticasRepository = AppDataSource.getRepository(Estadisticas);
@@ -20,7 +20,7 @@ export async function saveOperatorInteractionService(interactionData){
     }
 }
 
-//Genera estadísticas por estaciones 
+//Genera estadísticas por estaciones  (aún falta implementar)
 export async function getEstadisticasxEstacionesService(season){
     try {
         const estadisticasRepository = AppDataSource.getRepository(Estadisticas);
@@ -39,7 +39,7 @@ export async function getEstadisticasxEstacionesService(season){
     }
 }
 
-//Obtiene estadisticas generales para mostrar los gráficos
+//Obtiene estadisticas generales para mostrar los gráficos (aún falta implementar)
 export async function getGeneralEstadisticasService(){
     try {
         const estadisticasRepository = AppDataSource.getRepository(Estadisticas);
@@ -57,7 +57,7 @@ export async function getGeneralEstadisticasService(){
     }
 }
 
-//Verifica acceso de un operador(admin)
+//Verifica acceso de un operador(admin) (aún falta implementar)
 export async function verifyOperatorAccessService(UserData){
     try {
         //verifica si el operador tiene rol de admin
@@ -69,4 +69,25 @@ export async function verifyOperatorAccessService(UserData){
         console.error("Error al verificar el acceso del operador:", error);
         return [null, "Error interno del servidor"];
     }
+}
+
+//Obtiene estadísticas del inventario (probando)
+export async function obtenerEstadisticasInventario() {
+    try {
+        const inventarioRepository = AppDataSource.getRepository(Inventario);
+
+        // Contar el total de productos en inventario
+        const totalItems = await inventarioRepository.count();
+
+        // Contar los productos con bajo stock
+        const lowStockItems = await inventarioRepository.count({
+        where: { cantidadStock: { $lt: 5 } },
+    });
+
+        return [totalItems, lowStockItems];
+
+    } catch (error) {
+    console.error("Error obteniendo estadísticas del inventario:", error);
+    return [null, "Error interno del servidor"];
+}
 }
