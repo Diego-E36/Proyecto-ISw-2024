@@ -36,7 +36,7 @@ export async function getInv(req, res) {
     }
 }
 
-export async function getAllInv(res) {
+export async function getAllInv(req, res) {
     try {
         const [inventario, errorInv] = await getAllInvService();
 
@@ -55,10 +55,7 @@ export async function updateInv(req, res) {
         const { id, numeroSerie } = req.query;
         const { body } = req;
 
-        const { error: queryError } = invQueryValidation.validate({
-            id,
-            numeroSerie,
-        });
+        const { error: queryError } = invQueryValidation.validate({id ,numeroSerie });
 
         if (queryError) {
             return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);

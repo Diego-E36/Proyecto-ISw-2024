@@ -15,7 +15,7 @@ export async function updateInvService(query, body) {
         if (!invFound) return [null, "Item del inventario no encontrado"];
 
         const existingInv = await invRepository.findOne({
-            where: [{ numeroSerie: body.numeroSerie }],
+            where: [{ numeroSerie: body.numeroSerie }]
         });
 
         if (existingInv && existingInv.id !== invFound.id) {
