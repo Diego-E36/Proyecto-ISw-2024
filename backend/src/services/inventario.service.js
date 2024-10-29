@@ -127,7 +127,7 @@ export async function createInvService(dataInventario) {
 
         const invSaved = await invRepository.save(newInv);
 
-        return invSaved;
+        return [invSaved, null];
     } catch (error) {
         console.error("Error al crear item del inventario:", error);
         return [null, "Error interno del servidor"];

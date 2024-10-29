@@ -1,11 +1,16 @@
 "use strict";
 import {
-    deleteInvService,
-    getInvService,
-    getAllInvService,
-    updateInvService,
     createInvService,
+    deleteInvService,
+    getAllInvService,
+    getInvService,
+    updateInvService,
 } from "../services/inventario.service.js";
+
+import {
+    invBodyValidation,
+    invQueryValidation,
+} from "../validations/inventario.validation.js";
 
 import {
     handleErrorClient,
@@ -17,7 +22,7 @@ export async function getInv(req, res) {
     try {
         const { id, numeroSerie } = req.query;
 
-        // Implementar validación de query joi
+        const { error } = invQueryValidation.validate({ id, numeroSerie });
 
         if (error) return handleErrorClient(res, 400, "Error de validación en la consulta", error.message);
 
@@ -73,7 +78,11 @@ export async function deleteInv(req, res) {
     try {
         const { id, numeroSerie } = req.query;
 
-        // Implementar validacion del query joi
+        const { error: queryError } = invQueryValidation.validate({ id, numeroSerie });
+
+        if (queryError) {
+            return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
+        }
 
         const [inventarioDelete, errorInv] = await deleteInvService({ id, numeroSerie });
 
@@ -89,7 +98,7 @@ export async function createInv(req, res) {
     try {
         const inventario = req.body;
 
-        // Implementar validación del body joi
+        const { error } = invBodyValidation.validate(inventario);
 
         if(error) return handleErrorClient(res, 400, "Error de validación en los datos enviados", error);
 
