@@ -1,6 +1,6 @@
 "use strict";
 //Modelar la tabla de estadisticas
-import { Entity, EntitySchema } from "typeorm";
+import { EntitySchema } from "typeorm";
 
 const EstadisticasSchema = new EntitySchema({
     name: "Estadisticas",

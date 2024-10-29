@@ -1,8 +1,9 @@
 "use strict";
-//Aquí irán las cosas para manejar las peticiones HTTP
+//Aquí van las cosas para manejar las peticiones HTTP
 import { getEstadisticasxEstacionesService,
     getGeneralEstadisticasService, saveOperatorInteractionService } from "../services/estadisticas.service.js";
 
+import { obtenerEstadisticasInventario } from "../services/estadisticas.service.js";
 import { handleErrorClient,
         handleErrorServer,
         handleSuccess,
@@ -41,5 +42,20 @@ export async function getGeneralEstadisticasController(req,res){
     handleSuccess(res, 200, "Estadísticas generales obtenidas", estadisticas);
     } catch (error) {
         handleErrorServer(res, 500, "Error interno del servidor", error);
+    }
+}
+
+//Obtiene las estadísticas de inventario
+export async function getEstadisticasInventario(req, res) {
+    try {
+    const estadisticasInv = await obtenerEstadisticasInventario();
+
+    if (!estadisticasInv) {
+        return handleErrorServer(res, 500, "Error obteniendo estadísticas de inventario.");
+    }
+
+    handleSuccess(res, 200, "Estadísticas de inventario obtenidas con éxito", estadisticasInv);
+    } catch (error) {
+    handleErrorServer(res, 500, error.message);
     }
 }
