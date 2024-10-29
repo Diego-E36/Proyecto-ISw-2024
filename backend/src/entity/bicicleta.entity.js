@@ -10,24 +10,30 @@ const BicicletaSchema = new EntitySchema({
             primary: true,
             generated: true,
         },
+        numeroSerie: {
+            type: "varchar",
+            length: 50,
+            nullable: false,
+            unique: true,
+        },
         marca: {
             type: "varchar",
-            length: 255,
+            length: 50,
             nullable: false,
         },
         modelo: {
             type: "varchar",
-            length: 255,
+            length: 50,
             nullable: false,
         },
         color: {
             type: "varchar",
-            length: 255,
+            length: 20,
             nullable: false,
         },
         tipo: {
             type: "varchar",
-            length: 255,
+            length: 50,
             nullable: false,
         },
         aro: {
@@ -43,7 +49,19 @@ const BicicletaSchema = new EntitySchema({
             onUpdate: "CURRENT_TIMESTAMP",
             nullable: false,
         }
-    }
+    },
+    indices: [
+        {
+            name: "IDX_BICICLETA",
+            columns: ["id"],
+            unique: true,
+        },
+        {
+            name: "IDX_BICICLETA_NUMEROSERIE",
+            columns: ["numeroSerie"],
+            unique: true,
+        }
+    ]
 });
 
 export default BicicletaSchema;
