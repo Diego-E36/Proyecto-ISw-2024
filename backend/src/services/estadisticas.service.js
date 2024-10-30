@@ -3,6 +3,7 @@
 import { AppDataSource } from "../config/configDb.js";
 import Estadisticas from "../entity/estadisticas.entity.js";
 import Inventario  from "../entity/inventario.entity.js";
+import { LessThan } from "typeorm";
 
 //Guarda interacción del operador (aún falta implementar)
 export async function saveOperatorInteractionService(interactionData){
@@ -81,7 +82,7 @@ export async function obtenerEstadisticasInventario() {
 
         // Contar los productos con bajo stock
         const lowStockItems = await inventarioRepository.count({
-        where: { cantidadStock: { $lt: 5 } },
+        where: { cantidadStock: LessThan(5) },
     });
 
         return [totalItems, lowStockItems];
