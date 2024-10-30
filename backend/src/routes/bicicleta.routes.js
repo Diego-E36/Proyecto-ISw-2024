@@ -1,25 +1,20 @@
 "use strict";
  import { Router } from "express";
- import { isAdmin } from "../middlewares/authorization.middleware.js";
- import { authenticateJwt } from "../middlewares/authentication.middleware.js";
  import {
-     createBicicletaService,
-     deleteBicicletaService,
-     getBicicletasService,
-     updateBicicletaService,
-
- } from "../services/bicicleta.service.js";
+    createBici,
+    deleteBici,
+    getAllBici,
+    getBici,
+    updateBici,
+ } from "../controllers/bicicleta.controller.js";
 
  const router = Router();
 
  router
-     .use(authenticateJwt)
-     .use(isAdmin);
-
- router
-     .get("/", getBicicletasService)
-     .post("/", createBicicletaService)
-     .patch("/:id", updateBicicletaService)
-     .delete("/:id", deleteBicicletaService);
+        .post("/", createBici)
+        .get("/all", getAllBici)
+        .get("/:id", getBici)
+        .patch("/:id", updateBici)
+        .delete("/:id", deleteBici);
 
  export default router;

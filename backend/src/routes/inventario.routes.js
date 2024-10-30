@@ -3,12 +3,12 @@
 import { Router } from "express";
 // Importar manejo de inventario desde controladores
 import {
-    deleteInv,
-    getInv,
-    getAllInv,
-    updateInv,
     createInv,
- } from '../controllers/inventario.controller.js';
+    deleteInv,
+    getAllInv,
+    getInv,
+    updateInv,
+ } from "../controllers/inventario.controller.js";
 
 const router = Router();
 
