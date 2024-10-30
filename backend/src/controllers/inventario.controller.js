@@ -20,7 +20,8 @@ import {
 
 export async function getInv(req, res) {
     try {
-        const { id, numeroSerie } = req.query;
+        const { id } = req.params; 
+        const {numeroSerie } = req.query;
 
         const { error } = invQueryValidation.validate({ id, numeroSerie });
 
@@ -52,13 +53,20 @@ export async function getAllInv(req, res) {
 
 export async function updateInv(req, res) {
     try {
-        const { id, numeroSerie } = req.query;
+        const { id } = req.params;
+        const { numeroSerie } = req.query;
         const { body } = req;
 
         const { error: queryError } = invQueryValidation.validate({id ,numeroSerie });
 
         if (queryError) {
             return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
+        }
+
+        const { error: bodyError } = invBodyValidation.validate(body);
+
+        if (bodyError) {
+            return handleErrorClient(res, 400, "Error de validación en los datos enviados", bodyError);
         }
 
         const [inventario, errorInv] = await updateInvService({ id, numeroSerie }, body);
@@ -73,7 +81,8 @@ export async function updateInv(req, res) {
 
 export async function deleteInv(req, res) {
     try {
-        const { id, numeroSerie } = req.query;
+        const { id } = req.params;
+        const { numeroSerie } = req.query;
 
         const { error: queryError } = invQueryValidation.validate({ id, numeroSerie });
 
