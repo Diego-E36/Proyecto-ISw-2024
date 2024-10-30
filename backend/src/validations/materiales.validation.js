@@ -73,6 +73,4 @@ export const materialesBodyValidation = Joi.object({
         "number.integer": "El restock sugerido debe ser un número entero.",
         "number.min": "El restock sugerido no puede ser negativo."
     }),
-})
-
-export default materialSchema;
+});
