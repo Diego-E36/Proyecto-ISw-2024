@@ -9,14 +9,14 @@ import { authenticateJwt } from "../middlewares/authentication.middleware.js";
 const router = Router();
 
 //aplica middleware de autenticación y autorización
-router
-    .use(authenticateJwt)
-    .use(isAdmin);
+//router
+    //.use(authenticateJwt)
+    //.use(isAdmin);
 
 //define rutas para las estadísticas
 router
-    .get("/estadisticas/estaciones", getEstadisticasxEstacionController)
-    .get("/estadisticas/general", getGeneralEstadisticasController)
-    .get("/estadisticas/inventario", getEstadisticasInventario);
+    .get("/estaciones", getEstadisticasxEstacionController)
+    .get("/general", getGeneralEstadisticasController)
+    .get("/inv", getEstadisticasInventario);
 
 export default router;
