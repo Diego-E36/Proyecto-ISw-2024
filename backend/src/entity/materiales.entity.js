@@ -53,7 +53,7 @@ const MaterialesSchema = new EntitySchema({
         {
             name: "IDX_MATERIALES_SUPPLIER",
             columns: ["supplier"],
-            unique: true,
+            unique: false,
         },
     ],
 
