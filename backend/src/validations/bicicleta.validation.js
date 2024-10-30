@@ -24,18 +24,30 @@ export const bicicletaQuerySchema = Joi.object({
             "string.pattern.base": "El número de serie solo puede contener letras y números.",
         }),
 })
-    .or("id", "numeroSerie")
+    /*.or("id", "numeroSerie")
     .unknown(false)
     .messages({
         "object.unknown": "No se permiten propiedades adicionales.",
         "object.missing": "Debes proporcionar al menos un parámetro: id o número de serie",
-    });
+    });*/
 
 export const bicicletaBodySchema = Joi.object({
+    numeroSerie: Joi.string()
+        .min(5)
+        .max(50)
+        .case("upper")
+        .pattern(/^[a-zA-Z0-9]+$/)
+        .messages({
+            "string.empty": "El número de serie no puede estar vacío.",
+            "string.base": "El número de serie debe ser de tipo string.",
+            "string.min": "El número de serie debe tener como mínimo 5 caracteres.",
+            "string.max": "El número de serie debe tener como máximo 50 caracteres.",
+            "string.pattern.base": "El número de serie solo puede contener letras y números.",
+        }),
     marca: Joi.string()
         .min(5)
         .max(50)
-        .pattern(/^[a-zA-Z]+$/)
+        .pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)
         .messages({
             "string.empty": "La marca no puede estar vacía.",
             "string.base": "La marca debe ser de tipo string.",
@@ -44,9 +56,9 @@ export const bicicletaBodySchema = Joi.object({
             "string.pattern.base": "La marca solo puede contener letras.",
         }),
     modelo: Joi.string()
-        .min(5)
+        .min(3)
         .max(50)
-        .pattern(/^[a-zA-Z]+$/)
+        .pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)
         .messages({
             "string.empty": "El modelo no puede estar vacío.",
             "string.base": "El modelo debe ser de tipo string.",
@@ -55,9 +67,9 @@ export const bicicletaBodySchema = Joi.object({
             "string.pattern.base": "El modelo solo puede contener letras.",
         }),
     color: Joi.string()
-        .min(5)
+        .min(4)
         .max(20)
-        .pattern(/^[a-zA-Z]+$/)
+        .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
         .messages({
             "string.empty": "El color no puede estar vacío.",
             "string.base": "El color debe ser de tipo string.",
@@ -68,7 +80,7 @@ export const bicicletaBodySchema = Joi.object({
     tipo: Joi.string()
         .min(5)
         .max(50)
-        .pattern(/^[a-zA-Z]+$/)
+        .pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)
         .messages({
             "string.empty": "El tipo no puede estar vacío.",
             "string.base": "El tipo debe ser de tipo string.",
@@ -90,6 +102,7 @@ export const bicicletaBodySchema = Joi.object({
         }),
 })
     .or(
+        "numeroSerie",
         "marca",
         "modelo",
         "color",
