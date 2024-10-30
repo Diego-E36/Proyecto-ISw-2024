@@ -70,9 +70,9 @@ export const invBodyValidation = Joi.object({
     marcaUnidad: Joi.string()
         .min(3)
         .max(50)
-        .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
+        .pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)
         .messages({
-            "string.pattern.base": "La marca de la unidad solo puede contener letras y espacios.",
+            "string.pattern.base": "La marca de la unidad solo puede contener letras, números y espacios.",
             "string.min": "La marca de la unidad debe tener como mínimo 3 caracteres.",
             "string.max": "La marca de la unidad debe tener como máximo 50 caracteres.",
         }),
