@@ -2,7 +2,8 @@
 import{
     createBicicletaService,
     deleteBicicletaService,
-    getBicicletasService,
+    getBicicletaService,
+    getAllBicicletaService,
     updateBicicletaService,
 } from "../services/bicicleta.service.js";
 
@@ -11,43 +12,54 @@ import{
     handleErrorServer,
     handleSuccess,
 } from "../handlers/responseHandlers.js";
-import Joi from "joi";
+
+import {
+    bicicletaQuerySchema,
+    bicicletaBodySchema,
+} from "../validations/bicicleta.validation.js";
 
 export async function getBici(req, res){
     try {
-        const { id, numeroSerie } = req.query;
-        // Implementar validación de query joi
-        const querySchema = Joi.object({
-            id: Joi.number().integer(),
-            numeroSerie: Joi.string().case("upper"),
-        });
+        const { id } = req.params;
+        const { numeroSerie } = req.query;
 
-        const { error } = querySchema.validate({ id, numeroSerie });
+        const { error } = bicicletaQuerySchema.validate({ id, numeroSerie });
+
         if (error) return handleErrorClient(res, 400, "Error de validación en la consulta", error.message);
 
-        const bicis = await getBicicletasService();
+        const [bicis, errorBicis] = await getBicicletaService({ id, numeroSerie });
+
+        if (errorBicis) return handleErrorClient(res, 404, errorBicis);
+
         handleSuccess(res, 200, "Bicicletas encontradas", bicis);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
     }
 }
 
+export async function getAllBici(req, res){
+    try {
+        const [bicileta, errorBicicleta] = await getAllBicicletaService();
+
+        if (errorBicicleta) return handleErrorClient(res, 404, errorBicicleta);
+
+        bicileta.length === 0
+            ? handleSuccess(res, 204)
+            : handleSuccess(res, 200, "Bicicletas encontradas", bicileta);
+    } catch (error) {
+        handleErrorServer(res, 500, error.message);
+    }
+}
 export async function createBici(req, res){
     try {
-        const { body } = req;
-        const biciSchema = Joi.object({
-            id: Joi.number().integer().required(),
-            numeroSeriel: Joi.string().case("upper").required(),
-            marca: Joi.string().required(),
-            modelo: Joi.string().required(),
-            color: Joi.string().required(),
-            tipo: Joi.string().required(),
-        });
-        const { error } = biciSchema.validate(body);
+        const bicicleta = req.body;
+    
+        const { error } = bicicletaBodySchema.validate(bicicleta);
 
         if (error) return handleErrorClient(res, 400, "Error de validación en los datos", error.message);
 
-        const newBici = await createBicicletaService(body);
+        const newBici = await createBicicletaService(bicicleta);
+
         handleSuccess(res, 201, "Bicicleta creada", newBici);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
@@ -56,33 +68,23 @@ export async function createBici(req, res){
 
 export async function updateBici(req, res){
     try {
-        const { id, numeroSerie } = req.query;
+        const { id }  = req.params;
+        const { numeroSerie } = req.query;
         const { body } = req;
 
-        const querySchema = Joi.object({
-            id: Joi.number().integer(),
-            numeroSerie: Joi.string().case("upper"),
-        });
-
-        const { error: queryError } = querySchema.validate({ id, numeroSerie });
+        const { error: queryError } = bicicletaQuerySchema.validate({ id, numeroSerie });
 
         if (queryError) return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
 
-        const biciSchema = Joi.object({
-            id: Joi.number().integer().required(),
-            numeroSerie: Joi.string().case("upper").required(),
-            marca: Joi.string().required(),
-            modelo: Joi.string().required(),
-            color: Joi.string().required(),
-            tipo: Joi.string().required(),
-        });
+        const { error: bodyError } = bicicletaBodySchema.validate(body);
 
-        const { error: biciError } = biciSchema.validate(body);
+        if (bodyError) return handleErrorClient(res, 400, "Error de validación en los datos enviados", bodyError.message);
+        
+        const [bicicleta, errorBicicleta] = await updateBicicletaService({ id, numeroSerie }, body);
+        
+        if (errorBicicleta) return handleErrorClient(res, 404, errorBicicleta);
 
-        if (biciError) return handleErrorClient(res, 400, "Error de validación en los datos", biciError.message);
-
-        const updatedBici = await updateBicicletaService({ id, numeroSerie }, body);
-        handleSuccess(res, 200, "Bicicleta actualizada", updatedBici);
+        handleSuccess(res, 200, "Bicicleta actualizada", bicicleta);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
     }
@@ -90,19 +92,19 @@ export async function updateBici(req, res){
 
 export async function deleteBici(req, res){
     try {
-        const { id, numeroSerie } = req.query;
-        const querySchema = Joi.object({
-            id: Joi.number().integer(),
-            numeroSerie: Joi.string().case("upper"),
-        });
+        const { id } = req.params;
+        const { numeroSerie } = req.query;
 
-        const { error } = querySchema.validate({ id, numeroSerie });
+        const { error: queryError } = bicicletaQuerySchema.validate({ id, numeroSerie });
 
-        if (error) return handleErrorClient(res, 400, "Error de validación en la consulta", error.message);
+        if (queryError) return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
 
-        const deletedBici = await deleteBicicletaService({ id, numeroSerie });
-        handleSuccess(res, 200, "Bicicleta eliminada", deletedBici);
+        const [bicicleta, errorBicicleta] = await deleteBicicletaService({ id, numeroSerie });
+
+        if (errorBicicleta) return handleErrorClient(res, 404, errorBicicleta);
+
+        handleSuccess(res, 200, "Bicicleta eliminada", bicicleta);
     } catch (error) {
-        handleErrorServer(res, 500, error.message);
+        handleErrorClient(res, 500, error.message);
     }
 }
