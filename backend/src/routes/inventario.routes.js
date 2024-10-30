@@ -8,7 +8,7 @@ import {
     getAllInv,
     getInv,
     updateInv,
- } from '../controllers/inventario.controller.js';
+ } from "../controllers/inventario.controller.js";
 
 const router = Router();
 
