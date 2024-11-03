@@ -13,6 +13,7 @@ export async function createBicicletaService(dataBicicleta) {
             color: dataBicicleta.color,
             tipo: dataBicicleta.tipo,
             aro: dataBicicleta.aro,
+            venta: dataBicicleta.venta
         });
         
         const bicicletaCreated = await bicicletaRepository.save(newBicicleta);
