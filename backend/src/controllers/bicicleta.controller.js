@@ -37,14 +37,14 @@ export async function getBici(req, res){
     }
 }
 
-export async function getAllBici(req, res){
+export async function getAllBici(res, statusCode, message, data = {}){
     try {
         const [bicileta, errorBicicleta] = await getAllBicicletaService();
 
         if (errorBicicleta) return handleErrorClient(res, 404, errorBicicleta);
 
         bicileta.length === 0
-            ? handleSuccess(res, 204)
+            ? handleSuccess(res, 204, message, data)
             : handleSuccess(res, 200, "Bicicletas encontradas", bicileta);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
