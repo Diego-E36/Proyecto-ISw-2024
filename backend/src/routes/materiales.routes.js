@@ -18,7 +18,7 @@ router
     .get("/all", getAllMaterials)
     .get("/:id", getMaterialById)
     .get("/", getMaterialsBelowThreshold)
-    .put("/:id", updateMaterial)
+    .patch("/:id", updateMaterial)
     .delete("/:id", deleteMaterial)
     
 
