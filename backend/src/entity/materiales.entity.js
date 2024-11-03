@@ -50,15 +50,6 @@ const MaterialesSchema = new EntitySchema({
             onUpdate: "CURRENT_TIMESTAMP"
         },
     },
-
-    relations: {
-
-
-
-
-        
-    },
-
     indices: [
         {
             name: "IDX_MATERIALES",
@@ -71,10 +62,6 @@ const MaterialesSchema = new EntitySchema({
             unique: true,
         },
     ],
-
-    isBelowThreshold() {
-    return this.quantity < this.minQuantity;
-    }
 });
 
 export default MaterialesSchema;
