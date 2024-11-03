@@ -8,6 +8,7 @@ export async function createMaterialService(data) {
         const materialRepository = AppDataSource.getRepository(Materiales)
 
         const newMaterial = materialRepository.create({
+            materialId: data.materialId,
             name: data.name,
             quantity: data.quantity,
             minQuantity: data.minQuantity,
@@ -42,19 +43,23 @@ export async function getAllMaterialsService() {
 }
 
 // Método para obtener un material por su ID
-export async function getMaterialByIdService({ id }) {
-    if (!id) return [null, "El ID es requerido para la búsqueda"];
-
+export async function getMaterialByIdService(query) {
     try {
+        const { id, materialId } = query;
+
         const materialRepository = AppDataSource.getRepository(Materiales);
 
-        const matFound = await materialRepository.findOne({ where: { id } });
+        const matFound = await materialRepository.findOne({ 
+            where: [{ id: id }, { materialId: materialId }],
+        });
 
         if (!matFound) return [null, "Item de materiales no encontrado"];
 
-        return [matFound, null];  
+        const { ...matData } = matFound;
+
+        return [matData , null];  
     } catch (error) {
-        console.error("Error al obtener item de materiales:", error.message);
+        console.error("Error al obtener item de materiales:", error);
         return [null, "Error interno del servidor"];
     }
 }
@@ -62,30 +67,50 @@ export async function getMaterialByIdService({ id }) {
 // Método para actualizar un material
 export async function updateMaterialService(query, body) {
     try {
-        const { id } = query;
+        const { id, materialId } = query;
         const materialRepository = AppDataSource.getRepository(Materiales);
 
         // Verificar si el material existe
-        const matFound = await materialRepository.findOne({ where: { id } });
+        const matFound = await materialRepository.findOne({ 
+            where: [{ id: id }, { materialId: materialId }], 
+        });
+
         if (!matFound) return [null, "Item de materiales no encontrado"];
+
+        // Verificar si el materialId se repite
+        const existingMat = await materialRepository.findOne({
+            where: [{ materialId: body.materialId }]
+        });
+
+        if (existingMat && existingMat.id !== matFound.id){
+            return [null, "Ya existe un item con ese id"];
+        }
 
         // Crear el objeto de actualización con solo los campos presentes en `body`
         const dataMatUpdated = {
-            ...(body.name && { name: body.name }),
-            ...(body.quantity && { quantity: body.quantity }),
-            ...(body.minQuantity && { minQuantity: body.minQuantity }),
-            ...(body.supplier && { supplier: body.supplier }),
-            ...(body.suggestedRestock && { suggestedRestock: body.suggestedRestock }),
+            materialId: body.materialId,
+            name: body.name ,
+            quantity: body.quantity ,
+            minQuantity: body.minQuantity ,
+            supplier: body.supplier ,
+            suggestedRestock: body.suggestedRestock ,
             lastUpdated: new Date(),
-        };
+        }
 
         // Actualizar el material en la base de datos
-        await materialRepository.update(id, dataMatUpdated);
+        await materialRepository.update({ id: matFound.id }, dataMatUpdated);
 
-        // Devolver el material actualizado
-        const updatedMaterial = { ...matFound, ...dataMatUpdated };
-        return [updatedMaterial, null];
+        const matData = await materialRepository.findOne({
+            where: { id: matFound.id },
+        });
+
+        if (!matData) {
+            return [null, "Item no encontrado"]
+        }
+
+        const { ...matUpdated } = matData;
         
+        return [matUpdated, null];
     } catch (error) {
         console.error("Error al modificar los materiales:", error);
         return [null, "Error interno del servidor"];
@@ -95,18 +120,23 @@ export async function updateMaterialService(query, body) {
 // Método para eliminar un material
 export async function deleteMaterialService(query) {    
     try {
-        const { id } = query;
+        const { id, materialId } = query;
         
         const materialRepository = AppDataSource.getRepository(Materiales);
 
         // Verificar si el material existe
-        const matFound = await materialRepository.findOne({ where: { id } });
+        const matFound = await materialRepository.findOne({ 
+            where: [{ id: id }, { materialId: materialId }],
+        });
+
         if (!matFound) return [null, "Item de materiales no encontrado"];
 
         // Eliminar el material encontrado
         const matDeleted = await materialRepository.remove(matFound);
 
-        return [matDeleted, null];
+        const { ...matData } = matDeleted;
+
+        return [matData, null];
         
     } catch (error) {
         console.error("Error al eliminar item de materiales:", error);
@@ -121,14 +151,18 @@ export async function getMaterialsBelowThresholdService() {
         const materialRepository = AppDataSource.getRepository(Materiales);
 
         // Obtener solo los materiales que están por debajo del umbral
-        const materialsBelowThreshold = await materialRepository.find({
-            where: { quantity: LessThan("minQuantity") },
-        });
+        const materialsBelowThreshold = await materialRepository.createQueryBuilder("materiales")
+        .where("materiales.quantity < materiales.minQuantity")
+        .getMany();
 
-        return [materialsBelowThreshold, null];
+        if (!materialsBelowThreshold || materialsBelowThreshold.length === 0) return [null , "No hay items bajo umbral"];
+
+        const materialData = materialsBelowThreshold.map(({ ...mat }) => mat);
+
+        return [materialData, null];
     } catch (error) {
         console.error("Error al verificar los materiales:", error);
-        return [null, "Error al verificar los materiales"];
+        return [null, "Error interno del servidor"];
     }
 }
 
