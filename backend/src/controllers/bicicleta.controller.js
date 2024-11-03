@@ -2,8 +2,8 @@
 import{
     createBicicletaService,
     deleteBicicletaService,
-    getBicicletaService,
     getAllBicicletaService,
+    getBicicletaService,
     updateBicicletaService,
 } from "../services/bicicleta.service.js";
 
@@ -14,8 +14,8 @@ import{
 } from "../handlers/responseHandlers.js";
 
 import {
-    bicicletaQuerySchema,
     bicicletaBodySchema,
+    bicicletaQuerySchema,
 } from "../validations/bicicleta.validation.js";
 
 export async function getBici(req, res){
@@ -50,21 +50,39 @@ export async function getAllBici(req, res){
         handleErrorServer(res, 500, error.message);
     }
 }
-export async function createBici(req, res){
+export async function createBici(req, res) {
     try {
         const bicicleta = req.body;
-    
-        const { error } = bicicletaBodySchema.validate(bicicleta);
 
+        // Validación del esquema de datos
+        const { error } = bicicletaBodySchema.validate(bicicleta);
         if (error) return handleErrorClient(res, 400, "Error de validación en los datos", error.message);
 
-        const newBici = await createBicicletaService(bicicleta);
+        // Verificación de duplicados en numeroSerie
+        const [existingBici, errorExistingBici] = await getBicicletaService({
+            numeroSerie: bicicleta.numeroSerie // Solo buscamos por numeroSerie
+        });
 
+        if (errorExistingBici && errorExistingBici !== "Bicicleta no encontrada") {
+            return handleErrorServer(res, 500, "Error interno al verificar duplicados");
+        }
+
+        if (existingBici) {
+            // Si se encontró una bicicleta con el mismo numeroSerie, rechazamos la creación
+            return handleErrorClient(res, 400, "Ya existe una bicicleta con el mismo número de serie.");
+        }
+
+        // Crear nueva bicicleta si no hay duplicado
+        const newBici = await createBicicletaService(bicicleta);
         handleSuccess(res, 201, "Bicicleta creada", newBici);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
     }
 }
+
+
+
+
 
 export async function updateBici(req, res){
     try {
