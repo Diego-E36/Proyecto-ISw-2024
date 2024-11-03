@@ -73,6 +73,7 @@ export async function updateBicicletaService(query, body) {
             color: body.color,
             tipo: body.tipo,
             aro: body.aro,
+            venta: body.venta,
             updatedAt: new Date(),
         };
 
