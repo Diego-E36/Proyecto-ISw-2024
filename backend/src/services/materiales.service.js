@@ -1,6 +1,9 @@
 "use strict";
 import { AppDataSource } from "../config/configDb.js";
 import Materiales from "../entity/materiales.entity.js"
+import {
+    createNotificactionService
+} from "../services/notificaciones.service.js"
 
 // Método para crear un nuevo material
 export async function createMaterialService(data) {
@@ -17,6 +20,9 @@ export async function createMaterialService(data) {
             });
 
         const matSaved = await materialRepository.save(newMaterial)
+
+        await createNotificactionService(matSaved, "create");
+
         return [matSaved, null];
     } catch (error) {
         console.error("Error al crear el material:", error);
@@ -68,6 +74,7 @@ export async function getMaterialByIdService(query) {
 export async function updateMaterialService(query, body) {
     try {
         const { id, materialId } = query;
+        
         const materialRepository = AppDataSource.getRepository(Materiales);
 
         // Verificar si el material existe
