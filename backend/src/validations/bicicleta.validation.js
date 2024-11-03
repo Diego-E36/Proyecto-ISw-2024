@@ -100,6 +100,10 @@ export const bicicletaBodySchema = Joi.object({
             "number.integer": "El aro debe ser un número entero.",
             "number.positive": "El aro debe ser un número positivo.",
         }),
+    venta: Joi.boolean()
+        .messages({
+            "boolean.base": "La venta debe ser de tipo booleano.",
+        })
 })
     .or(
         "numeroSerie",
@@ -112,5 +116,5 @@ export const bicicletaBodySchema = Joi.object({
     .unknown(false)
     .messages({
         "object.unknown": "No se permiten propiedades adicionales.",
-        "object.missing": "Debes proporcionar al menos un parámetro: marca, modelo, color, tipo o aro"
+        "object.missing": "Debes proporcionar los parámetro: marca, modelo, color, tipo, aro y venta"
     });
