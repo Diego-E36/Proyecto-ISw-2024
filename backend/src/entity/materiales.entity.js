@@ -10,6 +10,12 @@ const MaterialesSchema = new EntitySchema({
             type: "int",
             generated: true
         },
+        materialId: {
+            type: "varchar",
+            length: 50,
+            nullable: false,
+            unique: true,
+        },
         name: {
             type: "varchar",
             nullable: false
@@ -44,6 +50,15 @@ const MaterialesSchema = new EntitySchema({
             onUpdate: "CURRENT_TIMESTAMP"
         },
     },
+
+    relations: {
+
+
+
+
+        
+    },
+
     indices: [
         {
             name: "IDX_MATERIALES",
@@ -51,9 +66,9 @@ const MaterialesSchema = new EntitySchema({
             unique: true,
         },
         {
-            name: "IDX_MATERIALES_SUPPLIER",
-            columns: ["supplier"],
-            unique: false,
+            name: "IDX_MATERIALES_MATERIALID",
+            columns: ["materialId"],
+            unique: true,
         },
     ],
 
