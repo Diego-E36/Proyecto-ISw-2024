@@ -71,7 +71,7 @@ export async function updateInv(req, res) {
 
         const [inventario, errorInv] = await updateInvService({ id, numeroSerie }, body);
 
-        if (errorInv) return handleErrorClient(res, 404, "Error modificando al usuario", errorInv);
+        if (errorInv) return handleErrorClient(res, 500, "Error modificando el inventario", errorInv);
 
         handleSuccess(res, 200, "inventario modificado correctamente", inventario);
     } catch (error) {
@@ -106,9 +106,11 @@ export async function createInv(req, res) {
 
         const { error } = invBodyValidation.validate(inventario);
 
-        if(error) return handleErrorClient(res, 400, "Error de validación en los datos enviados", error);
+        if (error) return handleErrorClient(res, 400, "Error de validación en los datos enviados", error);
 
-        const invSaved = await createInvService(inventario);
+        const [invSaved, errorInv] = await createInvService(inventario);
+
+        if (errorInv) return handleErrorClient(res, 500, "Error creando la unidad, numero de serie repetido", errorInv);
 
         handleSuccess(res, 201, "Unidad creada correctamente", invSaved);
     } catch (error) {
