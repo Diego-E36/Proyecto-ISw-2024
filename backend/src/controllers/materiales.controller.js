@@ -25,27 +25,20 @@ import {
     // Crear un nuevo material
 export async function createMaterial(req, res) {
     try {
-        // Validación del cuerpo de la solicitud con Joi
-        const { error, value } = materialesBodyValidation.validate(req.body, { abortEarly: false });
+        const { body } = req;
 
-        if (error) {
-            // Manejo de errores de validación
-            const validationErrors = error.details.map((detail) => detail.message);
-            return handleErrorClient(res, 400, validationErrors);
-        }
-
-        // Llamada al servicio con datos validados
-        const [material, errorMessage] = await createMaterialService(value);
-
-        if (errorMessage) {
-            return handleErrorServer(res, errorMessage);
-        }
-
-        // Respuesta de éxito
-        handleSuccess(res, 201, material);
+        const { error } = materialesBodyValidation.validate(body);
+    
+        if (error)
+            return handleErrorClient(res, 400, "Error de validación", error.message);
+    
+        const [newMat, errorNewMat] = await createMaterialService(body);
+    
+        if (errorNewMat) return handleErrorClient(res, 400, "Error registrando el material", errorNewMat);
+    
+        handleSuccess(res, 201, "material registrado", newMat);
     } catch (error) {
-        console.error("Error al crear el material:", error.message);
-        handleErrorServer(res, "Error al crear el material");
+        handleErrorServer(res, 500, error.message);
     }
 }
 
@@ -108,7 +101,7 @@ export async function updateMaterial(req, res) {
         // Llamada al servicio con `id` y `body` validados
         const [updatedMaterial, errorMat] = await updateMaterialService({ id, materialId }, body);
 
-        if (errorMat) return handleErrorClient(res, 404, "Error modificando el item", errorMat);
+        if (errorMat) return handleErrorClient(res, 500, "Error modificando el item", errorMat);
         
         handleSuccess(res, 200, "Material modificado correctamente", updatedMaterial);
     } catch (error) {
