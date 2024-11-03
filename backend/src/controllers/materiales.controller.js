@@ -68,97 +68,90 @@ export async function getAllMaterials(req, res) {
     // Obtener un material por ID
 export async function getMaterialById(req, res) {
     try {
-        // Validación de `id` en los parámetros de la solicitud
-        const { error } = materialesQueryValidation.validate({ id: req.params.id });
+        const { id } = req.params;
+        const { materialId } = req.query; 
+    
+        const { error } = materialesQueryValidation.validate({ id, materialId });
 
-        if (error) {
-            // Si la validación falla, respondemos con los errores específicos
-            const validationErrors = error.details.map((detail) => detail.message);
-            return handleErrorClient(res, 400, validationErrors);
-        }
+        if (error) return handleErrorClient(res, 400, "Error de validación en la consulta", error.message);
 
-        // Llamada al servicio con el `id` validado
-        const [material, errorMessage] = await getMaterialByIdService(req.params.id);
+        const [material, errorMat] = await getMaterialByIdService({ id, materialId });
 
-        if (errorMessage) {
-            return handleErrorClient(res, 404, errorMessage);
-        }
-
-        handleSuccess(res, 200, material);
+        if (errorMat) return handleErrorClient(res, 404, errorMat);
+        
+        handleSuccess(res, 200, "Material encontrado", material);
     } catch (error) {
-        console.error("Error al obtener el material:", error.message);
-        handleErrorServer(res, "Error al obtener el material");
+        handleErrorServer(res, 500, error.message);
     }
 }
 
     // Actualizar un material por ID
 export async function updateMaterial(req, res) {
     try {
-        // Validación del `id` en los parámetros de la solicitud
-        const { error: queryError } = materialesQueryValidation.validate({ id: req.params.id });
+        const { id } = req.params;
+        const { materialId } = req.query;
+        const { body } = req;
+
+        const { error: queryError } = materialesQueryValidation.validate({ id, materialId });
+        
         if (queryError) {
-            const validationErrors = queryError.details.map((detail) => detail.message);
-            return handleErrorClient(res, 400, validationErrors);
+            return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
         }
 
         // Validación del cuerpo de la solicitud
-        const { error: bodyError } = materialesBodyValidation.validate(req.body, { abortEarly: false });
+        const { error: bodyError } = materialesBodyValidation.validate(body);
+        
         if (bodyError) {
-            const validationErrors = bodyError.details.map((detail) => detail.message);
-            return handleErrorClient(res, 400, validationErrors);
+            return handleErrorClient(res, 400, "Error de validación en los datos enviados", bodyError);
         }
 
         // Llamada al servicio con `id` y `body` validados
-        const [updatedMaterial, errorMessage] = await updateMaterialService(req.params.id, req.body);
+        const [updatedMaterial, errorMat] = await updateMaterialService({ id, materialId }, body);
 
-        if (errorMessage) {
-            return handleErrorServer(res, errorMessage);
-        }
-
-        handleSuccess(res, 200, updatedMaterial);
+        if (errorMat) return handleErrorClient(res, 404, "Error modificando el item", errorMat);
+        
+        handleSuccess(res, 200, "Material modificado correctamente", updatedMaterial);
     } catch (error) {
-        console.error("Error al actualizar el material:", error.message);
-        handleErrorServer(res, "Error al actualizar el material");
+        handleErrorServer(res, 500, error.message);
     }
 }
 
     // Eliminar un material por ID
 export async function deleteMaterial(req, res) {
     try {
-        // Validación del `id` en los parámetros de la solicitud
-        const { error } = materialesQueryValidation.validate({ id: req.params.id });
-        if (error) {
-            const validationErrors = error.details.map((detail) => detail.message);
-            return handleErrorClient(res, 400, validationErrors);
-        }
+        const { id } = req.params;
+        const { materialId } = req.query;
 
-        // Llamada al servicio para eliminar el material
-        const [result, errorMessage] = await deleteMaterialService(req.params.id);
+        const { error: queryError } = materialesQueryValidation.validate({ id, materialId });
+        
+        if (queryError) return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
+        
+        const [materialDelete, errorMat] = await deleteMaterialService({ id, materialId });
 
-        if (errorMessage) {
-            return handleErrorClient(res, 404, errorMessage);
-        }
-
-        handleSuccess(res, 200, result);
+        if (errorMat) return handleErrorClient(res, 404, "Error elminando unidad", errorInv);
+        
+        handleSuccess(res, 200, "Unidad eliminada correctamente", materialDelete);
     } catch (error) {
-        console.error("Error al eliminar el material:", error.message);
-        handleErrorServer(res, "Error al eliminar el material");
+        handleErrorServer(res, 500, error.message);
     }
 }
 
     // Obtener materiales bajo el umbral mínimo de inventario
 export async function getMaterialsBelowThreshold(req, res) {
     try {
-        const materials = await getMaterialsBelowThresholdService();
+        const [materials, errorMat] = await getMaterialsBelowThresholdService();
 
         // Verifica si hay materiales bajo el umbral
+        if (errorMat) return handleErrorClient(res, 404, errorMat);
+
+        // Si no hay materiales bajo umbral, responde con 204
         if (!materials || materials.length === 0) {
-            return handleErrorClient(res, 404, "No hay materiales bajo el umbral mínimo de inventario.");
+            return handleSuccess(res, 204);
         }
 
+        // Si hay materiales bajo el umbral, responde con 200 y los datos
         handleSuccess(res, 200, materials);
     } catch (error) {
-        console.error("Error al verificar los materiales:", error.message);
-        handleErrorServer(res, "Error al verificar los materiales");
+        handleErrorServer(res, 500, error.message);
     }
 }
