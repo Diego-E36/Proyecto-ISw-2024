@@ -77,14 +77,16 @@ export async function obtenerEstadisticasInventario() {
     try {
         const inventarioRepository = AppDataSource.getRepository(Inventario);
 
-        // Contar el total de productos en inventario
+        //Contar el total de productos en inventario
         const totalItems = await inventarioRepository.count();
 
-        // Contar los productos con bajo stock
-        const lowStockItems = await inventarioRepository.count({
+        //Productos con bajo stock
+        const lowStockItems = await inventarioRepository.find({
         where: { cantidadStock: LessThan(5) },
+        select: ["id", "nombreStock", "cantidadStock"]
     });
 
+    
         return [totalItems, lowStockItems];
 
     } catch (error) {
