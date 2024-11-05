@@ -46,16 +46,35 @@ export async function getGeneralEstadisticasController(req,res){
 }
 
 //Obtiene las estadísticas de inventario
+// Obtiene las estadísticas de inventario
 export async function getEstadisticasInventario(req, res) {
     try {
-    const estadisticasInv = await obtenerEstadisticasInventario();
+        // Llamada a la función que obtiene las estadísticas
+        const estadisticasInv = await obtenerEstadisticasInventario();
 
-    if (!estadisticasInv) {
-        return handleErrorServer(res, 500, "Error obteniendo estadísticas de inventario.");
-    }
+        // Verifica si la obtención de estadísticas fue exitosa
+        if (!estadisticasInv) {
+            return handleErrorServer(res, 500, "Error obteniendo estadísticas de inventario.");
+        }
 
-    handleSuccess(res, 200, "Estadísticas de inventario obtenidas con éxito", estadisticasInv);
+        // lowStockItems es un array y totalItems es un número
+        const lowStockItems = estadisticasInv.lowStockItems || [];
+        const totalItems = estadisticasInv.totalItems;
+
+        // Crea un objeto de respuesta que incluye el total y los ítems, pero el response no funciona
+        const response = {
+            totalItems: totalItems,
+            lowStockItems: `${lowStockItems.length} productos de ${totalItems}`,
+            items: lowStockItems.map(item => ({
+                id: item.id,
+                nombreStock: item.nombreStock,
+                cantidadStock: item.cantidadStock
+            }))
+        };
+
+        // Envía la respuesta con la nueva estructura
+        handleSuccess(res, 200, "Estadísticas de inventario obtenidas con éxito", estadisticasInv); 
     } catch (error) {
-    handleErrorServer(res, 500, error.message);
+        handleErrorServer(res, 500, error.message);
     }
 }
