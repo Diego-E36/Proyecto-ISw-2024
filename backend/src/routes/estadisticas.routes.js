@@ -15,7 +15,8 @@ const router = Router();
 
 //define rutas para las estadísticas
 router
-    .get("/estaciones", getEstadisticasxEstacionController)
+    .get("/estaciones", getEstadisticasxEstacionController) //aún no se agrega
+    .get("/estacion/:estacion", getEstadisticasxEstacionController)
     .get("/general", getGeneralEstadisticasController)
     .get("/inv", getEstadisticasInventario);
 

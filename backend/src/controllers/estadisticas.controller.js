@@ -1,6 +1,6 @@
 "use strict";
 //Aquí van las cosas para manejar las peticiones HTTP
-import { getEstadisticasxEstacionesService,
+import { getEstadisticasxEstacionService,
     getGeneralEstadisticasService, saveOperatorInteractionService } from "../services/estadisticas.service.js";
 
 import { obtenerEstadisticasInventario } from "../services/estadisticas.service.js";
@@ -9,20 +9,22 @@ import { handleErrorClient,
         handleSuccess,
 } from "../handlers/responseHandlers.js";
 
-export async function getEstadisticasxEstacionController(req, res){
-    try{
-        const [estadisticas,error] = await getEstadisticasxEstacionesService();
-    
-        if (error){
-            return handleErrorClient(res, 404, "Error al obtener las estadísticas por estaciones", error);
+//Obtiene las estadísticas por estación
+export async function getEstadisticasxEstacionController(req, res) {
+    const { estacion } = req.params;
+    try {
+        const [estadisticas, error] = await getEstadisticasxEstacionService(estacion);
+
+        if (error) {
+            return handleErrorClient(res, 404, "Error al obtener las estadísticas por estación", error);
         }
 
-        if (!estadisticas || Object.keys(estadisticas).length === 0){
-            return handleSuccess(res, 204, "No hay estadísticas registradas");
+        if (!estadisticas || estadisticas.length === 0) {
+            return handleSuccess(res, 204, "No hay estadísticas registradas para la estación especificada");
         }
 
-        handleSuccess(res, 200, "Estadísticas por estaciones obtenidas", estadisticas);
-    }catch(error){
+        handleSuccess(res, 200, "Estadísticas por estación obtenidas", estadisticas);
+    } catch (error) {
         handleErrorServer(res, 500, "Error interno del servidor", error);
     }
 }
@@ -46,7 +48,6 @@ export async function getGeneralEstadisticasController(req,res){
 }
 
 //Obtiene las estadísticas de inventario
-// Obtiene las estadísticas de inventario
 export async function getEstadisticasInventario(req, res) {
     try {
         // Llamada a la función que obtiene las estadísticas
