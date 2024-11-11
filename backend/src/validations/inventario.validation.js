@@ -50,14 +50,14 @@ export const invBodyValidation = Joi.object({
             "number.integer": "La cantidad de stock debe ser un número entero.",
             "number.positive": "La cantidad de stock debe ser un número positivo.",
         }),
-    colorUnidad: Joi.string()
+    descripcionUnidad: Joi.string()
         .min(3)
-        .max(50)
+        .max(100)
         .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
         .messages({
-            "string.pattern.base": "El color de la unidad solo puede contener letras y espacios.",
-            "string.min": "El color de la unidad debe tener como mínimo 3 caracteres.",
-            "string.max": "El color de la unidad debe tener como máximo 50 caracteres.",
+            "string.pattern.base": "La descripción de la unidad solo puede contener letras y espacios.",
+            "string.min": "La descripción de la unidad debe tener como mínimo 3 caracteres.",
+            "string.max": "La descripción de la unidad debe tener como máximo 100 caracteres.",
         }),
     precioUnidad: Joi.number()
         .integer()
@@ -76,18 +76,51 @@ export const invBodyValidation = Joi.object({
             "string.min": "La marca de la unidad debe tener como mínimo 3 caracteres.",
             "string.max": "La marca de la unidad debe tener como máximo 50 caracteres.",
         }),
+    proveedor: Joi.string()
+        .min(3)
+        .max(50)
+        .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
+        .messages({
+            "string.pattern.base": "El proveedor solo puede contener letras y espacios.",
+            "string.min": "El proveedor debe tener como mínimo 3 caracteres.",
+            "string.max": "El proveedor debe tener como máximo 50 caracteres.",
+        }),
+    restockSugerido: Joi.number()
+        .integer()
+        .positive()
+        .messages({
+            "number.base": "El restock sugerido debe ser un número.",
+            "number.integer": "El restock sugerido debe ser un número entero.",
+            "number.positive": "El restock sugerido debe ser un número positivo.",
+        }),
+    umbralMinimo: Joi.number()
+        .integer()
+        .positive()
+        .messages({
+            "number.base": "El umbral mínimo debe ser un número.",
+            "number.integer": "El umbral mínimo debe ser un número entero.",
+            "number.positive": "El umbral mínimo debe ser un número positivo.",
+        }),
+    boolMateriales: Joi.boolean()
+        .messages({
+            "boolean.base": "El valor de materiales debe ser un booleano.",
+        }),
 })
     .or(
         "numeroSerie",
         "nombreStock",
         "cantidadStock",
-        "colorUnidad", 
+        "descripcionUnidad", 
         "precioUnidad", 
-        "marcaUnidad"
+        "marcaUnidad",
+        "proveedor",
+        "restockSugerido",
+        "umbralMinimo",
+        "boolMateriales"
     )
     .unknown(false)
     .messages({
         "object.unknown": "No se permiten propiedades adicionales.",
-        "object.missing": "Debes proporcionar al menos un parámetro: numeroSerie, nombreStock, cantidadStock, colorUnidad, precioUnidad o marcaUnidad.",
+        "object.missing": "Debes proporcionar al menos un parámetro: numeroSerie, nombreStock, cantidadStock, descripcionUnidad, precioUnidad, marcaUnidad, proveedor, restockSugerido, umbralMinimo o boolMateriales.",
     });
 
