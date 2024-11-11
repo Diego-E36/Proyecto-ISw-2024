@@ -26,18 +26,35 @@ const InventarioSchema = new EntitySchema({
             type: "int",
             nullable: false,
         },
-        colorUnidad: {
+        descripcionUnidad: {
             type: "varchar",
-            length: 50,
+            length: 100,
             nullable: false,
         },
         precioUnidad: {
             type: "int",
-            nullable: false,
+            nullable: true,
         },
         marcaUnidad: {
             type: "varchar",
             length: 50,
+            nullable: false,
+        },
+        proveedor: {
+            type: "varchar",
+            length: 50,
+            nullable: false,
+        },
+        restockSugerido: {
+            type: "int",
+            nullable: false,
+        },
+        umbralMinimo:{
+            type: "int",
+            nullable: false,
+        },
+        boolMateriales: {
+            type: "boolean",
             nullable: false,
         },
         createdAt: {
