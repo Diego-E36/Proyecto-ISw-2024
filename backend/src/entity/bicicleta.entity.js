@@ -41,8 +41,9 @@ const BicicletaSchema = new EntitySchema({
             nullable: false,
         },
         venta: {
-            type: "boolean",
-            nullable: false,
+            type: "int",
+            nullable: true,
+            default: null,
         },
         createdAt: {
             type: "timestamp with time zone",
