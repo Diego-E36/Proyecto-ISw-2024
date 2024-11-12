@@ -3,8 +3,8 @@ import {formatBicicletasData} from "@helpers/formatBicicletas.js";
 
 export async function getAllBicicletas() {
     try {
-        const { bicicletasData } = await axios.get('/bicicletas/');
-        return bicicletasData.map(formatBicicletasData);
+        const { data: bicicletasData } = await axios.get('/bicicleta/');
+        return bicicletasData.data.map(formatBicicletasData);
     } catch (error) {
         return error.response.data;
     }
