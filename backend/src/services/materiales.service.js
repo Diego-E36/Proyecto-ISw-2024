@@ -116,6 +116,8 @@ export async function updateMaterialService(query, body) {
         }
 
         const { ...matUpdated } = matData;
+
+        await createNotificactionService(matUpdated , "update");
         
         return [matUpdated, null];
     } catch (error) {
@@ -143,6 +145,8 @@ export async function deleteMaterialService(query) {
 
         const { ...matData } = matDeleted;
 
+        await createNotificactionService(matData , "delete");
+
         return [matData, null];
         
     } catch (error) {
@@ -150,7 +154,6 @@ export async function deleteMaterialService(query) {
         return [null, "Error interno del servidor"];
     }
 }
-
 
 // Método para verificar el umbral de inventario y obtener materiales bajo el umbral
 export async function getMaterialsBelowThresholdService() {
@@ -173,4 +176,19 @@ export async function getMaterialsBelowThresholdService() {
     }
 }
 
+// Importa la función y configura el intervalo de tiempo en milisegundos (ej. cada 5 minutos)
+const CHECK_INTERVAL =  10 * 1000; // 10 segundos
 
+async function monitorMaterialsBelowThreshold() {
+    const [materials, error] = await getMaterialsBelowThresholdService();
+
+    if (error) {
+        console.error("Error al obtener materiales:", error);
+    } else if (materials) {
+        console.log("Materiales bajo el umbral:", materials);
+        // Aquí podrías enviar notificaciones, registrar el evento en logs, etc.
+    }
+}
+
+// Ejecuta la función de monitoreo cada cierto tiempo
+setInterval(monitorMaterialsBelowThreshold, CHECK_INTERVAL);
