@@ -36,14 +36,15 @@ const Bicicletas = () => {
     }, [setDataBicicleta]);
 
     const columns = [
-        { title: "ID", field: "id", width: 50, responsive: 0 },
-        { title: "Numero de Serie", field: "numeroSerie", width: 200, responsive: 0 },
+        { title: "ID", field: "id", width: 55, responsive: 0 },
+        { title: "Número de Serie", field: "numeroSerie", width: 200, responsive: 0 },
         { title: "Marca", field: "marca", width: 200, responsive: 0 },
         { title: "Modelo", field: "modelo", width: 200, responsive: 0 },
         { title: "Color", field: "color", width: 200, responsive: 0 },
         { title: "Tipo", field: "tipo", width: 200, responsive: 0 },
         { title: "Aro", field: "aro", width: 200, responsive: 0 },
-        { title: "Venta", field: "venta", width: 200, responsive: 0 }
+        { title: "Venta", field: "venta", width: 200, responsive: 0 },
+        { title: "Última modificación", field: "updatedAt", width: 200, responsive: 0 },
     ]
 
     return(
