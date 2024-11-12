@@ -35,14 +35,17 @@ const inventario = () => {
     }, [setDataInventario]);
 
     const columns = [
-        { title: "Numero de Serie", field: "numeroSerie", width: 200, responsive: 0 },
+        { title: "Numero de Serie", field: "numeroSerie", width: 75, responsive: 0 },
         { title: "Nombre", field: "nombreStock", width: 350, responsive: 0 },
-        { title: "Cantidad", field: "cantidadStock", width: 150, responsive: 3 },
-        { title: "Color", field: "colorUnidad", width: 150, responsive: 2 },
-        { title: "Precio", field: "precioUnidad", width: 200, responsive: 2 },
-        { title: "Marca", field: "marcaUnidad", width: 200, responsive: 2 },
-        { title: "Creado", field: "createdAt", width: 200, responsive: 2 },
-        { title: "Actualizado", field: "updatedAt", width: 200, responsive: 2 }
+        { title: "Cantidad", field: "cantidadStock", width: 75, responsive: 0},
+        { title: "Descripcion", field: "descripcionUnidad", width: 350, responsive: 0 },
+        { title: "Precio", field: "precioUnidad", width: 200, responsive: 0 },
+        { title: "Marca", field: "marcaUnidad", width: 200, responsive: 0 },
+        { title: "Proveedor", field: "proveedor", width: 200, responsive: 0 },
+        { title: "Restock Sugerido", field: "restockSugerido", width: 200, responsive: 0 },
+        { title: "Umbral Minimo", field: "umbralMinimo", width: 200, responsive: 0 },
+        { title: "Materiales", field: "boolMateriales", width: 200, responsive: 0 },
+        { title: "Actualizado", field: "updatedAt", width: 200, responsive: 0 }
     ];
 
     return (
