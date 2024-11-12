@@ -104,15 +104,23 @@ export async function createInv(req, res) {
     try {
         const inventario = req.body;
 
+        // validacion de esquema de los datos
         const { error } = invBodyValidation.validate(inventario);
+        if (error) return handleErrorClient(res, 400, "Error de validación en los datos enviados", error.message);
 
-        if (error) return handleErrorClient(res, 400, "Error de validación en los datos enviados", error);
+        // verificacion de numeros de serie duplicados
+        const [existingInv, errorExistingInv] = await getInvService({ numeroSerie: inventario.numeroSerie });
 
-        const [invSaved, errorInv] = await createInvService(inventario);
+        if (errorExistingInv && errorExistingInv !== "Item del inventario no encontrado") {
+            return handleErrorClient(res, 500, "Error verificando duplicados", errorExistingInv);
+        }
 
-        if (errorInv) return handleErrorClient(res, 500, "Error creando la unidad, numero de serie repetido", errorInv);
+        if(existingInv) {
+            return handleErrorClient(res, 400, "Ya existe un item con ese número de serie");
+        }
 
-        handleSuccess(res, 201, "Unidad creada correctamente", invSaved);
+        const [newInv, errorInv] = await createInvService(inventario);
+        handleSuccess(res, 201, "Item del inventario creado", newInv);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
     }
