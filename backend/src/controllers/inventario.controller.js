@@ -3,6 +3,7 @@ import {
     createInvService,
     deleteInvService,
     getAllInvService,
+    getInvBelowThresholdService,
     getInvService,
     updateInvService,
 } from "../services/inventario.service.js";
@@ -21,7 +22,7 @@ import {
 export async function getInv(req, res) {
     try {
         const { id } = req.params; 
-        const {numeroSerie } = req.query;
+        const { numeroSerie } = req.query;
 
         const { error } = invQueryValidation.validate({ id, numeroSerie });
 
@@ -57,7 +58,7 @@ export async function updateInv(req, res) {
         const { numeroSerie } = req.query;
         const { body } = req;
 
-        const { error: queryError } = invQueryValidation.validate({id ,numeroSerie });
+        const { error: queryError } = invQueryValidation.validate({ id ,numeroSerie });
 
         if (queryError) {
             return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
@@ -121,6 +122,25 @@ export async function createInv(req, res) {
 
         const [newInv, errorInv] = await createInvService(inventario);
         handleSuccess(res, 201, "Item del inventario creado", newInv);
+    } catch (error) {
+        handleErrorServer(res, 500, error.message);
+    }
+}
+
+export async function getInvBelowThreshold(req, res) {
+    try {
+        const [Inv, errorMat] = await getInvBelowThresholdService();
+    
+        // Verifica si hay materiales bajo el umbral
+        if (errorMat) return handleErrorClient(res, 404, errorMat);
+    
+        // Si no hay materiales bajo umbral, responde con 204
+        if (!Inv || Inv.length === 0) {
+            return handleSuccess(res, 204);
+        }
+    
+        // Si hay materiales bajo el umbral, responde con 200 y los datos
+        handleSuccess(res, 200, Inv);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
     }
