@@ -140,7 +140,7 @@ export async function getInvBelowThreshold(req, res) {
         }
     
         // Si hay materiales bajo el umbral, responde con 200 y los datos
-        handleSuccess(res, 200, Inv);
+        handleSuccess(res, 200, "Inventario bajo umbral", Inv);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
     }
