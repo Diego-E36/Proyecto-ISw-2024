@@ -12,9 +12,14 @@ const useInventario = () => {
                 numeroSerie: inventario.numeroSerie,
                 nombreStock: inventario.nombreStock,
                 cantidadStock: inventario.cantidadStock,
-                colorUnidad: inventario.colorUnidad,
+                descripcionUnidad: inventario.descripcionUnidad,
                 precioUnidad: inventario.precioUnidad,
-                marcaUnidad: inventario.marcaUnidad
+                marcaUnidad: inventario.marcaUnidad, 
+                proveedor: inventario.proveedor,
+                restockSugerido: inventario.restockSugerido,
+                umbralMinimo: inventario.umbralMinimo,
+                boolMateriales: inventario.boolMateriales,
+                updatedAt: inventario.updatedAt
             }));
             dataLogged(formattedDataInv);
             setInventario(formattedDataInv);
