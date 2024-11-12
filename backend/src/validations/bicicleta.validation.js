@@ -100,9 +100,16 @@ export const bicicletaBodySchema = Joi.object({
             "number.integer": "El aro debe ser un número entero.",
             "number.positive": "El aro debe ser un número positivo.",
         }),
-    venta: Joi.boolean()
+    venta: Joi.number()
+        .integer()
+        .positive()
+        .allow(null)
+        .min(1)
         .messages({
-            "boolean.base": "La venta debe ser de tipo booleano.",
+            "number.base": "La venta debe ser de tipo número",
+            "number.integer": "La venta debe ser de tipo número entero",
+            "number.min": "La venta debe ser como mínimo 1",
+            "number.positive": "La venta debe ser un número positivo",
         })
 })
     .or(
@@ -111,7 +118,8 @@ export const bicicletaBodySchema = Joi.object({
         "modelo",
         "color",
         "tipo",
-        "aro"
+        "aro",
+        "venta"
     )
     .unknown(false)
     .messages({
