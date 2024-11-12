@@ -26,9 +26,13 @@ export async function updateInvService(query, body) {
             numeroSerie: body.numeroSerie,
             nombreStock: body.nombreStock,
             cantidadStock: body.cantidadStock,
-            colorUnidad: body.colorUnidad,
+            descripcionUnidad: body.descripcionUnidad,
             precioUnidad: body.precioUnidad,
             marcaUnidad: body.marcaUnidad,
+            proveedor: body.proveedor,
+            restockSugerido: body.restockSugerido,
+            umbralMinimo: body.umbralMinimo,
+            boolMateriales: body.boolMateriales,
             updatedAt: new Date(),
         }
 
@@ -120,9 +124,13 @@ export async function createInvService(dataInventario) {
             numeroSerie: dataInventario.numeroSerie,
             nombreStock: dataInventario.nombreStock,
             cantidadStock: dataInventario.cantidadStock,
-            colorUnidad: dataInventario.colorUnidad,
+            descripcionUnidad: dataInventario.descripcionUnidad,
             precioUnidad: dataInventario.precioUnidad,
             marcaUnidad: dataInventario.marcaUnidad,
+            proveedor: dataInventario.proveedor,
+            restockSugerido: dataInventario.restockSugerido,
+            umbralMinimo: dataInventario.umbralMinimo,
+            boolMateriales: dataInventario.boolMateriales,
         });
 
         const invSaved = await invRepository.save(newInv);
