@@ -15,7 +15,8 @@ const useGetBicicletas = () => {
                 color: bicicleta.color,
                 tipo: bicicleta.tipo,
                 aro: bicicleta.aro,
-                venta: bicicleta.venta
+                venta: bicicleta.venta,
+                updatedAt: bicicleta.updatedAt
             }));
             dataLogged(formattedData);
             setBicicletas(formattedData);
