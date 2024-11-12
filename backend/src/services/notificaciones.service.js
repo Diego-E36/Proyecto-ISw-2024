@@ -1,14 +1,6 @@
 "use strict";
 import { AppDataSource } from "../config/configDb.js";
 import Notificaciones from "../entity/notificaciones.entity.js";
-import {
-    createMaterialService,
-    deleteMaterialService,
-    getAllMaterialsService,
-    getMaterialByIdService,
-    getMaterialsBelowThresholdService,
-    updateMaterialService,
-} from "../services/materiales.service.js"
 
 export async function createNotificactionService(data, operationType) {
     try {
@@ -20,19 +12,19 @@ export async function createNotificactionService(data, operationType) {
         let message;
         switch (operationType) {
             case "create":
-                message = `Se ha creado ${data.name} en la base de datos con ID ${data.materialId}.`;
+                message = `Se ha creado ${data.nombreStock} en la base de datos con ID ${data.numeroSerie}.`;
                 break;
             case "update":
-                message = `Se ha actualizado ${data.name} en la base de datos con ID ${data.materialId}.`;
-                    if(data.quantity < data.minQuantity){
+                message = `Se ha actualizado ${data.nombreStock} en la base de datos con ID ${data.numeroSerie}.`;
+                    if(data.cantidadStock < data.umbralMinimo){
                         await createNotificactionService(data, "below");
                     }
                 break;
             case "delete":
-                message = `Se ha eliminado ${data.name} de la base de datos con ID ${data.materialId}.`;
+                message = `Se ha eliminado ${data.nombreStock} de la base de datos con ID ${data.numeroSerie}.`;
                 break;
             case "below":
-                message = `${data.name} esta bajo umbral de inventario`
+                message = `${data.nombreStock} esta bajo umbral de inventario`
                 break;
             default:
                 message = "Operación desconocida";
@@ -102,7 +94,7 @@ export async function markAsReadService(query) {
 
 export async function getAllNotificationsService() {
     try {
-        const notificationRepository = AppDataSource.getRepository(Notification);
+        const notificationRepository = AppDataSource.getRepository(Notificaciones);
 
         const notifications = await notificationRepository.find();
 
@@ -135,7 +127,7 @@ export async function deleteNotificationService(query) {
         if (!notiFound) return [null, "notificaciones no encontradas"];
 
         // Eliminar el material encontrado
-        const notiDeleted = await materialRepository.remove(notiFound);
+        const notiDeleted = await notificationRepository.remove(notiFound);
 
         const { ...notiData } = notiDeleted;
 
