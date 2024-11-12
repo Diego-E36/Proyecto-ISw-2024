@@ -141,3 +141,40 @@ export async function createInvService(dataInventario) {
         return [null, "Error interno del servidor"];
     }
 }
+
+// Método para verificar el umbral de inventario y obtener materiales bajo el umbral
+export async function getInvBelowThresholdService() {
+    try {
+        const invRepository = AppDataSource.getRepository(Inventario);
+
+        // Obtener solo los materiales que están por debajo del umbral
+        const InvBelowThreshold = await invRepository.createQueryBuilder("inventario")
+        .where("inventario.cantidadStock < inventario.umbralMinimo")
+        .getMany();
+
+        if (!InvBelowThreshold || InvBelowThreshold.length === 0) return [null , "No hay items bajo umbral"];
+
+        const invData = InvBelowThreshold.map(({ ...inv }) => inv);
+
+        return [invData, null];
+    } catch (error) {
+        console.error("Error al verificar inventario:", error);
+        return [null, "Error interno del servidor"];
+    }
+}
+
+// Importa la función y configura el intervalo de tiempo en milisegundos (ej. cada 5 minutos)
+const CHECK_INTERVAL =  10 * 1000; // 10 segundos
+
+async function monitorInvBelowThreshold() {
+    const [Inv, error] = await getInvBelowThresholdService();
+
+    if (error) {
+        console.error("Error al obtener inventario:", error);
+    } else if (Inv) {
+        console.log("Inventario bajo el umbral:", Inv);
+        // Aquí podrías enviar notificaciones, registrar el evento en logs, etc.
+    }
+}
+// Ejecuta la función de monitoreo cada cierto tiempo
+setInterval(monitorInvBelowThreshold, CHECK_INTERVAL);
