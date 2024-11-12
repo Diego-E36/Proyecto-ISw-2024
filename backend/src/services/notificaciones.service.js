@@ -24,9 +24,15 @@ export async function createNotificactionService(data, operationType) {
                 break;
             case "update":
                 message = `Se ha actualizado ${data.name} en la base de datos con ID ${data.materialId}.`;
+                    if(data.quantity < data.minQuantity){
+                        await createNotificactionService(data, "below");
+                    }
                 break;
             case "delete":
                 message = `Se ha eliminado ${data.name} de la base de datos con ID ${data.materialId}.`;
+                break;
+            case "below":
+                message = `${data.name} esta bajo umbral de inventario`
                 break;
             default:
                 message = "Operación desconocida";
