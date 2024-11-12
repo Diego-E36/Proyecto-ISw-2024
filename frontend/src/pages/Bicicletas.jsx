@@ -52,7 +52,7 @@ const Bicicletas = () => {
                 <div className='top-table'>
                     <h1 className='title-table'>Bicicletas</h1>
                     <div className='filter-actions'>
-                        <Search value={filterNumeroSerie} onChange={handleNumeroSerieFilterChange} placeholder={'Filtrar por numero de serie'} />
+                        <Search value={filterNumeroSerie} onChange={handleNumeroSerieFilterChange} placeholder={'Filtrar por número de serie'} />
                         <button onClick={handleClickUpdate} disabled={dataBicicleta.length === 0}>
                             {dataBicicleta.length === 0 ? (
                                     <img src={UpdateIconDisable} alt="edit-disabled" />
