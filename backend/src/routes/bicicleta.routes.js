@@ -12,7 +12,7 @@
 
  router
         .post("/", createBici)
-        .get("/all", getAllBici)
+        .get("/", getAllBici)
         .get("/:id", getBici)
         .patch("/:id", updateBici)
         .delete("/:id", deleteBici);
