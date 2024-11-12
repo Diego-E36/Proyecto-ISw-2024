@@ -13,7 +13,7 @@ export function formatBicicletasData(bicicleta) {
         aro: bicicleta.aro,
         venta: bicicleta.venta,
         createdAt: formatTempo(bicicleta.createdAt, "DD-MM-YYYY"),
-        updatedAt: formatTempo(bicicleta.updatedAt, "DD-MM-YYYY"),
+        updatedAt: formatTempo(bicicleta.updatedAt, "DD-MM-YYYY HH:mm"),
     }
 }
 
