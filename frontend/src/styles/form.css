@@ -180,8 +180,10 @@
 }
 
 .container {
-	height: 100vh;	
-	background: linear-gradient(90deg, #003366, #001a33); /*Color principal para login (gradiente)*/
+	height: 100vh;
+	/* Color de fondo: Gradiente Morado/azul */
+	background: rgb(2,0,36);
+	/*background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(73,44,139,1) 36%, rgba(0,121,224,1) 100%); /*Color principal para login (gradiente)*/
 	display: flex;
 	justify-content: center;
 	align-items: center;
