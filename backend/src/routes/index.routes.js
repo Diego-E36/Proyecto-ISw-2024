@@ -6,6 +6,7 @@ import estadisticasRoutes from "./estadisticas.routes.js";
 import invRoutes from "./inventario.routes.js";
 import bicicletaRoutes from "./bicicleta.routes.js";
 import materialesRoutes from "./materiales.routes.js";
+import notificacionesRoutes from "./notificaciones.routes.js";
 import emailRoutes from "./email.routes.js";
 
 const router = Router();
@@ -17,6 +18,7 @@ router
     .use("/estadisticas", estadisticasRoutes)
     .use("/inventario", invRoutes)
     .use("/materiales", materialesRoutes)
+    .use("/notificaciones", notificacionesRoutes)
     .use("/email", emailRoutes);
 
 export default router;
