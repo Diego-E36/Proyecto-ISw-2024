@@ -7,8 +7,9 @@ import {
     deleteInv,
     getAllInv,
     getInv,
+    getInvBelowThreshold,
     updateInv,
- } from "../controllers/inventario.controller.js";
+} from "../controllers/inventario.controller.js";
 
 const router = Router();
 
@@ -16,6 +17,7 @@ router
     .post("/", createInv)
     .get("/all", getAllInv)
     .get("/:id", getInv)
+    .get("/", getInvBelowThreshold)
     .patch("/:id", updateInv)
     .delete("/:id", deleteInv);
 
