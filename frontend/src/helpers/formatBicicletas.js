@@ -11,7 +11,7 @@ export function formatBicicletasData(bicicleta) {
         color: startCase(bicicleta.color),
         tipo: startCase(bicicleta.tipo),
         aro: bicicleta.aro,
-        venta: bicicleta.venta,
+        venta: bicicleta.venta !== null ? `$${bicicleta.venta.toLocaleString('es-ES')}` : "No está a la venta",
         createdAt: formatTempo(bicicleta.createdAt, "DD-MM-YYYY"),
         updatedAt: formatTempo(bicicleta.updatedAt, "DD-MM-YYYY HH:mm"),
     }
@@ -25,7 +25,7 @@ export function formatPostBicicletas(bicicleta) {
         color: startCase(bicicleta.color),
         tipo: startCase(bicicleta.tipo),
         aro: bicicleta.aro,
-        venta: bicicleta.venta,
+        venta: bicicleta.venta !== null ? `$${bicicleta.venta.toLocaleString('es-ES')}` : "No está a la venta",
         createdAt: formatTempo(bicicleta.createdAt, "DD-MM-YYYY"),
         updatedAt: formatTempo(bicicleta.updatedAt, "DD-MM-YYYY"),
     };
