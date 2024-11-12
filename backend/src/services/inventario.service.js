@@ -2,6 +2,10 @@
 import Inventario from "../entity/inventario.entity.js";
 import { AppDataSource } from "../config/configDb.js";
 
+import {
+    createNotificactionService
+} from "../services/notificaciones.service.js"
+
 export async function updateInvService(query, body) {
     try {
         const { id, numeroSerie } = query;
@@ -47,6 +51,8 @@ export async function updateInvService(query, body) {
         }
 
         const { ...invUpdated } = invData;
+
+        await createNotificactionService(invUpdated, "update");
 
         return [invUpdated, null];
     } catch (error) {
@@ -109,6 +115,8 @@ export async function deleteInvService(query) {
 
         const { ...invData } = invDeleted;
         
+        await createNotificactionService(invData, "delete");
+
         return [invData, null];
     } catch (error) {
         console.error("Error al eliminar item del inventario:", error);
@@ -134,6 +142,8 @@ export async function createInvService(dataInventario) {
         });
 
         const invSaved = await invRepository.save(newInv);
+
+        await createNotificactionService(invSaved, "create");
 
         return [invSaved, null];
     } catch (error) {
