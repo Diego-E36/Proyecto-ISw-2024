@@ -1,5 +1,6 @@
 "use strict";
 import { loginService, registerService } from "../services/auth.service.js";
+import { sendEmailDefault } from "../controllers/email.controller.js";
 import {
   authValidation,
   registerValidation,
@@ -46,6 +47,18 @@ export async function register(req, res) {
     const [newUser, errorNewUser] = await registerService(body);
 
     if (errorNewUser) return handleErrorClient(res, 400, "Error registrando al usuario", errorNewUser);
+
+    const resEmail = await sendEmailDefault({ 
+      body: {
+        email: body.email,
+        subject: "Cuenta registrada en la aplicación!",
+        message: `Bienvenido a la plataforma ${newUser.nombreCompleto}`,
+      }
+    });
+
+    if (!resEmail.success) {
+      console.error("Error enviando el correo:", resEmail.error);
+    }
 
     handleSuccess(res, 201, "Usuario registrado con éxito", newUser);
   } catch (error) {
