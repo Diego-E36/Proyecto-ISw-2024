@@ -3,8 +3,8 @@ import { formatInventarioData } from '@helpers/formatInventario.js';
 
 export async function getAllInventario() {
     try {
-        const { inventarioData } = await axios.get('/inventario/');
-        const formattedData = inventarioData.map(formatInventarioData);
+        const { data: inventarioData } = await axios.get('/inventario/all');
+        const formattedData = inventarioData.data.map(formatInventarioData);
         return formattedData;
     } catch (error) {
         return error.response.data;
