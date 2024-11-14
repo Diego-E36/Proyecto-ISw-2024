@@ -8,6 +8,7 @@ import Error404 from '@pages/Error404';
 import Root from '@pages/Root';
 import Bicicletas from '@pages/Bicicletas';
 import Inventario from '@pages/Inventario';
+import EstadisticasInventarioprueba from '@pages/EstadisticasInventarioprueba';
 import ProtectedRoute from '@components/ProtectedRoute';
 import '@styles/styles.css';
 
@@ -44,9 +45,18 @@ const router = createBrowserRouter([
           <Bicicletas />
         </ProtectedRoute>
         )
+      },
+      {
+        path: '/estadisticas',
+        element: (
+        <ProtectedRoute allowedRoles={['administrador']}>
+          <EstadisticasInventarioprueba />
+        </ProtectedRoute>
+        )
       }
     ]
   },
+
   {
     path: '/auth',
     element: <Login/>
