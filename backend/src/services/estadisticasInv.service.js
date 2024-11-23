@@ -21,6 +21,43 @@ export async function getNombreYCantidadInventario() {
     }
 }
 
+// Servicio para obtener la distribución de productos por proveedor
+export async function getDistribucionProductosPorProveedor() {
+    try {
+        const inventarioRepository = AppDataSource.getRepository(Inventario);
+
+        // Obtener la distribución de productos por proveedor
+        const productosPorProveedor = await inventarioRepository
+            .createQueryBuilder("inventario")
+            .select("inventario.proveedor, COUNT(*) as cantidad")
+            .groupBy("inventario.proveedor")
+            .getRawMany();
+
+        return [productosPorProveedor, null];
+    } catch (error) {
+        console.error("Error al obtener la distribución de productos por proveedor:", error);
+        return [null, "Error interno del servidor"];
+    }
+}
+
+// Servicio para obtener productos con bajo stock y restock sugerido
+export async function getProductosBajoStockYRestockSugerido() {
+    try {
+        const inventarioRepository = AppDataSource.getRepository(Inventario);
+
+        // Obtener productos con bajo stock
+        const productosBajoStock = await inventarioRepository.find({
+            where: { cantidadStock: LessThan(5) },
+            select: ["id", "nombreStock", "cantidadStock", "restockSugerido"]
+        });
+        return [productosBajoStock, null];
+
+    } catch (error) {
+        console.error("Error al obtener productos con bajo stock y restock sugerido:", error);
+        return [null, "Error interno del servidor"];
+    }
+}
+
 
 //Retorna total del inventario y el bajo stock (funciona) podría hacer gráfico doble?
 export async function obtenerEstadisticasInventario() {
@@ -35,7 +72,6 @@ export async function obtenerEstadisticasInventario() {
         select: ["id", "nombreStock", "cantidadStock"]
     });
 
-    
         return [totalItems, lowStockItems];
 
     } catch (error) {

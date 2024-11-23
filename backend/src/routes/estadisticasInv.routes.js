@@ -1,6 +1,7 @@
 "use strict";
 import { Router } from "express";
-import { getEstadisticasxEstacionController, getNombreYCantidadInventarioController,  } from "../controllers/estadisticasInv.controller.js";
+import { getDistribucionProductosPorProveedorController, getEstadisticasxEstacionController, getNombreYCantidadInventarioController, getProductosBajoStockYRestockSugeridoController } 
+from "../controllers/estadisticasInv.controller.js";
 import { authenticateJwt } from "../middlewares/authentication.middleware.js";
 import { isAdmin } from "../middlewares/authorization.middleware.js";
 
@@ -14,6 +15,8 @@ const router = Router();
 // Define rutas para las estadísticas del inventario
 router.
     get("/inv", getNombreYCantidadInventarioController)
+    .get("/proveedor", getDistribucionProductosPorProveedorController)
+    .get("/bajostock", getProductosBajoStockYRestockSugeridoController)
     .get("/estaciones", getEstadisticasxEstacionController) //aún no se agrega
     .get("/estacion/:estacion", getEstadisticasxEstacionController);
 export default router;
