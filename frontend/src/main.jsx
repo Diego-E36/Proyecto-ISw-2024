@@ -8,6 +8,7 @@ import Error404 from '@pages/Error404';
 import Root from '@pages/Root';
 import Bicicletas from '@pages/Bicicletas';
 import Inventario from '@pages/Inventario';
+import NotificacionesTable from '@pages/Notificaciones';
 import EstadisticasInventarioprueba from '@pages/EstadisticasInventarioprueba';
 import ProtectedRoute from '@components/ProtectedRoute';
 import '@styles/styles.css';
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
       {
         path: '/inventario',
         element: (
-        <ProtectedRoute allowedRoles={['administrador']}>
+        <ProtectedRoute allowedRoles={['administrador', 'usuario']}>
           <Inventario />
         </ProtectedRoute>
         ),
@@ -41,8 +42,16 @@ const router = createBrowserRouter([
       {
         path: '/bicicletas',
         element: (
-        <ProtectedRoute allowedRoles={['administrador']}>
+        <ProtectedRoute allowedRoles={['administrador', 'usuario']}>
           <Bicicletas />
+        </ProtectedRoute>
+        )
+      },
+      {
+        path: '/notificaciones',
+        element: (
+        <ProtectedRoute allowedRoles={['administrador']}>
+          <NotificacionesTable />
         </ProtectedRoute>
         )
       },
