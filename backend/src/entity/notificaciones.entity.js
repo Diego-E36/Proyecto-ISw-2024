@@ -31,7 +31,7 @@ const notificationesSchema = new EntitySchema({
             default: () => "CURRENT_TIMESTAMP",
             nullable: false,
         },      
-    }, 
+    }
 });
 
 export default notificationesSchema;
