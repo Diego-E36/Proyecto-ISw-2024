@@ -27,8 +27,7 @@ export async function getDistribucionProductosPorProveedor() {
         const inventarioRepository = AppDataSource.getRepository(Inventario);
 
         // Obtener la distribución de productos por proveedor
-        const productosPorProveedor = await inventarioRepository
-            .createQueryBuilder("inventario")
+        const productosPorProveedor = await inventarioRepository.createQueryBuilder("inventario")
             .select("inventario.proveedor, COUNT(*) as cantidad")
             .groupBy("inventario.proveedor")
             .getRawMany();
@@ -40,16 +39,17 @@ export async function getDistribucionProductosPorProveedor() {
     }
 }
 
-// Servicio para obtener productos con bajo stock y restock sugerido
+// Servicio para obtener productos con bajo stock y restock sugerido, con umbralMinimo
 export async function getProductosBajoStockYRestockSugerido() {
     try {
         const inventarioRepository = AppDataSource.getRepository(Inventario);
 
         // Obtener productos con bajo stock
-        const productosBajoStock = await inventarioRepository.find({
-            where: { cantidadStock: LessThan(5) },
-            select: ["id", "nombreStock", "cantidadStock", "restockSugerido"]
-        });
+        const productosBajoStock = await inventarioRepository.createQueryBuilder("inventario")
+        .select(["inventario.id", "inventario.nombreStock", "inventario.cantidadStock", "inventario.restockSugerido", "inventario.umbralMinimo"])
+        .where("inventario.cantidadStock < inventario.umbralMinimo")
+        .getMany();
+
         return [productosBajoStock, null];
 
     } catch (error) {
@@ -130,21 +130,6 @@ export async function getEstadisticasxEstacionService(estacion) {
         return [estadisticasFiltradas, null];
     } catch (error) {
         console.error("Error al obtener las estadísticas por estación:", error);
-        return [null, "Error interno del servidor"];
-    }
-}
-
-
-//Verifica acceso de un operador(admin) (aún falta implementar)
-export async function verifyOperatorAccessService(UserData){
-    try {
-        //verifica si el operador tiene rol de admin
-        if (operador.role !== "administrador"){
-            return [null, "Acceso denegado: No tienes permisos de administrador"];
-        } 
-        return [true, null];
-    } catch (error) {
-        console.error("Error al verificar el acceso del operador:", error);
         return [null, "Error interno del servidor"];
     }
 }
