@@ -13,7 +13,7 @@ import {
 
 export async function deleteNotification(req, res) {
     try {
-        const { id } = req.params;
+        const { id } = req.query;
         
         const [notiDelete, errorNoti] = await deleteNotificationService({ id });
 
