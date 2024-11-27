@@ -1,7 +1,7 @@
 "use strict";
 // Importar Router desde express
 import { Router } from "express";
-
+import { authenticateJwt } from "../middlewares/authentication.middleware.js";
 // Importar manejo de inventario desde controladores
 import {
     createInv,
@@ -15,6 +15,7 @@ import {
 const router = Router();
 
 router
+    .use(authenticateJwt)
     .post("/", createInv)
     .get("/all", getAllInv)
     .get("/:id", getInv)
