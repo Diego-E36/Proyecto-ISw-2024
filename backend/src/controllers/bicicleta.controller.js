@@ -111,14 +111,13 @@ export async function updateBici(req, res){
 
 export async function deleteBici(req, res){
     try {
-        const { id } = req.params;
-        const { numeroSerie } = req.query;
+        const { id } = req.query;
 
-        const { error: queryError } = bicicletaQuerySchema.validate({ id, numeroSerie });
+        const { error: queryError } = bicicletaQuerySchema.validate({ id });
 
         if (queryError) return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
 
-        const [bicicleta, errorBicicleta] = await deleteBicicletaService({ id, numeroSerie });
+        const [bicicleta, errorBicicleta] = await deleteBicicletaService({ id });
 
         if (errorBicicleta) return handleErrorClient(res, 404, errorBicicleta);
 
