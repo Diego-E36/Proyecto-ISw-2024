@@ -11,14 +11,13 @@ import {
 
 const router = Router();
 
+// Rutas restringidas a administradores
 router
-  .use(authenticateJwt)
-  .use(isAdmin);
-
-router
-  .get("/", getUsers)
-  .get("/detail/", getUser)
-  .patch("/detail/", updateUser)
-  .delete("/detail/", deleteUser);
+  .use(authenticateJwt) // Este middleware se aplica a todas las rutas
+  .use(isAdmin) // A partir de aquí, solo los administradores
+  .get("/", getUsers) // Todos los autenticados pueden ver la lista de usuarios
+  .get("/detail/", getUser) // Todos los autenticados pueden ver los detalles de un usuario
+  .patch("/detail/", updateUser) // Solo administradores pueden actualizar
+  .delete("/detail/", deleteUser); // Solo administradores pueden eliminar
 
 export default router;
