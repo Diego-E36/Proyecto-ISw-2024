@@ -31,7 +31,7 @@ export async function getBici(req, res){
 
         if (errorBicis) return handleErrorClient(res, 404, errorBicis);
 
-        handleSuccess(res, 200, "Bicicletas encontradas", bicis);
+        handleSuccess(res, 200, "Bicicleta encontrada", bicis);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
     }
