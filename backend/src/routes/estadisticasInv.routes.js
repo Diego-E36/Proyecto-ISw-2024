@@ -8,13 +8,13 @@ import { isAdmin } from "../middlewares/authorization.middleware.js";
 const router = Router();
 
 // Aplica middleware de autenticación y autorización
-//router.
-    //.use(authenticateJwt)
-    //.use(isAdmin);
+router
+    .use(authenticateJwt)
+    .use(isAdmin);
 
 // Define rutas para las estadísticas del inventario
-router.
-    get("/inv", getNombreYCantidadInventarioController)
+router
+    .get("/inv", getNombreYCantidadInventarioController)
     .get("/proveedor", getDistribucionProductosPorProveedorController)
     .get("/bajostock", getProductosBajoStockYRestockSugeridoController)
     .get("/estaciones", getEstadisticasxEstacionController) //aún no se agrega
