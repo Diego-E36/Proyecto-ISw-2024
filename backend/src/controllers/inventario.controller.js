@@ -9,6 +9,10 @@ import {
 } from "../services/inventario.service.js";
 
 import {
+    createNotificactionService
+} from "../services/notificaciones.service.js"
+
+import {
     invBodyValidation,
     invQueryValidation,
 } from "../validations/inventario.validation.js";
@@ -74,6 +78,9 @@ export async function updateInv(req, res) {
 
         if (errorInv) return handleErrorClient(res, 500, "Error modificando el inventario", errorInv);
 
+        
+        await createNotificactionService(inventario, "update");
+
         handleSuccess(res, 200, "inventario modificado correctamente", inventario);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
@@ -82,18 +89,19 @@ export async function updateInv(req, res) {
 
 export async function deleteInv(req, res) {
     try {
-        const { id } = req.params;
-        const { numeroSerie } = req.query;
+        const { id } = req.query;
 
-        const { error: queryError } = invQueryValidation.validate({ id, numeroSerie });
+        const { error: queryError } = invQueryValidation.validate({ id });
 
         if (queryError) {
             return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
         }
 
-        const [inventarioDelete, errorInv] = await deleteInvService({ id, numeroSerie });
+        const [inventarioDelete, errorInv] = await deleteInvService({ id });
 
         if (errorInv) return handleErrorClient(res, 404, "Error elminando unidad", errorInv);
+
+        await createNotificactionService(inventarioDelete, "delete");
 
         handleSuccess(res, 200, "Unidad eliminada correctamente", inventarioDelete);
     } catch (error) {
@@ -121,6 +129,9 @@ export async function createInv(req, res) {
         }
 
         const [newInv, errorInv] = await createInvService(inventario);
+
+        await createNotificactionService(newInv, "create");
+
         handleSuccess(res, 201, "Item del inventario creado", newInv);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
