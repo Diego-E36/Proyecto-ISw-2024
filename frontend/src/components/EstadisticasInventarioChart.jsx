@@ -1,7 +1,7 @@
 "use strict";
 //import React from 'react';
 import { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area, ReferenceLine } from 'recharts';
 import useGetNombreYCantidadInventario from '@hooks/estadisticas/useGetNombreYCantidadInventario.jsx';
 import useGetDistribucionProductosPorProveedor from '@hooks/estadisticas/useGetDistribucionProductosPorProveedor.jsx';
 import useProductosBajoStockYRestockSugerido from '@hooks/estadisticas/useGetProductoBajoStockYRestockSugerido.jsx';
@@ -78,6 +78,15 @@ const ProductosBajoStockYRestockChart = ({ data }) => (
             <YAxis />
             <Tooltip />
             <Legend verticalAlign="top" />
+            {data.map((producto, index) => (
+                <ReferenceLine
+                    key={index}
+                    y={producto.umbralMinimo}
+                    label={`Umbral Mínimo (${producto.umbralMinimo})`}
+                    stroke="red"
+                    strokeDasharray="3 3"
+                />
+            ))}
             <Bar dataKey="cantidadStock" fill="#8884d8" name="Bajo Stock" />
             <Bar dataKey="restockSugerido" fill="#82ca9d" name="Restock Sugerido" />
         </BarChart>
