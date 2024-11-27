@@ -12,7 +12,7 @@ export async function getAllBicicletas() {
 
 export async function updateBicicletas(data, id) {
     try {
-        const response = await axios.patch(`/bicicletas/detail/?id=${id}`, data);
+        const response = await axios.patch(`/bicicleta/detail/?id=${id}`, data);
         return response.data.data;
     } catch (error) {
         console.log(error);
@@ -22,7 +22,7 @@ export async function updateBicicletas(data, id) {
 
 export async function deleteBicicletas(id) {
     try {
-        const response = await axios.delete(`/bicicletas/detail/?id=${id}`);
+        const response = await axios.delete(`/bicicleta/detail/?id=${id}`);
         return response.data;
     } catch (error) {
         return error.response.data
@@ -31,7 +31,7 @@ export async function deleteBicicletas(id) {
 
 export async function createBicicletas(data) {
     try {
-        const response = await axios.post('/bicicletas/', data);
+        const response = await axios.post('/bicicleta/', data);
         return response.data.data;
     } catch (error) {
         return error.response.data;
