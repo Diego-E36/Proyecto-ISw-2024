@@ -1,0 +1,44 @@
+/* Centrar la tabla dentro de la página */
+.notification-container {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center;    /* Centrar verticalmente */
+    min-height: 100vh;      /* Ocupa toda la altura de la pantalla */
+    background-color: #f8f9fa; /* Opcional: un fondo claro */
+}
+
+/* Estilos adicionales para la tabla */
+.table {
+    border-collapse: collapse;
+    width: 80%; /* Ajusta el ancho de la tabla según sea necesario */
+    background-color: #ffffff; /* Fondo blanco */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #007bff; /* Azul para el encabezado */
+    color: white;             /* Texto blanco */
+}
+
+td {
+    text-align: center; /* Centrar el texto en las celdas */
+}
+
+delete_button {
+    background-color: #dc3545; /* Color rojo para el botón */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+delete_button:hover {
+    background-color: #c82333; /* Un tono más oscuro al pasar el mouse */
+}
