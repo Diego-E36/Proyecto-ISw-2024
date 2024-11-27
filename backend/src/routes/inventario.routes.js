@@ -1,6 +1,7 @@
 "use strict";
 // Importar Router desde express
 import { Router } from "express";
+
 // Importar manejo de inventario desde controladores
 import {
     createInv,
