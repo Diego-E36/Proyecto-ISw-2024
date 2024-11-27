@@ -1,13 +1,11 @@
 "use strict";
 import { AppDataSource } from "../config/configDb.js";
 import Notificaciones from "../entity/notificaciones.entity.js";
+import jwt from "jsonwebtoken";
 
 export async function createNotificactionService(data, operationType) {
     try {
-
-        const notificationRepository = AppDataSource.getRepository(Notificaciones)
-
-        // Crear el mensaje de notificación
+        const notificationRepository = AppDataSource.getRepository(Notificaciones);
 
         let message;
         switch (operationType) {
@@ -16,29 +14,28 @@ export async function createNotificactionService(data, operationType) {
                 break;
             case "update":
                 message = `Se ha actualizado ${data.nombreStock} en la base de datos con ID ${data.numeroSerie}.`;
-                    if(data.cantidadStock < data.umbralMinimo){
-                        await createNotificactionService(data, "below");
-                    }
+                if (data.cantidadStock < data.umbralMinimo) {
+                    await createNotificactionService(data, "below");
+                }
                 break;
             case "delete":
                 message = `Se ha eliminado ${data.nombreStock} de la base de datos con ID ${data.numeroSerie}.`;
                 break;
             case "below":
-                message = `${data.nombreStock} esta bajo umbral de inventario`
+                message = `${data.nombreStock} está bajo umbral de inventario.`;
                 break;
             default:
                 message = "Operación desconocida";
         }
-        // Crear la notificación en la base de datos
 
         const newNotification = notificationRepository.create({
             message: message,
             status: "unread",
             notificationType: "in-system",
-            });
+        });
 
-        const Notificationsaved = await notificationRepository.save(newNotification)
-        return [Notificationsaved, null];
+        const notificationSaved = await notificationRepository.save(newNotification);
+        return [notificationSaved, null];
     } catch (error) {
         console.error("Error al crear notificación:", error);
         return [null, "Error interno del servidor"];
