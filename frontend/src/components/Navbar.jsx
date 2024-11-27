@@ -58,7 +58,7 @@ const Navbar = () => {
                             Inicio
                         </NavLink>
                     </li>
-                    {userRole === 'administrador' && (
+                    {(userRole === 'administrador') && (
                     <li>
                         <NavLink 
                             to="/users" 
@@ -72,7 +72,7 @@ const Navbar = () => {
                         </NavLink>
                     </li>
                     )}
-                    {userRole === 'administrador' && (
+                    {(userRole === 'administrador' || userRole === 'usuario') && (
                         <li>
                             <NavLink
                                 to="/bicicletas"
@@ -86,7 +86,7 @@ const Navbar = () => {
                             </NavLink>
                         </li>
                     )}
-                    {userRole === 'administrador' && (
+                    {(userRole === 'administrador' || userRole === 'usuario') && (
                         <li>
                             <NavLink
                                 to="/inventario"
