@@ -14,7 +14,7 @@ const ServicioSchema = new EntitySchema({
             type: "int",
             nullable: false,
         },
-        id_inventorio: {
+        id_inventario: {
             type: "int",
             nullable: false,
         },
@@ -66,7 +66,7 @@ const ServicioSchema = new EntitySchema({
     relations: [
         {
             target: "Bicicleta",
-            type: "many-to-many",
+            type: "many-to-one",
             joinColumn: {
                 name: "id_bicicleta",
                 referencedColumnName: "id",
@@ -76,7 +76,15 @@ const ServicioSchema = new EntitySchema({
             target: "Inventario",
             type: "many-to-many",
             joinColumn: {
-                name: "id_inventorio",
+                name: "id_inventario",
+                referencedColumnName: "id",
+            },
+        },
+        {
+            target: "User",
+            type: "many-to-one",
+            joinColumn: {
+                name: "id_usuario",
                 referencedColumnName: "id",
             },
         }
