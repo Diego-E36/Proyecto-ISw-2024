@@ -63,6 +63,7 @@ const Bicicletas = () => {
         { title: "Color", field: "color", width: 200, responsive: 0 },
         { title: "Tipo", field: "tipo", width: 200, responsive: 0 },
         { title: "Aro", field: "aro", width: 200, responsive: 0 },
+        { title: "Venta", field: "venta", width: 200, responsive: 0 },
     ];
 
     return (
