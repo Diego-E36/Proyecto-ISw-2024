@@ -1,7 +1,15 @@
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { logout } from '@services/auth.service.js';
 import '@styles/navbar.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import HomeIcon from '@mui/icons-material/Home';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import PedalBikeIcon from '@mui/icons-material/PedalBike';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -9,7 +17,21 @@ const Navbar = () => {
     const user = JSON.parse(sessionStorage.getItem('usuario')) || '';
     const userRole = user?.rol;
     const [menuOpen, setMenuOpen] = useState(false);
+    const [darkMode, setDarkMode] = useState(false);
 
+    useEffect(() => {
+        if (darkMode) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    }, [darkMode]);
+
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+    };
+    
+    
     const logoutSubmit = () => {
         try {
             logout();
@@ -43,6 +65,16 @@ const Navbar = () => {
     };
 
     return (
+        <>
+            <nav className="horizontal-navbar">
+                <div className="navbar-content">
+                    <div className="navbar-title">Bikeep</div>
+                    <div className="navbar-icons">
+                        <NotificationsIcon className="icon" />
+                        <Brightness4Icon className="icon" onClick={toggleDarkMode} />
+                    </div>
+                </div>
+            </nav>
         <nav className="navbar">
             <div className={`nav-menu ${menuOpen ? 'activado' : ''}`}>
                 <ul>
@@ -55,7 +87,7 @@ const Navbar = () => {
                             }} 
                             activeClassName="active"
                         >
-                            Inicio
+                            <HomeIcon className="icon" /> Inicio
                         </NavLink>
                     </li>
                     {(userRole === 'administrador') && (
@@ -68,7 +100,7 @@ const Navbar = () => {
                             }} 
                             activeClassName="active"
                         >
-                            Usuarios
+                            <PeopleAltIcon className="icon" /> Usuarios
                         </NavLink>
                     </li>
                     )}
@@ -82,7 +114,7 @@ const Navbar = () => {
                                 }}
                                 activeClassName="active"
                                 >
-                                Bicicletas
+                                    <PedalBikeIcon className="icon" /> Bicicletas
                             </NavLink>
                         </li>
                     )}
@@ -96,7 +128,7 @@ const Navbar = () => {
                                 }}
                                 activeClassName="active"
                                 >
-                                Inventario
+                                <InventoryIcon className="icon" />Inventario
                             </NavLink>
                         </li>
                     )}
@@ -110,11 +142,11 @@ const Navbar = () => {
                                 }}
                                 activeClassName="active"
                                 >
-                                Estadísticas
+                                <EqualizerIcon className="icon" />Estadísticas
                             </NavLink>
                         </li>
                     )}
-                    <li>
+                    <li className="logout">
                         <NavLink 
                             to="/auth" 
                             onClick={() => { 
@@ -123,7 +155,7 @@ const Navbar = () => {
                             }} 
                             activeClassName="active"
                         >
-                            Cerrar sesión
+                            <ExitToAppIcon className="icon" />Cerrar sesión
                         </NavLink>
                     </li>
                 </ul>
@@ -134,6 +166,7 @@ const Navbar = () => {
                 <span className="bar"></span>
             </div>
         </nav>
+    </>
     );
 };
 

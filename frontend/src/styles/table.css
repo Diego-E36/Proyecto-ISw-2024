@@ -12,3 +12,39 @@
 .tabulator .tabulator-footer .tabulator-page.active {
     color: #E4332C;
 }
+
+/* Para DarkMode */
+.table-container.dark-mode {
+    background-color: #1c1c1c;
+    color: #fff;
+}
+
+/* Estilos adicionales para la tabla */
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-container th, .table-container td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.table-container th {
+    background-color: #f4f4f4;
+}
+
+.table-container.dark-mode th {
+    background-color: #333;
+    color: #fff;
+}
+
+.table-container td {
+    background-color: #fff;
+    color: #000;
+}
+
+.table-container.dark-mode td {
+    background-color: #1c1c1c;
+    color: #fff;
+}
