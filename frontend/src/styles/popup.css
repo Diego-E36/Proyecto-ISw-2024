@@ -1,5 +1,5 @@
 .bg{
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -8,14 +8,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 10px;
 }
 .popup{
-    top: 30px;
-    height: 700px;
-    width: 600px;
+    top: 5%;
+    height: auto;
+    max-height: 90%;
+    width: 90%;
+    max-width: 600px;
     background: white;
     position: relative;
     border-radius: 12px;
+    overflow-y: auto;
+}
+.popup .form{
+    padding: 35px;
 }
 .close{
     position: absolute;
