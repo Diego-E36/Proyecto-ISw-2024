@@ -64,6 +64,18 @@ const Navbar = () => {
         });
     };
 
+    // Para que cada vez que cambie de link al hacer click se actualice el active
+    useEffect(() => {
+        const links = document.querySelectorAll('.nav-menu ul li a');
+        links.forEach(link => {
+            if (link.getAttribute('href') === location.pathname) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }, [location.pathname]);
+
     return (
         <>
             <nav className="horizontal-navbar">
@@ -134,17 +146,38 @@ const Navbar = () => {
                     )}
                     {userRole === 'administrador' && (
                         <li>
-                            <NavLink
-                                to="/estadisticas"
-                                onClick={() => {
-                                    setMenuOpen(false);
-                                    addActiveClass();
-                                }}
-                                activeClassName="active"
-                                >
+                        <details>
+                            <summary>
                                 <EqualizerIcon className="icon" />Estadísticas
-                            </NavLink>
-                        </li>
+                            </summary>
+                            <ul>
+                                <li>
+                                    <NavLink
+                                        to="/estadisticas"
+                                        onClick={() => {
+                                            setMenuOpen(false);
+                                            addActiveClass();
+                                        }}
+                                        activeClassName="active"
+                                    >
+                                        Inventario
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/estadisticas/bicicletas"
+                                        onClick={() => {
+                                            setMenuOpen(false);
+                                            addActiveClass();
+                                        }}
+                                        activeClassName="active"
+                                    >
+                                        BicicletasChart
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
                     )}
                     <li className="logout">
                         <NavLink 
