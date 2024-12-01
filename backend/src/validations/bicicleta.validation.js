@@ -45,13 +45,13 @@ export const bicicletaBodySchema = Joi.object({
             "string.pattern.base": "El número de serie solo puede contener letras y números.",
         }),
     marca: Joi.string()
-        .min(5)
+        .min(3)
         .max(50)
         .pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)
         .messages({
             "string.empty": "La marca no puede estar vacía.",
             "string.base": "La marca debe ser de tipo string.",
-            "string.min": "La marca debe tener como mínimo 5 caracteres.",
+            "string.min": "La marca debe tener como mínimo 3 caracteres.",
             "string.max": "La marca debe tener como máximo 50 caracteres.",
             "string.pattern.base": "La marca solo puede contener letras.",
         }),
