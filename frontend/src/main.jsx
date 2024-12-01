@@ -10,8 +10,10 @@ import Bicicletas from '@pages/Bicicletas';
 import Inventario from '@pages/Inventario';
 import NotificacionesTable from '@pages/Notificaciones';
 import EstadisticasInventarioprueba from '@pages/EstadisticasInventarioprueba';
+import EstadisticasBicicletasprueba from '@pages/EstadisticasBicicletasprueba';
 import ProtectedRoute from '@components/ProtectedRoute';
 import '@styles/styles.css';
+//import '@styles/index.css'; si lo activo, se desconfigura to
 
 const router = createBrowserRouter([
   {
@@ -60,6 +62,14 @@ const router = createBrowserRouter([
         element: (
         <ProtectedRoute allowedRoles={['administrador']}>
           <EstadisticasInventarioprueba />
+        </ProtectedRoute>
+        )
+      },
+      {
+        path: '/estadisticas/bicicletas',
+        element: (
+        <ProtectedRoute allowedRoles={['administrador']}>
+          <EstadisticasBicicletasprueba />
         </ProtectedRoute>
         )
       }
