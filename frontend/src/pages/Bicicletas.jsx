@@ -1,7 +1,7 @@
 import Table from '../components/Table';
 import useBicicletas from '../hooks/bicicletas/useGetBicicletas';
 import Search from '../components/Search';
-import Popup from '../components/Popup';
+import FormularioBicis from '../components/FormularioBicis.jsx';
 import DeleteIcon from '../assets/deleteIcon.svg';
 import AddIcon from '../assets/Addicon.svg';
 import AddiconDisable from '../assets/AddiconDisable.svg';
@@ -17,7 +17,6 @@ import useDeleteBicicleta from '../hooks/bicicletas/useDeleteBicicleta';
 const Bicicletas = () => {
     const { bicicletas, fetchBicicletas, setBicicletas } = useBicicletas();
     const [filterNumeroSerie, setFilterNumeroSerie] = useState('');
-    const [selectedBikes, setSelectedBikes] = useState([]);
 
     const {
         handleClickUpdate,
@@ -37,25 +36,10 @@ const Bicicletas = () => {
     };
 
     const handleSelectionChange = useCallback((selectedRows) => {
-        setSelectedBikes(selectedRows);
-    }, []);
+        setDataBicicleta(selectedRows);
+    }, [setDataBicicleta]);
 
     const columns = [
-        {
-            title: "",
-            field: "select",
-            width: 50,
-            render: rowData => (
-                <div style={{ textAlign: "center" }}>
-                    <input
-                        type="checkbox"
-                        value={rowData.id}
-                        onChange={() => console.log(`Checkbox clicked: ${rowData.id}`)}
-                        style={{ cursor: "pointer", visibility: "visible" }}
-                    />
-                </div>
-            )
-        },
         { title: "ID", field: "id", width: 55, responsive: 0 },
         { title: "Número de Serie", field: "numeroSerie", width: 200, responsive: 0 },
         { title: "Marca", field: "marca", width: 200, responsive: 0 },
@@ -76,15 +60,15 @@ const Bicicletas = () => {
                         <button onClick={handleCreate}>
                             <img src={AddIcon} alt="add" />
                         </button>
-                        <button onClick={handleClickUpdate} disabled={selectedBikes.length === 0}>
-                            {selectedBikes.length === 0 ? (
+                        <button onClick={handleClickUpdate} disabled={dataBicicleta.length === 0}>
+                            {dataBicicleta.length === 0 ? (
                                 <img src={UpdateIconDisable} alt="edit-disabled" />
                             ) : (
                                 <img src={UpdateIcon} alt="edit" />
                             )}
                         </button>
-                        <button className='delete-bicicleta' disabled={selectedBikes.length === 0} onClick={() => handleDelete(selectedBikes)}>
-                            {selectedBikes.length === 0 ? (
+                        <button className='delete-bicicleta' disabled={dataBicicleta.length === 0} onClick={() => handleDelete(dataBicicleta)}>
+                            {dataBicicleta.length === 0 ? (
                                 <img src={DeleteIconDisable} alt="delete-disabled" />
                             ) : (
                                 <img src={DeleteIcon} alt="delete"/>
@@ -101,7 +85,7 @@ const Bicicletas = () => {
                     onSelectionChange={handleSelectionChange}
                 />
             </div>
-            <Popup show={isPopupOpen} setShow={setIsPopupOpen} data={selectedBikes} action={handleUpdate} />
+            <FormularioBicis show={isPopupOpen} setShow={setIsPopupOpen} data={dataBicicleta} action={handleUpdate} />
         </div>
     );
 };
