@@ -16,6 +16,38 @@ export async function getBicicletasPorTipo() {
     }
 }
 
+// Servicio para obtener bicicletas a la venta
+export async function getBicicletasVenta() {
+    try {
+        const { data: bicicletasVentaData } = await axios.get('/estadisticasBici/ventabici', {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return bicicletasVentaData.data;
+    } catch (error) {
+        console.error("Error al obtener bicicletas a la venta:", error);
+        return error.response.data;
+    }
+}
+
+// Servicio para oobtener bicicletas por aro
+export async function getBicicletasPorAro() {
+    try {
+        const { data: bicicletasPorAroData } = await axios.get('/estadisticasBici/arobici', {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return bicicletasPorAroData.data;
+    } catch (error) {
+        console.error("Error al obtener bicicletas por aro:", error);
+        return error.response.data;
+    }
+}
+
 export default {
-    getBicicletasPorTipo
+    getBicicletasPorTipo,
+    getBicicletasVenta,
+    getBicicletasPorAro
 };
