@@ -1,6 +1,6 @@
 "use strict";
 import { Router } from "express";
-import { getBicicletasPorTipoController } from "../controllers/estadisticasBici.controller.js";
+import {  getBicicletasPorAroController, getBicicletasPorTipoController, getBicicletasVentasController } from "../controllers/estadisticasBici.controller.js";
 import { authenticateJwt } from "../middlewares/authentication.middleware.js";
 import { isAdmin } from "../middlewares/authorization.middleware.js";
 
@@ -13,6 +13,8 @@ router
 
 // Define rutas para las estadísticas de bicicletas
 router
-    .get("/tipobici", getBicicletasPorTipoController);
+    .get("/tipobici", getBicicletasPorTipoController)
+    .get("/ventabici", getBicicletasVentasController)
+    .get("/arobici", getBicicletasPorAroController);
 
 export default router;
