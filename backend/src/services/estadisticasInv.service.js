@@ -58,28 +58,6 @@ export async function getProductosBajoStockYRestockSugerido() {
     }
 }
 
-
-//Retorna total del inventario y el bajo stock (funciona) podría hacer gráfico doble?
-export async function obtenerEstadisticasInventario() {
-    try {
-        const inventarioRepository = AppDataSource.getRepository(Inventario);
-        //Contar el total de productos en inventario
-        const totalItems = await inventarioRepository.count();
-
-        //Productos con bajo stock
-        const lowStockItems = await inventarioRepository.find({
-        where: { cantidadStock: LessThan(5) },
-        select: ["id", "nombreStock", "cantidadStock"]
-    });
-
-        return [totalItems, lowStockItems];
-
-    } catch (error) {
-    console.error("Error obteniendo estadísticas del inventario:", error);
-    return [null, "Error interno del servidor"];
-    }
-}
-
 // Función para obtener el rango de fechas de una estación
 function obtenerRangoFechasEstacion(estacion) {
     const year = new Date().getFullYear();
