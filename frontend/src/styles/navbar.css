@@ -298,55 +298,42 @@
 }
 
 /*Para DarkMode*/
-body {
-    background-color: #f0f0f0;
-    color: #000;
-    transition: background-color 0.3s, color 0.3s;
-}
 
 body.dark-mode {
+	background-color: #1f1f1f;
+    color: #bbb;
+
+	h1{
+		color: #bbb;
+	}
+
+	.horizontal-navbar  {
+		background-color: #121212;
+	}
+
+	.navbar {
     background-color: #121212;
-    color: #fff;
-}
+	}
 
-.horizontal-navbar {
-    background-color: #092B50;
-}
+	.nav-menu ul li a   {
+		color: #bbb;
+	}
 
-.horizontal-navbar.dark-mode {
-    background-color: #1c1c1c;
-}
+	.nav-menu ul li a.active   {
+		background-color: #1f1f1f;
+		color: #bbb;
+	}
 
-.navbar {
-    background-color: #092B50;
-}
+	li :not(.active)::before{
+		background-color: #bbb;
+	}
 
-.navbar.dark-mode {
-    background-color: #1c1c1c;
-}
+	.recharts-wrapper{
+		background-color: #1f1f1f;
+	}
 
-.nav-menu ul li a {
-    color: white;
-}
-
-.nav-menu ul li a.dark-mode {
-    color: #bbb;
-}
-
-.nav-menu ul li a.active {
-    background-color: #DBFCD1;
-    color: #001B32;
-}
-
-.nav-menu ul li a.active.dark-mode {
-    background-color: #333;
-    color: #fff;
-}
-
-.icon {
-    color: white;
-}
-
-.icon.dark-mode {
-    color: #bbb;
+	.icon{
+		color: #bbb;
+	}
+	
 }
