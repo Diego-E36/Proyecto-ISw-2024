@@ -10,6 +10,8 @@ import materialesRoutes from "./materiales.routes.js";
 import notificacionesRoutes from "./notificaciones.routes.js";
 import emailRoutes from "./email.routes.js";
 import servicioRoutes from "./servicio.routes.js";
+import proveedoresRoutes from "./proveedores.routes.js";
+
 
 const router = Router();
 
@@ -23,6 +25,7 @@ router
     .use("/materiales", materialesRoutes)
     .use("/notificaciones", notificacionesRoutes)
     .use("/email", emailRoutes)
-    .use("/servicio", servicioRoutes);
+    .use("/servicio", servicioRoutes)
+    .use("/proveedores", proveedoresRoutes);
 
 export default router;
