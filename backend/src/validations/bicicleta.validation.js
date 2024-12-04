@@ -58,16 +58,16 @@ export const bicicletaBodySchema = Joi.object({
     modelo: Joi.string()
         .min(3)
         .max(50)
-        .pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)
+        .pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ \s]+$/)
         .messages({
             "string.empty": "El modelo no puede estar vacío.",
             "string.base": "El modelo debe ser de tipo string.",
             "string.min": "El modelo debe tener como mínimo 5 caracteres.",
             "string.max": "El modelo debe tener como.maxcdn 50 caracteres.",
-            "string.pattern.base": "El modelo solo puede contener letras.",
+            "string.pattern.base": "El modelo solo puede contener letras, números y espacios.",
         }),
     color: Joi.string()
-        .min(4)
+        .min(3)
         .max(20)
         .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
         .messages({
