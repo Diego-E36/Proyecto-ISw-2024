@@ -1,10 +1,10 @@
 import Table from '../components/Table';
 import useBicicletas from '../hooks/bicicletas/useGetBicicletas';
 import Search from '../components/Search';
-import FormularioBicis from '../components/FormularioBicis.jsx';
+import FormularioEditBicis from '@components/FormularioEditBicis.jsx';
+import FormularioCreateBicis from '@components/FormularioCreateBicis.jsx';
 import DeleteIcon from '../assets/deleteIcon.svg';
 import AddIcon from '../assets/Addicon.svg';
-import AddiconDisable from '../assets/AddiconDisable.svg';
 import UpdateIcon from '../assets/updateIcon.svg';
 import UpdateIconDisable from '../assets/updateIconDisabled.svg';
 import DeleteIconDisable from '../assets/deleteIconDisabled.svg';
@@ -29,7 +29,10 @@ const Bicicletas = () => {
 
     const { handleDelete } = useDeleteBicicleta(fetchBicicletas, setDataBicicleta);
 
-    const { handleCreate } = useCreateBicicleta(fetchBicicletas, setBicicletas);
+    const { handleCreate,
+        isPopupOpenCreate,
+        setIsPopupOpenCreate
+    } = useCreateBicicleta(fetchBicicletas, setBicicletas);
 
     const handleNumeroSerieFilterChange = (e) => {
         setFilterNumeroSerie(e.target.value);
@@ -57,10 +60,10 @@ const Bicicletas = () => {
                     <h1 className='title-table'>Bicicletas</h1>
                     <div className='filter-actions'>
                         <Search value={filterNumeroSerie} onChange={handleNumeroSerieFilterChange} placeholder={'Filtrar por número de serie'} />
-                        <button onClick={handleCreate}>
-                            <img src={AddIcon} alt="add" />
+                        <button className='create-bicicleta' onClick={() => setIsPopupOpenCreate(true)}>
+                            <img src={AddIcon}/>
                         </button>
-                        <button onClick={handleClickUpdate} disabled={dataBicicleta.length === 0}>
+                        <button className='edit-bicicleta' onClick={handleClickUpdate} disabled={dataBicicleta.length === 0}>
                             {dataBicicleta.length === 0 ? (
                                 <img src={UpdateIconDisable} alt="edit-disabled" />
                             ) : (
@@ -85,7 +88,8 @@ const Bicicletas = () => {
                     onSelectionChange={handleSelectionChange}
                 />
             </div>
-            <FormularioBicis show={isPopupOpen} setShow={setIsPopupOpen} data={dataBicicleta} action={handleUpdate} />
+            <FormularioCreateBicis show={isPopupOpenCreate} setShow={setIsPopupOpenCreate} action={handleCreate} />
+            <FormularioEditBicis show={isPopupOpen} setShow={setIsPopupOpen} data={dataBicicleta} action={handleUpdate} />
         </div>
     );
 };
