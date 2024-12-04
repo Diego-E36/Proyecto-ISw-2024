@@ -13,6 +13,7 @@ const useCreateBicicleta = (fetchBicicletas) => {
         aro: "",
         venta: "",
     });
+    const [isPopupOpenCreate, setIsPopupOpenCreate] = useState(false);
 
     const createBicicleta = async (bicicleta) => {
         try {
@@ -22,20 +23,24 @@ const useCreateBicicleta = (fetchBicicletas) => {
             } else {
                 showSuccessAlert("Bicicleta creada exitosamente");
                 fetchBicicletas();
+                setIsPopupOpenCreate(false);
             }
         } catch (error) {
             console.error("Error: ", error);
         }
     };
 
-    useEffect(() => {
-        fetchBicicletas();
-    }, []);
+    const handleCreate = (formData) => {
+        createBicicleta(formData).then(); // Pasar los datos recibidos desde el formulario
+    };
 
     return {
         createBicicleta,
         bicicleta,
         setBicicleta,
+        isPopupOpenCreate,
+        setIsPopupOpenCreate,
+        handleCreate
     };
 };
 
