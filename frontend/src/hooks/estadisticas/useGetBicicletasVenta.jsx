@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import estadisticasBiciService from '@services/estadisticasBici.service.js';
 
 const useGetBicicletasVenta = () => {
-    const [bicicletasVenta, setBicicletasVenta] = useState([]);
+    const [bicicletasVenta, setBicicletasVenta] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -11,7 +11,12 @@ const useGetBicicletasVenta = () => {
         const fetchBicicletasVenta = async () => {
             try {
                 const data = await estadisticasBiciService.getBicicletasVenta();
-                setBicicletasVenta(data);
+
+                if (data && Array.isArray(data)) {
+                    setBicicletasVenta(data.length > 0 ? data : []);
+                } else {
+                    setBicicletasVenta([]);
+                }
             } catch (error) {
                 setError(error);
             } finally {
