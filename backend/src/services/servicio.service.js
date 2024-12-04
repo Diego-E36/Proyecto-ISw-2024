@@ -2,7 +2,7 @@
 import { AppDataSource } from "../config/configDb.js";
 import Servicio from "../entity/servicio.entity.js";
 
-export async function createServicio(dataServicio) {
+export async function createServicioService(dataServicio) {
     try{
         const servicioRepository = AppDataSource.getRepository(Servicio);
 
@@ -27,7 +27,7 @@ export async function createServicio(dataServicio) {
     }
 }
 
-export async function getServicio(query) {
+export async function getServicioService(query) {
     try{
         const { id, id_bicicleta } = query;
 
@@ -48,7 +48,7 @@ export async function getServicio(query) {
     }
 }
 
-export async function updateServicio(query, body) {
+export async function updateServicioService(query, body) {
     try{
         const { id, id_bicicleta } = query;
 
@@ -80,7 +80,7 @@ export async function updateServicio(query, body) {
     }
 }
 
-export async function deleteServicio(query) {
+export async function deleteServicioService(query) {
     try{
         const { id } = query;
 
@@ -101,7 +101,7 @@ export async function deleteServicio(query) {
     }
 }
 
-export async function getAllServicios() {
+export async function getAllServiciosService() {
     try{
         const servicioRepository = AppDataSource.getRepository(Servicio);
 
