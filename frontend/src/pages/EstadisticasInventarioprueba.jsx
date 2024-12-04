@@ -3,11 +3,17 @@ import EstadisticasInventarioChart from '../components/EstadisticasInventarioCha
 
 const EstadisticasInventarioprueba = () => {
     return (
-        <div className='main-container' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: '20px', paddingTop: '20px', heigh: '100vh' }}>
-            <div className='table-container' style={{ width: '80%'}}>
-                <div className='top-table' style={{ marginBottom: '20px' }}>
-                    <h1 className='title-table' style={{ textAlign: 'center' }}>Estadísticas del Inventario</h1>
-                </div>
+        <div
+            className='main-container'
+            style={{
+                display: 'grid',
+                gridTemplateRows: 'auto 1fr', //crezcan dinámicamente
+                minHeight: '100vh',
+            }}
+        >
+            <div className='top-table' style={{ marginBottom: '20px', textAlign: 'center' }}>
+            </div>
+            <div className='table-container' style={{ width: '97.4%', margin: '0' }}>
                 <EstadisticasInventarioChart />
             </div>
         </div>
