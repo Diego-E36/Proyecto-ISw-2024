@@ -3,15 +3,16 @@ import '@styles/popup.css';
 import CloseIcon from '@assets/XIcon.svg';
 import QuestionIcon from '@assets/QuestionCircleIcon.svg';
 
-export default function Popup({ show, setShow, data, action }){
+export default function EditBici({show, setShow, data, action}){
     const biciData = data && data.length > 0 ? data[0] : {};
 
     const handleSubmit = (formData) => {
         action(formData);
     };
 
-    const patron = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+    const patron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ \s]+$/;
     const patronSN = /^[0-9a-zA-Z\s]+$/;
+    const patronSL = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
 
     return(
         <div>
@@ -73,7 +74,7 @@ export default function Popup({ show, setShow, data, action }){
                                     required: true,
                                     minLength: 4,
                                     maxLength: 20,
-                                    pattern: patron,
+                                    pattern: patronSL,
                                     patternMessage: "Debe contener solo letras",
                                 },
                                 {
