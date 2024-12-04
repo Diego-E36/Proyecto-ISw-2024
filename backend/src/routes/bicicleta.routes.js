@@ -7,10 +7,12 @@
     getBici,
     updateBici,
  } from "../controllers/bicicleta.controller.js";
+ import { authenticateJwt } from "../middlewares/authentication.middleware.js";
 
  const router = Router();
 
  router
+        .use(authenticateJwt)
         .post("/", createBici)
         .get("/", getAllBici)
         .get("/:id", getBici)
