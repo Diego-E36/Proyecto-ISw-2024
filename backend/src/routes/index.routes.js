@@ -9,6 +9,7 @@ import bicicletaRoutes from "./bicicleta.routes.js";
 import materialesRoutes from "./materiales.routes.js";
 import notificacionesRoutes from "./notificaciones.routes.js";
 import emailRoutes from "./email.routes.js";
+import servicioRoutes from "./servicio.routes.js";
 
 const router = Router();
 
@@ -21,6 +22,7 @@ router
     .use("/inventario", invRoutes)
     .use("/materiales", materialesRoutes)
     .use("/notificaciones", notificacionesRoutes)
-    .use("/email", emailRoutes);
+    .use("/email", emailRoutes)
+    .use("/servicio", servicioRoutes);
 
 export default router;
