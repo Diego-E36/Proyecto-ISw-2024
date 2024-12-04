@@ -20,14 +20,9 @@ const useEditBicicleta = (setBicicletas) => {
                 showSuccessAlert('¡Actualizado!','La bicicleta ha sido actualizada correctamente.');
                 setIsPopupOpen(false);
                 const formattedBicicleta = formatPostBicicletas(updatedBicicleta);
-
-                setBicicletas(prevBicicletas => prevBicicletas.map(bicicleta => {
-                    console.log("Bicicleta actual:", bicicleta);
-                    if (bicicleta.id === formattedBicicleta.id) {
-                        console.log("Reemplazando con:", formattedBicicleta);
-                    }
-                    return bicicleta.id === formattedBicicleta.id ? formattedBicicleta : bicicleta;
-                }));
+                setBicicletas(prevBicicletas => prevBicicletas.map(bicicleta =>
+                    bicicleta.id === formattedBicicleta.id ? formattedBicicleta : bicicleta
+                ));
 
                 setDataBicicleta([]);
             }catch(error){
