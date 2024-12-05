@@ -5,6 +5,7 @@ import Bicicleta  from "../entity/bicicleta.entity.js";
 export async function createBicicletaService(dataBicicleta) {
     try {
         const bicicletaRepository = AppDataSource.getRepository(Bicicleta);
+
         
         const newBicicleta = bicicletaRepository.create({
             numeroSerie: dataBicicleta.numeroSerie,
@@ -49,12 +50,12 @@ export async function getBicicletaService(query) {
 
 export async function updateBicicletaService(query, body) {
     try{
-        const { id, numeroSerie } = query;
+        const { id } = query;
 
         const bicicletaRepository = AppDataSource.getRepository(Bicicleta);
 
         const bicicletaFound = await bicicletaRepository.findOne({
-            where: [{ id: id }, { numeroSerie: numeroSerie }],
+            where: [{ id: id }],
         });
 
         if(!bicicletaFound) return [null, "Bicicleta no encontrada"];
