@@ -13,6 +13,20 @@ export default function EditBici({show, setShow, data, action}){
     const patron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ \s]+$/;
     const patronSN = /^[0-9a-zA-Z\s]+$/;
     const patronSL = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+    let dineroVenta = 0;
+    try {
+
+        const dineroAInt = (str) => {
+            return parseInt(str.replace(/[$.]/g, ''), 10);
+        }
+        dineroVenta = dineroAInt(biciData.venta);
+        if (isNaN(dineroVenta)) {
+            dineroVenta = 0;
+        }
+        console.log(dineroVenta);
+    }catch (e) {
+        console.log(e);
+    }
 
     return(
         <div>
@@ -112,7 +126,7 @@ export default function EditBici({show, setShow, data, action}){
                                         </span>
                                     ),
                                     name: "venta",
-                                    defaultValue: biciData.venta || "",
+                                    defaultValue: dineroVenta || "0",
                                     placeholder: '100000',
                                     fieldType: 'input',
                                     type: 'number',
