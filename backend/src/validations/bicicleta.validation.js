@@ -122,5 +122,5 @@ export const bicicletaBodySchema = Joi.object({
     .unknown(false)
     .messages({
         "object.unknown": "No se permiten propiedades adicionales.",
-        "object.missing": "Debes proporcionar los parámetro: marca, modelo, color, tipo, aro y venta"
+        "object.missing": "Debes proporcionar los parámetros: marca, modelo, color, tipo, aro y venta"
     });
