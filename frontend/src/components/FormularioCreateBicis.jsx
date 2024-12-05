@@ -106,17 +106,17 @@ export default function CreateBici({ show, setShow, action }) {
                                             Venta
                                             <span className='tooltip-icon'>
                                                 <img src={QuestionIcon} />
-                                                <span className='tooltip-text'>Este campo es opcional, si no se ingresa un valor, se considerará que la bicicleta no está a la venta.</span>
+                                                <span className='tooltip-text'>Este campo es opcional, si no se ingresa un valor, será 0 y se considerará que la bicicleta no está a la venta.</span>
                                             </span>
                                         </span>
                                     ),
                                     name: "venta",
-                                    defaultValue: "",
+                                    defaultValue: "0",
                                     placeholder: '100000',
                                     fieldType: 'input',
                                     type: 'number',
                                     required: false,
-                                    min: 1,
+                                    min: 0,
                                 }
                             ]}
                             onSubmit={handleSubmit}
