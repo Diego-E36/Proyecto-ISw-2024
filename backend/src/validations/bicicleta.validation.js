@@ -102,13 +102,11 @@ export const bicicletaBodySchema = Joi.object({
         }),
     venta: Joi.number()
         .integer()
-        .positive()
-        .allow(null)
-        .min(1)
+        .min(0)
         .messages({
             "number.base": "La venta debe ser de tipo número",
             "number.integer": "La venta debe ser de tipo número entero",
-            "number.min": "La venta debe ser como mínimo 1",
+            "number.min": "La venta debe ser como mínimo 0",
             "number.positive": "La venta debe ser un número positivo",
         })
 })
