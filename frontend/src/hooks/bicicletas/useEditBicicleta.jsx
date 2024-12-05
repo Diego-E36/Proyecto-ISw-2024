@@ -16,7 +16,8 @@ const useEditBicicleta = (setBicicletas) => {
     const handleUpdate = async (updatedBicicletaData) => {
         if(updatedBicicletaData){
             try{
-                const updatedBicicleta = await updateBicicletas(updatedBicicletaData, dataBicicleta[0].id);
+                const dataUpdate = { ...updatedBicicletaData };
+                const updatedBicicleta = await updateBicicletas(dataUpdate, dataBicicleta[0].id);
                 showSuccessAlert('¡Actualizado!','La bicicleta ha sido actualizada correctamente.');
                 setIsPopupOpen(false);
                 const formattedBicicleta = formatPostBicicletas(updatedBicicleta);
