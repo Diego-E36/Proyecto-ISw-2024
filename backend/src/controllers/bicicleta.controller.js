@@ -81,10 +81,6 @@ export async function createBici(req, res) {
     }
 }
 
-
-
-
-
 export async function updateBici(req, res){
     try {
         const { id } = req.query;
@@ -109,7 +105,7 @@ export async function updateBici(req, res){
 
 export async function deleteBici(req, res){
     try {
-        const { id } = req.query;
+        const { id } = req.params;
 
         const { error: queryError } = bicicletaQuerySchema.validate({ id });
 
