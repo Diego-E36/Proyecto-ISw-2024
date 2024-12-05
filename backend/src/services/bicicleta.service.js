@@ -100,12 +100,12 @@ export async function updateBicicletaService(query, body) {
 
 export async function deleteBicicletaService(query) {
     try{
-        const { id, numeroSerie } = query;
+        const { id } = query;
 
         const bicicletaRepository = AppDataSource.getRepository(Bicicleta);
 
         const bicicletaFound = await bicicletaRepository.findOne({
-            where: [{ id: id }, { numeroSerie: numeroSerie }],
+            where: [{ id: id }],
         });
 
         if (!bicicletaFound) return [null, "Bicicleta no encontrada"];
