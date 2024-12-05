@@ -22,7 +22,7 @@ export async function updateBicicletas(data, id) {
 
 export async function deleteBicicletas(id) {
     try {
-        const response = await axios.delete(`/bicicleta/detail/?id=${id}`);
+        const response = await axios.delete(`/bicicleta/${id}`);
         return response.data;
     } catch (error) {
         return error.response.data
