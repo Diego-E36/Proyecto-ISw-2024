@@ -54,11 +54,11 @@ export async function getAllBici(req, res) {
 export async function createBici(req, res) {
     try {
         const bicicleta = req.body;
-
         // Validación del esquema de datos
         const { error } = bicicletaBodySchema.validate(bicicleta);
-        if (error) return handleErrorClient(res, 400, "Error de validación en los datos", error.message);
-
+        if (error) {
+            return handleErrorClient(res, 400, "Error de validación en los datos", error.message);
+        }
         // Verificación de duplicados en numeroSerie
         const [existingBici, errorExistingBici] = await getBicicletaService({
             numeroSerie: bicicleta.numeroSerie // Solo buscamos por numeroSerie
@@ -87,11 +87,9 @@ export async function createBici(req, res) {
 
 export async function updateBici(req, res){
     try {
-        const { id }  = req.params;
-        const { numeroSerie } = req.query;
+        const { id } = req.query;
         const { body } = req;
-
-        const { error: queryError } = bicicletaQuerySchema.validate({ id, numeroSerie });
+        const { error: queryError } = bicicletaQuerySchema.validate({ id });
 
         if (queryError) return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
 
@@ -99,7 +97,7 @@ export async function updateBici(req, res){
 
         if (bodyError) return handleErrorClient(res, 400, "Error de validación en los datos enviados", bodyError.message);
         
-        const [bicicleta, errorBicicleta] = await updateBicicletaService({ id, numeroSerie }, body);
+        const [bicicleta, errorBicicleta] = await updateBicicletaService({ id }, body);
         
         if (errorBicicleta) return handleErrorClient(res, 404, errorBicicleta);
 
