@@ -10,22 +10,20 @@ export default function EditBici({show, setShow, data, action}){
         action(formData);
     };
 
-    const patron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ \s]+$/;
+    const patron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ +\s]+$/;
     const patronSN = /^[0-9a-zA-Z\s]+$/;
     const patronSL = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
-    let dineroVenta = 0;
-    try {
 
-        const dineroAInt = (str) => {
+    // Manejo del valor de venta:
+    let dineroVenta;
+    const dineroAInt = (str) => {
+        if(str){
             return parseInt(str.replace(/[$.]/g, ''), 10);
         }
-        dineroVenta = dineroAInt(biciData.venta);
-        if (isNaN(dineroVenta)) {
-            dineroVenta = 0;
-        }
-        console.log(dineroVenta);
-    }catch (e) {
-        console.log(e);
+    }
+    dineroVenta = dineroAInt(biciData.venta);
+    if (isNaN(dineroVenta)) {
+        dineroVenta = 0;
     }
 
     return(
