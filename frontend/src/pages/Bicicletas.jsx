@@ -25,7 +25,7 @@ const Bicicletas = () => {
         setIsPopupOpen,
         dataBicicleta,
         setDataBicicleta
-    } = useEditBicicleta(setBicicletas);
+    } = useEditBicicleta(fetchBicicletas, setBicicletas);
 
     const { handleDelete } = useDeleteBicicleta(fetchBicicletas, setDataBicicleta);
 
