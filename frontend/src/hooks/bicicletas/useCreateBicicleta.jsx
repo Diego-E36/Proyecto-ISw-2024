@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createBicicletas } from "@services/bicicletas.service.js";
 import { showErrorAlert, showSuccessAlert } from "@helpers/sweetAlert.js";
-import { formatPostBicicletas } from "@helpers/formatBicicletas.js";
 
 const useCreateBicicleta = (fetchBicicletas) => {
     const [bicicleta, setBicicleta] = useState({
@@ -17,7 +16,7 @@ const useCreateBicicleta = (fetchBicicletas) => {
 
     const createBicicleta = async (bicicleta) => {
         try {
-            const response = await createBicicletas(formatPostBicicletas(bicicleta));
+            const response = await createBicicletas(bicicleta);
             if (response.error) {
                 showErrorAlert(response.message);
             } else {
