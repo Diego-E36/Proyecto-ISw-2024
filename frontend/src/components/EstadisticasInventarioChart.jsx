@@ -93,7 +93,7 @@ const EstadisticasInventarioChart = () => {
     
     return (
         <div>
-            <h1 className="title-table">Estadísticas del Inventario</h1>
+            <h1 className="title-table2">Estadísticas del Inventario</h1>
             <div className="App">
                 <div className="dataCard revenueCard">
                     <h2 style={{ textAlign: 'center' }}>Gráfico de Stock de Inventario</h2>
