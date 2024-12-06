@@ -15,7 +15,14 @@ const BarChartComponent = ({ data }) => (
             <YAxis />
             <Tooltip />
             <Legend verticalAlign="top" />
-            <Bar dataKey="cantidadStock" fill="#8884d8" />
+            <Bar 
+            dataKey="cantidadStock" 
+            fill="#8884d8"
+            animationBegin={0}
+            animationDuration={1500}
+            animationEasing='ease-out'
+            isAnimationActive={true}
+            />
         </BarChart>
     </ResponsiveContainer>
 );
@@ -28,12 +35,22 @@ const DistribucionProductosPorProveedorChart = ({ data }) => (
             <YAxis />
             <Tooltip />
             <Legend verticalAlign="top" />
-            <Bar dataKey="cantidad" fill="#8884d8" />
+            <Bar dataKey="cantidad" 
+            fill="#8884d8"
+            />
         </BarChart>
     </ResponsiveContainer>
 );
 
-const ProductosBajoStockYRestockChart = ({ data }) => (
+const ProductosBajoStockYRestockChart = ({ data }) => {
+    if (data.length === 0) {
+        return (
+            <div className='no-data-message-title'>
+                No hay productos con bajo stock para mostrar en el gráfico.
+            </div>
+        );
+    }
+    return (
     <ResponsiveContainer width="100%" height={500}>
         <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -50,12 +67,20 @@ const ProductosBajoStockYRestockChart = ({ data }) => (
                     strokeDasharray="3 3"
                 />
             ))}
-            <Bar dataKey="cantidadStock" fill="#8884d8" name="Bajo Stock" />
-            <Bar dataKey="restockSugerido" fill="#82ca9d" name="Restock Sugerido" />
+            <Bar 
+            dataKey="cantidadStock" 
+            fill="#8884d8" 
+            name="Bajo Stock" 
+            />
+            <Bar 
+            dataKey="restockSugerido" 
+            fill="#82ca9d" 
+            name="Restock Sugerido" 
+            />
         </BarChart>
     </ResponsiveContainer>
-);
-
+    );
+};
 const EstadisticasInventarioChart = () => {
     const { inventario, loading: loadingInventario, error: errorInventario } = useGetNombreYCantidadInventario();
     const { distribucion, loading: loadingDistribucion, error: errorDistribucion } = useGetDistribucionProductosPorProveedor();

@@ -1,3 +1,4 @@
+/*cuadro principal*/
 .App {
     min-height: 100vh;
     width: 100%;
@@ -10,6 +11,7 @@
     border-radius: 0.5em;
 }
 
+/*cuadros secundarios*/
 .dataCard {
     background-color: #efefef;
     border-radius: 1em;
@@ -20,9 +22,10 @@
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: visible;
 }
 
+/*titulos de los gráficos*/
 .dataCard h2 {
     margin: 0 0 1rem 0;
     font-size: 1.5rem;
@@ -30,25 +33,50 @@
     word-wrap: break-word;
 }
 
-/*principal*/
+/*cuadro gráfico principal*/
 .revenueCard {
     grid-column: 1 / 3;
     width: 100%;
     height: 33rem; 
 }
 
-/*los de abajo */
+/*cuadros gráficos de abajo */
 .customerCard,
 .categoryCard {
-    width: 100%; /*ancho del contenedor*/
+    width: 100%; 
     height: 33rem;
 }
 
-/*titulos de los gráficos*/
+/*titulo principal*/
 .title-table {
     font-size: 2rem; 
-    margin: 3rem 0; /*espaciado*/
+    margin: 3rem 0; 
     text-align: left;
     white-space: normal; /*texto se ajusta al ancho del contenedor*/
 }
 
+/*titulos de los gráficos sin datos*/
+.no-data-message-title{
+    display: flex;
+    align-items: center;
+    height: 500px;
+}
+
+/*estructura general del contenedor*/
+.main-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    min-height: 100vh;
+}
+
+/*regula titulo principal*/
+.top-table {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/*ancho del contenedor*/
+.table-container {
+    width: 97.4%;
+    margin: 0;
+}

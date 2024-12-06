@@ -11,7 +11,15 @@ const useProductosBajoStockYRestockSugerido = () => {
         const fetchProductos = async () => {
             try {
                 const data = await estadisticasService.getProductosBajoStockYRestockSugerido();
-                setProductos(data);
+                
+                if (data && Array.isArray(data)) {
+                    if (data.length > 0) {
+                        setProductos(data);
+                    } 
+                }
+                else {
+                    setProductos([]);
+                    }
             } catch (error) {
                 setError(error);
             } finally {

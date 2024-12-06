@@ -13,7 +13,12 @@ const useGetBicicletasVenta = () => {
                 const data = await estadisticasBiciService.getBicicletasVenta();
 
                 if (data && Array.isArray(data)) {
-                    setBicicletasVenta(data.length > 0 ? data : []);
+                    const allValuesAreZero = data.every(item => item.venta === 0);
+                    if (allValuesAreZero) {
+                        setBicicletasVenta([]);
+                    } else {
+                        setBicicletasVenta(data);
+                    }
                 } else {
                     setBicicletasVenta([]);
                 }
