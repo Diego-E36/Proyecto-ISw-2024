@@ -93,8 +93,7 @@
 }
 
 .navbar details ul li a:hover {
-    background-color: #f0f0f0;
-    color: #092B50;
+    color: #ffffff;
 }
 
 .navbar ul {
@@ -133,7 +132,6 @@
     left: 0;
     width: 90%;
     height: 2px;
-    background-color: #DBFCD1;
     transform: scaleX(0);
     transform-origin: bottom;
     transition: transform 0.3s ease;
@@ -146,8 +144,8 @@
 
 .navbar ul li a.active {
     font-weight: bold;
-    background-color: #DBFCD1;
-    color: #001B32;
+    background-color: #121228;
+    color: #ffffff;
     margin: 0;
     padding-bottom: 0;
     border: 0;
@@ -325,12 +323,13 @@ body.dark-mode {
 	}
 
 	li :not(.active)::before{
-		background-color: #bbb;
+		background-color: #121212;
 	}
 
 	.recharts-wrapper{
 		background-color: #1f1f1f;
 	}
+
 
 	.icon{
 		color: #bbb;
