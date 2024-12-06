@@ -10,17 +10,22 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
 
     useEffect(() => {
         if (tableRef.current) {
+            
             const updatedColumns = [
+                
                 { 
                     formatter: "rowSelection", 
                     titleFormatter: false, 
                     hozAlign: "center", 
-                    headerSort: false, 
+                    headerSort: false,
+                    frozen: true,
+                    responsive: 0,
+                    
                     cellClick: function (e, cell) {
                         cell.getRow().toggleSelect();
                     } 
                 },
-                ...columns
+                ...columns,
             ];
             const tabulatorTable = new Tabulator(tableRef.current, {
                 data: [],
