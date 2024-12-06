@@ -89,7 +89,9 @@ body.dark-mode {
         color: #000;
     }
 
-    
+    .tabulator-cell.tabulator-frozen{
+        background-color: #1f1f1f;
+    }
 
 /* Color de fondo del track (canal del scroll) */
     ::-webkit-scrollbar-track {
