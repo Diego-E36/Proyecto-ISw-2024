@@ -88,7 +88,7 @@ const EstadisticasBicicletasChart = () => {
 
     return (
     <div>
-        <h1 className="title-table"> Estadísticas de Bicicletas</h1>
+        <h1 className="title-table2"> Estadísticas de Bicicletas</h1>
         <div className="App">
             <div className="dataCard revenueCard">
                 <h2 style={{ textAlign: 'center' }}>Gráfico de Tipos de Bicicletas</h2>
