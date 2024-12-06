@@ -27,7 +27,7 @@ const BarChartComponent = ({ data }) => (
 const BarChartVentaComponent = ({ data }) => {
     if (data.length === 0) {
         return (
-            <div style={{ textAlign: 'center', padding: '20px' }}>
+            <div className='no-data-message-title'>
                 No hay bicicletas a la venta para mostrar en el gráfico.
             </div>
         );
@@ -43,8 +43,8 @@ const BarChartVentaComponent = ({ data }) => {
             >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="numeroSerieModelo" angle={-40} textAnchor="end" interval={0} height={100} />
-                <YAxis />
-                <Tooltip />
+                <YAxis tickFormatter={(value) => `$${value}`} />
+                <Tooltip formatter={(value) => `$${value}`}/>
                 <Legend verticalAlign="top" />
                 <Bar dataKey="venta" fill="#82ca9d" />
             </BarChart>
@@ -95,7 +95,7 @@ const EstadisticasBicicletasChart = () => {
                 <BarChartComponent data={bicicletasPorTipo} />
             </div>
             <div className="dataCard customerCard">
-                <h2 style={{ textAlign: 'center' }}>Gráfico de Bicicletas Vendidas</h2>
+                <h2 style={{ textAlign: 'center' }}>Gráfico de Bicicletas a la Venta</h2>
                 <BarChartVentaComponent data={bicicletasVenta} />
             </div>
             <div className="dataCard categoryCard">
