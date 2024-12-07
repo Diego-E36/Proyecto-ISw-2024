@@ -1,7 +1,9 @@
 "use strict";
 import {
     deleteNotificationService,
-    getAllNotificationsService   
+    getAllNotificationsService,   
+    getUnreadNotificationsService,
+    markAsReadService
 } from "../services/notificaciones.service.js";
 
 import {
@@ -38,4 +40,34 @@ export async function getAllNotifications(req, res) {
         handleErrorServer(res, 500, error.message);
     }
 }
+
+export async function getUnreadNotifications(req, res) {
+    try {
+        const[notificacion, errorNoti] = await getUnreadNotificationsService();
+
+        if (errorNoti) return handleErrorClient(res, 404, errorNoti);
+        notificacion.length === 0
+            ? handleSuccess(res, 204)
+            : handleSuccess(res, 200, "Notificaciones encontrada", notificacion);
+
+    } catch (error) {
+        handleErrorServer(res, 500, error.message);
+    }
+}
+
+export async function markAsRead(req, res) {
+    try{
+        const { id } = req.query;
+        
+        const [notificacion, errorNoti] = await markAsReadService({ id });
+        
+        if (errorNoti) return handleErrorClient(res, 404, errorNoti);
+
+        handleSuccess(res, 200, "Notificación leída", notificacion);
+    } catch (error){
+        handleErrorServer(res, 500, error.message);
+    }
+    
+}
+
 
