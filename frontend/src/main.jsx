@@ -8,6 +8,7 @@ import Error404 from '@pages/Error404';
 import Root from '@pages/Root';
 import Bicicletas from '@pages/Bicicletas';
 import Inventario from '@pages/Inventario';
+import Proveedores from '@pages/Proveedores';
 import NotificacionesTable from '@pages/Notificaciones';
 import EstadisticasInventarioprueba from '@pages/EstadisticasInventarioprueba';
 import EstadisticasBicicletasprueba from '@pages/EstadisticasBicicletasprueba';
@@ -30,6 +31,14 @@ const router = createBrowserRouter([
         element: (
         <ProtectedRoute allowedRoles={['administrador']}>
           <Users />
+        </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/proveedores',
+        element: (
+        <ProtectedRoute allowedRoles={['administrador']}>
+          <Proveedores />
         </ProtectedRoute>
         ),
       },
