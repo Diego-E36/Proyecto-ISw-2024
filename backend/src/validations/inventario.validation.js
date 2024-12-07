@@ -77,14 +77,13 @@ export const invBodyValidation = Joi.object({
             "string.min": "La marca de la unidad debe tener como mínimo 3 caracteres.",
             "string.max": "La marca de la unidad debe tener como máximo 50 caracteres.",
         }),
-    proveedor: Joi.string()
-        .min(3)
-        .max(50)
-        .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
+    id_proveedor: Joi.number()
+        .integer()
+        .positive()
         .messages({
-            "string.pattern.base": "El proveedor solo puede contener letras y espacios.",
-            "string.min": "El proveedor debe tener como mínimo 3 caracteres.",
-            "string.max": "El proveedor debe tener como máximo 50 caracteres.",
+            "number.base": "El id del proveedor debe ser un número.",
+            "number.integer": "El id del proveedor debe ser un número entero.",
+            "number.positive": "El id del proveedor debe ser un número positivo.",
         }),
     restockSugerido: Joi.number()
         .integer()
@@ -114,7 +113,7 @@ export const invBodyValidation = Joi.object({
         "descripcionUnidad", 
         "precioUnidad", 
         "marcaUnidad",
-        "proveedor",
+        "id_proveedor",
         "restockSugerido",
         "umbralMinimo",
         "boolMateriales"
@@ -122,6 +121,6 @@ export const invBodyValidation = Joi.object({
     .unknown(false)
     .messages({
         "object.unknown": "No se permiten propiedades adicionales.",
-        "object.missing": "Debes proporcionar al menos un parámetro: numeroSerie, nombreStock, cantidadStock, descripcionUnidad, precioUnidad, marcaUnidad, proveedor, restockSugerido, umbralMinimo o boolMateriales.",
+        "object.missing": "Debes proporcionar al menos un parámetro: numeroSerie, nombreStock, cantidadStock, descripcionUnidad, precioUnidad, marcaUnidad, id_proveedor, restockSugerido, umbralMinimo o boolMateriales.",
     });
 
