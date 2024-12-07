@@ -1,8 +1,9 @@
 "use strict";
-//import { useState } from 'react';
+import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import useGetBicicletasPorTipo from '@hooks/estadisticas/useGetBicicletasPorTipo.jsx';
+//import useGetBicicletasPorTipo from '@hooks/estadisticas/useGetBicicletasPorTipo.jsx';
 import useGetBicicletasVenta from '@hooks/estadisticas/useGetBicicletasVenta.jsx';
+import useGetBicicletasPorTipoMes from '@hooks/estadisticas/useGetBicicletasPorTipoMes.jsx';
 import useGetBicicletasPorAro from '@hooks/estadisticas/useGetBicicletasPorAro.jsx';
 import '@styles/Charts.css';
 
@@ -11,7 +12,42 @@ const COLORS = [
     '#A52A2A', '#808080', '#afa09d', '#D3D3D3'
 ];
 
-const BarChartComponent = ({ data }) => (
+
+const MonthSelector = ({ selectedMonth, onChange }) => {
+    const months = [
+        { value: 1, label: 'Enero' },
+        { value: 2, label: 'Febrero' },
+        { value: 3, label: 'Marzo' },
+        { value: 4, label: 'Abril' },
+        { value: 5, label: 'Mayo' },
+        { value: 6, label: 'Junio' },
+        { value: 7, label: 'Julio' },
+        { value: 8, label: 'Agosto' },
+        { value: 9, label: 'Septiembre' },
+        { value: 10, label: 'Octubre' },
+        { value: 11, label: 'Noviembre' },
+        { value: 12, label: 'Diciembre' }
+    ];
+    return (
+        <select value={selectedMonth} onChange={(e) => onChange(parseInt(e.target.value, 10))}>
+            {months.map((month) => (
+                <option key={month.value} value={month.value}>
+                    {month.label}
+                </option>
+            ))}
+        </select>
+    );
+};
+
+const BarChartComponent = ({ data }) => {
+    if (data.length === 0) {
+        return (
+            <div className='no-data-message-title'>
+                No hay bicicletas para mostrar en el gráfico
+            </div>
+        );
+    }
+    return (
     <ResponsiveContainer width="100%" height={500}>
         <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -22,7 +58,8 @@ const BarChartComponent = ({ data }) => (
             <Bar dataKey="cantidad" fill="#8884d8" />
         </BarChart>
     </ResponsiveContainer>
-);
+    );
+};
 
 const BarChartVentaComponent = ({ data }) => {
     if (data.length === 0) {
@@ -77,12 +114,14 @@ const PieChartAroComponent = ({ data }) => (
 );
 
 const EstadisticasBicicletasChart = () => {
-    const { bicicletasPorTipo, loading: loadingPorTipo, error: errorPorTipo } = useGetBicicletasPorTipo();
+    const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+    const { bicicletasPorTipoMes, loading: loadingPorTipoMes, error: errorPorTipoMes } = useGetBicicletasPorTipoMes(selectedMonth);
     const { bicicletasVenta, loading: loadingVenta, error: errorVenta } = useGetBicicletasVenta();
     const { bicicletasPorAro, loading: loadingPorAro, error: errorPorAro } = useGetBicicletasPorAro();
-    
-    if (loadingPorTipo || loadingVenta || loadingPorAro) return <p>Cargando...</p>;
-    if (errorPorTipo) return <p>Error al cargar las estadísticas de bicicletas por tipo: {errorPorTipo.message}</p>;
+
+
+    if (loadingPorTipoMes || loadingVenta || loadingPorAro ) return <p>Cargando...</p>;
+    if (errorPorTipoMes) return <p>Error al cargar el mes: {errorPorTipoMes.message}</p>;
     if (errorVenta) return <p>Error al cargar las estadísticas de bicicletas a la venta: {errorVenta.message}</p>;
     if (errorPorAro) return <p>Error al cargar las estadísticas de bicicletas por aro: {errorPorAro.message}</p>;
 
@@ -92,7 +131,8 @@ const EstadisticasBicicletasChart = () => {
         <div className="App">
             <div className="dataCard revenueCard">
                 <h2 style={{ textAlign: 'center' }}>Gráfico de Tipos de Bicicletas</h2>
-                <BarChartComponent data={bicicletasPorTipo} />
+                <MonthSelector selectedMonth={selectedMonth} onChange={setSelectedMonth} />
+                <BarChartComponent data={bicicletasPorTipoMes} />
             </div>
             <div className="dataCard customerCard">
                 <h2 style={{ textAlign: 'center' }}>Gráfico de Bicicletas a la Venta</h2>
