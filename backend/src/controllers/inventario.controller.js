@@ -9,6 +9,10 @@ import {
 } from "../services/inventario.service.js";
 
 import {
+    getProvService
+} from "../services/proveedores.service.js";
+
+import {
     createNotificactionService
 } from "../services/notificaciones.service.js"
 
@@ -62,17 +66,23 @@ export async function updateInv(req, res) {
         const { numeroSerie } = req.query;
         const { body } = req;
 
+        // Validacion del query
         const { error: queryError } = invQueryValidation.validate({ id ,numeroSerie });
 
         if (queryError) {
             return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
         }
-
+        // Validacion del body
         const { error: bodyError } = invBodyValidation.validate(body);
 
         if (bodyError) {
             return handleErrorClient(res, 400, "Error de validación en los datos enviados", bodyError);
         }
+
+        // Verificar si el id_proveedor existe en la tabla proveedores
+        const [proveedor, errorProveedor] = await getProvService({ id: body.id_proveedor });
+        // Devolver error si no existe el proveedor
+        if (errorProveedor) return handleErrorClient(res, 418, errorProveedor);
 
         const [inventario, errorInv] = await updateInvService({ id, numeroSerie }, body);
 
@@ -89,7 +99,7 @@ export async function updateInv(req, res) {
 
 export async function deleteInv(req, res) {
     try {
-        const { id } = req.query;
+        const { id } = req.params;
 
         const { error: queryError } = invQueryValidation.validate({ id });
 
@@ -127,6 +137,11 @@ export async function createInv(req, res) {
         if(existingInv) {
             return handleErrorClient(res, 400, "Ya existe un item con ese número de serie");
         }
+
+        // Verificar si el id_proveedor existe en la tabla proveedores
+        const [proveedor, errorProveedor] = await getProvService({ id: inventario.id_proveedor });
+        // Devolver error si no existe el proveedor
+        if (errorProveedor) return handleErrorClient(res, 418, errorProveedor);
 
         const [newInv, errorInv] = await createInvService(inventario);
 

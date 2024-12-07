@@ -10,7 +10,6 @@ import {
     getServicio,
     updateServicio 
 } from "../controllers/servicio.controller.js";
-import { deleteInvService } from "../services/inventario.service.js";
 
 const router = Router();
 

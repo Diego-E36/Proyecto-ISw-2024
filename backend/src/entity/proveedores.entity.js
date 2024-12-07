@@ -11,23 +11,23 @@ const ProveedoresSchema = new EntitySchema({
             primary: true,
             generated: true,
         },
-        rutProveedor:{
+        rut:{
             type: "varchar",
             length: 10,
             nullable: false,
             unique: true,
         },
-        nombreProveedor: {
+        nombre: {
             type: "varchar",
             length: 50,
             nullable: false,
         },
-        emailProveedor: {
+        email: {
             type: "varchar",
             length: 50,
             nullable: false,
         },
-        telefonoProveedor: {
+        telefono: {
             type: "varchar",
             nullable: false,
         },
@@ -51,7 +51,7 @@ const ProveedoresSchema = new EntitySchema({
         },
         {
             name: "IDX_PROVEEDORES_RUT",
-            columns: ["rutProveedor"],
+            columns: ["rut"],
             unique: true,
         },
     ],
