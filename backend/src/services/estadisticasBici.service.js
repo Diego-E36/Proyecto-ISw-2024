@@ -51,3 +51,21 @@ export async function getBicicletasPorAro() {
         return [null, "Error interno del servidor"];
     }
 }
+
+// Servicio para obtener bicicletas por tipo filtrado por meses
+export async function getBicicletasPorTipoMes(mes) {
+    try {
+        const bicicletaRepository = AppDataSource.getRepository(Bicicletas);
+
+        const bicicletasPorTipo = await bicicletaRepository.createQueryBuilder("bicicleta")
+            .select("bicicleta.tipo, COUNT(*) as cantidad")
+            .where("EXTRACT(MONTH FROM bicicleta.createdAt) = :mes", { mes })
+            .groupBy("bicicleta.tipo")
+            .getRawMany();
+
+        return [bicicletasPorTipo, null];
+    } catch (error) {
+        console.error("Error al obtener bicicletas por tipo y mes:", error);
+        return [null, "Error interno del servidor"];
+    }
+}
