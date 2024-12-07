@@ -82,10 +82,12 @@ const Navbar = () => {
                 <div className="navbar-content">
                     <div className="navbar-title">Bikeep</div>
                     <div className="navbar-icons">
-                    <NotificationsIcon
-                    className="icon"
-                    onClick={() => navigate('/notificaciones')}
-                    />
+                        {(userRole === 'administrador' || userRole === 'usuario') && (
+                            <NotificationsIcon
+                                className="icon"
+                                onClick={() => navigate('/notificaciones')}
+                            />)
+                        }
                         <Brightness4Icon className="icon" onClick={toggleDarkMode} />
                     </div>
                 </div>
