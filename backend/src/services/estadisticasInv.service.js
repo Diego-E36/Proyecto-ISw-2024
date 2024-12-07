@@ -28,8 +28,8 @@ export async function getDistribucionProductosPorProveedor() {
 
         // Obtener la distribución de productos por proveedor
         const productosPorProveedor = await inventarioRepository.createQueryBuilder("inventario")
-            .select("inventario.proveedor, COUNT(*) as cantidad")
-            .groupBy("inventario.proveedor")
+            .select("inventario.id_proveedor, COUNT(*) as cantidad")
+            .groupBy("inventario.id_proveedor")
             .getRawMany();
 
         return [productosPorProveedor, null];
