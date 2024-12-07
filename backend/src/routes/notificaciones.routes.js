@@ -6,7 +6,9 @@ import { authenticateJwt } from "../middlewares/authentication.middleware.js";
 // Importar manejo de inventario desde controladores
 import {
     deleteNotification,
-    getAllNotifications
+    getAllNotifications,
+    getUnreadNotifications,
+    markAsRead
 } from "../controllers/notificaciones.controller.js";
 
 const router = Router();
@@ -16,7 +18,10 @@ router
     .use(authenticateJwt) // Este middleware se aplica a todas las rutas
     .use(isAdmin) // A partir de aquí, solo los administradores
     .get("/all", getAllNotifications)
-    .delete("/:id", deleteNotification);
+    .delete("/:id", deleteNotification)
+    .get("/unread", getUnreadNotifications)
+    .patch("/:id", markAsRead);
+    
 
 
 export default router;
