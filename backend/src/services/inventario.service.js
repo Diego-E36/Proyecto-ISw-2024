@@ -185,19 +185,3 @@ export async function getInvBelowThresholdService() {
         return [null, "Error interno del servidor"];
     }
 }
-
-// Importa la función y configura el intervalo de tiempo en milisegundos (ej. cada 5 minutos)
-const CHECK_INTERVAL =  10 * 1000; // 10 segundos
-
-async function monitorInvBelowThreshold() {
-    const [Inv, error] = await getInvBelowThresholdService();
-
-    if (error) {
-        console.error("Error al obtener inventario:", error);
-    } else if (Inv) {
-        console.log("Inventario bajo el umbral:", Inv);
-        // Aquí podrías enviar notificaciones, registrar el evento en logs, etc.
-    }
-}
-// Ejecuta la función de monitoreo cada cierto tiempo
-setInterval(monitorInvBelowThreshold, CHECK_INTERVAL);
