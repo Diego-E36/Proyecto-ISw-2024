@@ -31,7 +31,7 @@ export async function getBicicletasVenta() {
     }
 }
 
-// Servicio para oobtener bicicletas por aro
+// Servicio para obtener bicicletas por aro
 export async function getBicicletasPorAro() {
     try {
         const { data: bicicletasPorAroData } = await axios.get('/estadisticasBici/arobici', {
@@ -46,8 +46,24 @@ export async function getBicicletasPorAro() {
     }
 }
 
+// Servicio para obtener bicicletas por tipo filtrado por meses
+export async function getBicicletasPorTipoMes(mes) {
+    try {
+        const { data: bicicletasPorTipoData } = await axios.get(`/estadisticasBici/tipobici/${mes}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return bicicletasPorTipoData;
+    } catch (error) {
+        console.error("Error al obtener bicicletas por tipo y mes:", error);
+        return error.response.data;
+    }
+}
+
 export default {
     getBicicletasPorTipo,
     getBicicletasVenta,
-    getBicicletasPorAro
+    getBicicletasPorAro,
+    getBicicletasPorTipoMes
 };
