@@ -1,5 +1,6 @@
 "use strict";
 import Inventario from "../entity/inventario.entity.js";
+import Proveedores from "../entity/proveedores.entity.js";
 import { AppDataSource } from "../config/configDb.js";
 
 
@@ -8,20 +9,28 @@ export async function updateInvService(query, body) {
         const { id, numeroSerie } = query;
         
         const invRepository = AppDataSource.getRepository(Inventario);
+        const proveedorRepo = AppDataSource.getRepository(Proveedores);
 
         const invFound = await invRepository.findOne({
             where: [{ id: id }, { numeroSerie: numeroSerie }],
         });
 
+        // Verificar si el item del inventario existe
         if (!invFound) return [null, "Item del inventario no encontrado"];
-
+        
+        // Verificar si el numero de serie está duplicado
         const existingInv = await invRepository.findOne({
             where: [{ numeroSerie: body.numeroSerie }]
         });
-
+        
         if (existingInv && existingInv.id !== invFound.id) {
             return [null, "Ya existe un item con ese número de serie"];
         }
+
+        // Verificar si el proveedor ya existe
+        const proveedorFind = await proveedorRepo.findOne({ where: { id: body.id_proveedor } });
+
+        if (!proveedorFind) return [null, "Proveedor no encontrado"];
 
         const dataInvUpdated = {
             numeroSerie: body.numeroSerie,
@@ -30,7 +39,7 @@ export async function updateInvService(query, body) {
             descripcionUnidad: body.descripcionUnidad,
             precioUnidad: body.precioUnidad,
             marcaUnidad: body.marcaUnidad,
-            proveedor: body.proveedor,
+            id_proveedor: body.id_proveedor,
             restockSugerido: body.restockSugerido,
             umbralMinimo: body.umbralMinimo,
             boolMateriales: body.boolMateriales,
@@ -120,7 +129,19 @@ export async function deleteInvService(query) {
 export async function createInvService(dataInventario) {
     try {
         const invRepository = AppDataSource.getRepository(Inventario);
+        const proveedorRepo = AppDataSource.getRepository(Proveedores);
 
+        // Verificar si el proveedor ya existe
+        const proveedor = await proveedorRepo.findOne({ where: { id: dataInventario.id_proveedor } });
+
+        if (!proveedor) return [null, "Proveedor no encontrado"];
+
+        // Prints de control
+
+        // console.log(proveedor.nombre)
+        // console.log(dataInventario.nombreStock)
+
+        // Crear el producto en el inventario
         const newInv = invRepository.create({
             numeroSerie: dataInventario.numeroSerie,
             nombreStock: dataInventario.nombreStock,
@@ -128,12 +149,13 @@ export async function createInvService(dataInventario) {
             descripcionUnidad: dataInventario.descripcionUnidad,
             precioUnidad: dataInventario.precioUnidad,
             marcaUnidad: dataInventario.marcaUnidad,
-            proveedor: dataInventario.proveedor,
+            id_proveedor: dataInventario.id_proveedor,
             restockSugerido: dataInventario.restockSugerido,
             umbralMinimo: dataInventario.umbralMinimo,
             boolMateriales: dataInventario.boolMateriales,
         });
 
+        // Guardar el producto en el inventario
         const invSaved = await invRepository.save(newInv);
 
         return [invSaved, null];
