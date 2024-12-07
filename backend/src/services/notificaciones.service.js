@@ -1,7 +1,6 @@
 "use strict";
 import { AppDataSource } from "../config/configDb.js";
 import Notificaciones from "../entity/notificaciones.entity.js";
-import jwt from "jsonwebtoken";
 
 export async function createNotificactionService(data, operationType) {
     try {
@@ -74,10 +73,9 @@ export async function markAsReadService(query) {
         if (!notification) {
             throw new Error(`La notificación con ID ${query.id} no existe.`);
         }
-
         // Marcar la notificación como leída
         notification.status = "read";
-
+        console.log("hola")
         // Guardar la notificación actualizada en la base de datos
         const updatedNotification = await notificationRepository.save(notification);
 
