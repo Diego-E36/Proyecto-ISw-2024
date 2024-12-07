@@ -41,9 +41,8 @@ const InventarioSchema = new EntitySchema({
             length: 50,
             nullable: false,
         },
-        proveedor: {
-            type: "varchar",
-            length: 50,
+        id_proveedor: {
+            type: "int",
             nullable: false,
         },
         restockSugerido: {

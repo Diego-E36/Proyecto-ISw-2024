@@ -21,13 +21,13 @@ import {
 export async function getProv(req, res) {
     try {
         const { id } = req.params;
-        const { rutProveedor } = req.query;
+        const { rut } = req.query;
 
-        const { error } = provQueryValidation.validate({ id, rutProveedor });
+        const { error } = provQueryValidation.validate({ id, rut });
 
         if (error) return handleErrorClient(res, 400, "Error de validación en la consulta", error.message);
 
-        const [proveedor, errorProv] = await getProvService({ id, rutProveedor });
+        const [proveedor, errorProv] = await getProvService({ id, rut });
 
         if (errorProv) return handleErrorClient(res, 404, errorProv);
 
@@ -40,24 +40,20 @@ export async function getProv(req, res) {
 export async function updateProv(req, res) {
     try {
         const { id } = req.params;
-        const { rutProveedor } = req.query;
-        const body = req;
+        const { rut } = req.query;
+        const { body } = req
 
-        const { error: queryError } = provQueryValidation.validate({ id, rutProveedor });
+        const { error:queryError } = provQueryValidation.validate({ id, rut });
 
-        if (queryError) {
-            return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
-        }
+        if (queryError) return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
 
-        const { error: bodyError } = provBodyValidation.validate(body);
+        const { error:bodyError } = provBodyValidation.validate(body);
+    
+        if (bodyError) return handleErrorClient(res, 400, "Error de validación en los datos enviados", bodyError.message);
 
-        if (bodyError) {
-            return handleErrorClient(res, 400, "Error de validación en el cuerpo", bodyError.message);
-        }
+        const [proveedor, errorProv] = await updateProvService({ id, rut }, body);
 
-        const [proveedor, errorProv] = await updateProvService({ id, rutProveedor }, body);
-
-        if (errorProv) return handleErrorClient(res, 500, "Error al actualizar el proveedor", errorProv);
+        if (errorProv) return handleErrorClient(res, 404, errorProv);
 
         handleSuccess(res, 200, "Proveedor actualizado correctamente", proveedor);
     } catch (error) {
@@ -67,17 +63,22 @@ export async function updateProv(req, res) {
 
 export async function deleteProv(req, res) {
     try {
-        const { id } = req.query;
+        const { id } = req.params;
 
         const { error:queryError } = provQueryValidation.validate({ id });
         
+        // Validar query
         if (queryError) {
             return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
         }
 
         const [proveedorDelete, errorProv] = await deleteProvService({ id });
 
-        if (errorProv) return handleErrorClient(res, 404,"Error eliminando el proveedor", errorProv);
+        if (errorProv && errorProv === "caso 1") {
+            return handleErrorClient(res, 404, "Proveedor no encontrado");
+        } else {
+            return handleErrorServer(res, 418, "Proveedor tiene asignado al menos un item de inventario");
+        }
 
         handleSuccess(res, 200, "Proveedor eliminado correctamente", proveedorDelete);
     } catch (error) {
@@ -89,22 +90,24 @@ export async function createProv(req, res) {
     try {
         const proveedor = req.body;
 
-        // Validacion de esquema de los datos
-        const { error } = provBodyValidation.validate(proveedor);
-        if (error) return handleErrorClient(res, 400, "Error de validación en los datos enviados", error.message);
+        // Validacion de esquema
+        const { bodyError } = provBodyValidation.validate(proveedor);
+        if (bodyError) return handleErrorClient(res, 400, "Error de validación en los datos enviados", bodyError.message);
 
-        // Verificacion de ruts duplicados
-        const [existingProv, errorExistingProv] = await getProvService({ rutProveedor: proveedor.rutProveedor });
+        // Ruts duplicados
+        const [existingProveedor, errorExistingProveedor] = await getProvService({ rut: proveedor.rut });
 
-        if (errorExistingProv && errorExistingProv !== "Proveedor no encontrado") {
-            return handleErrorServer(res, 500, "Error verificando duplicados", errorExistingProv);
+        if (errorExistingProveedor && errorExistingProveedor !== "Proveedor no encontrado") {
+            return handleErrorServer(res, 500, "Error interno del servidor");
         }
 
-        if (existingProv) return handleErrorClient(res, 400, "Ya existe un proveedor con ese rut");
+        if (existingProveedor) {
+            return handleErrorClient(res, 400, "Ya existe un proveedor con ese rut");
+        }
 
-        const [newProv, errorProv] = await createProvService(proveedor);
-
-        handleSuccess(res, 201, "Proveedor creado correctamente", newProv);
+        // En caso de no haber duplicados
+        const newProveedor = await createProvService(proveedor);
+        handleSuccess(res, 201, "Proveedor creado", newProveedor);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
     }
