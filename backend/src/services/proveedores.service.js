@@ -1,21 +1,22 @@
 "use strict";
 import Proveedores from "../entity/proveedores.entity.js";
+import Inventario from "../entity/inventario.entity.js";
 import { AppDataSource } from "../config/configDb.js";
 
 export async function updateProvService(query, body) {
     try {
-        const { id, rutProveedor } = query;
+        const { id, rut } = query;
 
         const provRepository = AppDataSource.getRepository(Proveedores);
         
         const provFound = await provRepository.findOne({
-            where: [{ id: id }, { rutProveedor: rutProveedor }],
+            where: [{ id: id }, { rut: rut }],
         });
         
         if (!provFound) return [null, "Proveedor no encontrado"];
         
         const existingProv = await provRepository.findOne({
-            where: [{ rutProveedor: body.rutProveedor }]
+            where: [{ rut: body.rut }]
         });
         
         if (existingProv && existingProv.id !== provFound.id) {
@@ -23,17 +24,17 @@ export async function updateProvService(query, body) {
         }
         
         const dataProvUpdated = {
-            rutProveedor: body.rutProveedor,
-            nombreProveedor: body.nombreProveedor,
-            emailProveedor: body.emailProveedor,
-            telefonoProveedor: body.telefonoProveedor,
+            rut: body.rut,
+            nombre: body.nombre,
+            email: body.email,
+            telefono: body.telefono,
             updatedAt: new Date(),
         }
         
         await provRepository.update({ id: provFound.id }, dataProvUpdated);
         
         const provData = await provRepository.findOne({
-            where: { id: provFound.id },
+            where: [{ id: provFound.id }],
         });
         
         if (!provData) {
@@ -51,12 +52,12 @@ export async function updateProvService(query, body) {
 
 export async function getProvService(query) {
     try {
-        const { id, rutProveedor } = query;
-        
+        const { id, rut } = query;
+
         const provRepository = AppDataSource.getRepository(Proveedores);
         
         const provFound = await provRepository.findOne({
-            where: [{ id: id }, { rutProveedor: rutProveedor }],
+            where: [{ id: id }, { rut: rut }],
         });
         
         if (!provFound) return [null, "Proveedor no encontrado"];
@@ -91,16 +92,29 @@ export async function getAllProvService() {
 
 export async function deleteProvService(query) {
     try {
-        const { id, rutProveedor } = query;
+        const { id, rut } = query;
         
         const provRepository = AppDataSource.getRepository(Proveedores);
         
+        // Verificar si el proveedor existe
         const provFound = await provRepository.findOne({
-            where: [{ id: id }, { rutProveedor: rutProveedor }],
+            where: [{ id: id }, { rut: rut }],
         });
         
-        if (!provFound) return [null, "Proveedor no encontrado"];
+        if (!provFound) return [null, "caso 1"];
         
+        // verificar que el proveedor no tenga un item de inventario asignado
+
+        const inventoryRepo = AppDataSource.getRepository(Inventario);
+
+        const inventoryFound = await inventoryRepo.findOne({
+            where: { id_proveedor: provFound.id }
+        })
+
+        if (inventoryFound) {
+            return [null, "caso 2"];
+        }
+
         const provDeleted = await provRepository.remove(provFound);
         
         const { ...provData } = provDeleted;
@@ -117,10 +131,10 @@ export async function createProvService(body) {
         const provRepository = AppDataSource.getRepository(Proveedores);
         
         const newProv = provRepository.create({
-            rutProveedor: body.rutProveedor,
-            nombreProveedor: body.nombreProveedor,
-            emailProveedor: body.emailProveedor,
-            telefonoProveedor: body.telefonoProveedor,
+            rut: body.rut,
+            nombre: body.nombre,
+            email: body.email,
+            telefono: body.telefono,
         });
 
         const provSaved = await provRepository.save(newProv);
