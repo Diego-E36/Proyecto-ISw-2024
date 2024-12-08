@@ -40,18 +40,17 @@ export async function getProv(req, res) {
 export async function updateProv(req, res) {
     try {
         const { id } = req.params;
-        const { rut } = req.query;
         const { body } = req
 
-        const { error:queryError } = provQueryValidation.validate({ id, rut });
+        const { error:queryError } = provQueryValidation.validate({ id });
 
         if (queryError) return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
 
         const { error:bodyError } = provBodyValidation.validate(body);
     
-        if (bodyError) return handleErrorClient(res, 400, "Error de validación en los datos enviados", bodyError.message);
+        if (bodyError) return handleErrorClient(res, 418, "Error de validación en los datos enviados", bodyError.message);
 
-        const [proveedor, errorProv] = await updateProvService({ id, rut }, body);
+        const [proveedor, errorProv] = await updateProvService({ id }, body);
 
         if (errorProv) return handleErrorClient(res, 404, errorProv);
 
