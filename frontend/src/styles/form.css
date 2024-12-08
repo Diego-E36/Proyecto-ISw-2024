@@ -181,9 +181,7 @@
 
 .container {
 	height: 100vh;
-	/* Color de fondo: Gradiente Morado/azul */
 	background: rgb(2,0,36);
-	/*background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(73,44,139,1) 36%, rgba(0,121,224,1) 100%); /*Color principal para login (gradiente)*/
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -234,4 +232,20 @@ input {
 	width: 25px;
 	height: 25px;
 	margin-top: 4px;
+}
+
+body.dark-mode{
+	.form{
+		background-color: #121212; /*Color del formulario*/
+		label{
+			color: #BBBBBB;
+		}
+		input{
+			background-color: #1f1f1f;
+			color: #ffffff;
+		}
+		input::placeholder{
+			color: rgba(93, 93, 93, 0.65);
+		}
+	}
 }
