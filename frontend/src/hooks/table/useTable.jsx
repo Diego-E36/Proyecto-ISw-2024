@@ -20,6 +20,7 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
                     headerSort: false,
                     frozen: true,
                     responsive: 0,
+                    width: 50,
                     resizable: false,
                     
                     cellClick: function (e, cell) {
