@@ -34,10 +34,26 @@ export async function deleteNotificacion(id) {
 
 export async function getUnreadNotificaciones() {
     try {
-        const { data: notificacionesData } = await axios.get('/notificaciones/unread');
+        const { data: notificacionesData } = await axios.get('/notificaciones/');
         return {
             success: true,
             data: notificacionesData.data
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Error al obtener las notificaciones',
+            errorDetails: error.response?.data || error.message
+        };
+    }
+}
+
+export async function markAsRead(id) {
+    try {
+        const { data: notificacionesData } = await axios.patch(`/notificaciones/detail/?id=${id}`);
+        return {
+        success: true,
+        data: notificacionesData.data
         };
     } catch (error) {
         return {
