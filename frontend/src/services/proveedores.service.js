@@ -1,5 +1,5 @@
 // Imports
-import axios from 'axios';
+import axios from './root.service.js';
 import { formatProveedoresData } from '@helpers/formatProveedores.js';
 
 // Funciones
