@@ -9,7 +9,7 @@ import Root from '@pages/Root';
 import Bicicletas from '@pages/Bicicletas';
 import Inventario from '@pages/Inventario';
 import Proveedores from '@pages/Proveedores';
-import NotificacionesTable from '@pages/Notificaciones';
+import Notificaciones from '@pages/Notificaciones';
 import EstadisticasInventarioprueba from '@pages/EstadisticasInventarioprueba';
 import EstadisticasBicicletasprueba from '@pages/EstadisticasBicicletasprueba';
 import ProtectedRoute from '@components/ProtectedRoute';
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
         path: '/notificaciones',
         element: (
         <ProtectedRoute allowedRoles={['administrador']}>
-          <NotificacionesTable />
+          <Notificaciones />
         </ProtectedRoute>
         )
       },
