@@ -4,7 +4,7 @@ import { createInventario } from '@services/inventario.service.js';
 import { showErrorAlert, showSuccessAlert } from '@helpers/sweetAlert.js';
 
 // Hook
-const useCreateProveedores = (fetchInventario) => {
+const useCreateInventario = (fetchInventario) => {
     const [inventario, setInventario] = useState({
         numeroSerie: "",
         nombreStock: "",
@@ -20,7 +20,7 @@ const useCreateProveedores = (fetchInventario) => {
     const [isPopupOpenCreate, setIsPopupOpenCreate] = useState(false); //?
 
     // Crear inventario
-    const createInventario = async (inventario) => {
+    const createInventarioFuncion = async (inventario) => {
         try {
             const response = await createInventario(inventario);
             if (response.error) {
@@ -37,12 +37,12 @@ const useCreateProveedores = (fetchInventario) => {
 
     // Pasar los datos recibidos desde el formulario
     const handleCreate = (formData) => {
-        createInventario(formData).then();
+        createInventarioFuncion(formData).then();
     }
 
     // Retornar valores
     return {
-        createInventario,
+        createInventarioFuncion,
         inventario,
         setInventario,
         isPopupOpenCreate,
@@ -51,4 +51,4 @@ const useCreateProveedores = (fetchInventario) => {
     }
 }
 
-export default useCreateProveedores;
+export default useCreateInventario;
