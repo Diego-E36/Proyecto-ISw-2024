@@ -7,7 +7,7 @@ const useDeleteInventario = (fetchInventario, setDataInventario) => {
             try {
                 const result = await deleteDataAlert();
                 if (result.isConfirmed) {
-                    const response = await deleteInventario(dataInventario[0].numeroSerie);
+                    const response = await deleteInventario(dataInventario[0].id);
                     if(response.status === 'Client error') {
                         return showErrorAlert('Error', response.details);
                     }
