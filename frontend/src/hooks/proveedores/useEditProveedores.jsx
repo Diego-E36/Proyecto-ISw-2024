@@ -9,7 +9,7 @@ const useEditProveedores = (setProveedores) => {
     const [isPopupOpen, setIsPopupOpen] = useState(false); // Abrir o cerrar el popup
     const [dataProveedor, setDataProveedor] = useState([]); // Almacenar los datos del proveedor
 
-    // Al hacer click en el botón de actualizar
+    // Al hacer click en el botón de editar
     const handleClickUpdate = () => {
         if (dataProveedor.length > 0) {
             setIsPopupOpen(true);
