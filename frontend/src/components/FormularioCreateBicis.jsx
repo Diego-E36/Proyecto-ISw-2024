@@ -121,7 +121,6 @@ export default function CreateBici({ show, setShow, action }) {
                             ]}
                             onSubmit={handleSubmit}
                             buttonText={"Registrar bicicleta"}
-                            backgroundColor={'#fff'}
                         />
                     </div>
                 </div>

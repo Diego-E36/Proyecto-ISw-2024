@@ -134,7 +134,6 @@ export default function EditBici({show, setShow, data, action}){
                             ]}
                             onSubmit={handleSubmit}
                             buttonText={"Editar bicicleta"}
-                            backgroundColor={'#fff'}
                         />
                     </div>
                 </div>
