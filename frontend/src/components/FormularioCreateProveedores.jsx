@@ -1,3 +1,4 @@
+// Imports
 import Form from './Form.jsx';
 import '@styles/popup.css';
 import CloseIcon from '@assets/XIcon.svg';
@@ -10,7 +11,7 @@ export default function createProveedor({ show, setShow, action }) {
 
     // Patrones para validación de campos
     const rutPattern = /^(?:(?:[1-9]\d{0}|[1-2]\d{1})(\.\d{3}){2}|[1-9]\d{6}|[1-2]\d{7}|29\.999\.999|29999999)-[\dkK]$/
-    const nombrePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/
+    const nombrePattern = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/
     const telefonoPattern = /^[+]?[0-9]+$/
 
     return (
@@ -22,7 +23,7 @@ export default function createProveedor({ show, setShow, action }) {
                             <img src={CloseIcon} />
                         </button>
                         <Form
-                            title="Editar proveedor"
+                            title="Crear proveedor"
                             fields={[
                                 {
                                     label: "Rut",
@@ -47,7 +48,7 @@ export default function createProveedor({ show, setShow, action }) {
                                     required: true,
                                     maxLength: 50,
                                     pattern: nombrePattern,
-                                    patternMessage: "El nombre solo puede contener letras"
+                                    patternMessage: "El nombre solo puede contener letras y números"
                                 },
                                 {
                                     label: "Email",
@@ -75,7 +76,6 @@ export default function createProveedor({ show, setShow, action }) {
                             ]}
                             onSubmit={handleSubmit}
                             buttonText={"Registrar proveedor"}
-                            backgroundColor={"#fff"}
                         />
                     </div>
                 </div>
