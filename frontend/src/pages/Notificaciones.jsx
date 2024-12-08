@@ -3,31 +3,29 @@ import Table from '../components/Table';
 import { useCallback, useState } from 'react';
 
 import DeleteIcon from '../assets/deleteIcon.svg';
-import AddIcon from '../assets/Addicon.svg';
-import UpdateIcon from '../assets/updateIcon.svg';
-import UpdateIconDisable from '../assets/updateIconDisabled.svg';
 import DeleteIconDisable from '../assets/deleteIconDisabled.svg';
 
 import useGetNotificacion from '../hooks/notificaciones/useGetNotificacion';
 import useDeleteNotificacion from '../hooks/notificaciones/useDeleteNotificacion';
 import useGetUnreadNotificacion from '../hooks/notificaciones/useGetUnreadNotificacion';
-
-import '@styles/NotificationTable.css';
+import useMarkAsReadNotificacion from '../hooks/notificaciones/useMarkAsRead';
 
 const Notificaciones = () => {
     const { notificaciones, fetchNotificaciones, setNotificaciones } = useGetNotificacion();
-    const { unreadNotificaciones, fetchUnreadNotificaciones } = useGetUnreadNotificacion();
     const { handleDelete } = useDeleteNotificacion(fetchNotificaciones, setNotificaciones);
+
+    const { unreadNotificaciones, fetchUnreadNotificaciones } = useGetUnreadNotificacion();
+    const { handleMarkAsRead, isLoading } = useMarkAsReadNotificacion();
 
     const [filterId] = useState('');
     const [showUnread, setShowUnread] = useState(false);
+    const [selectedNotificaciones, setSelectedNotificaciones] = useState([]);
 
     const columns = [
         { title: "ID", field: "id", width: 100, responsive: 0, resizable: false },
         { title: "Mensaje", field: "message", width: 650, responsive: 0, resizable: false },
-        { title: "Estado", field: "status", width: 100, responsive: 0, resizable: false },
-        { title: "Tipo", field: "notificationType", width: 100, responsive: 0, resizable: false },
-        { title: "Creado", field: "createdAt", width: 250, responsive: 0, resizable: false },
+        { title: "Estado", field: "status", width: 150, responsive: 0, resizable: false },
+        { title: "Creado", field: "createdAt", width: 300, responsive: 0, resizable: false },
     ];
 
     const handleShowUnread = async () => {
@@ -40,9 +38,27 @@ const Notificaciones = () => {
         await fetchNotificaciones(); // Restaura todas las notificaciones
     };
 
-    const handleSelectionChange = useCallback((selectedRows) => {
-        notificaciones(selectedRows);
-    }, [notificaciones]);
+    const handleSelectionChange = useCallback(
+        (selectedRows) => {
+            setSelectedNotificaciones(selectedRows);
+        },
+        []
+    );
+
+    const handleMarkSelectedAsRead = async () => {
+        for (const notificacion of selectedNotificaciones) {
+            const success = await handleMarkAsRead(notificacion.id);
+            if (success) {
+                // Actualiza las notificaciones después de marcarlas como leídas
+                if (showUnread) {
+                    fetchUnreadNotificaciones();
+                } else {
+                    fetchNotificaciones();
+                }
+            }
+        }
+        setSelectedNotificaciones([]); // Limpia la selección
+    };
 
     const displayedData = showUnread ? unreadNotificaciones : notificaciones;
 
@@ -58,11 +74,22 @@ const Notificaciones = () => {
                         <button onClick={handleShowAll} disabled={!showUnread} className='all-button'>
                             Mostrar todas
                         </button>
-                        <button className='delete-notificacion' disabled={notificaciones.length === 0} onClick={() => handleDelete(notificaciones)}>
+                        <button
+                            onClick={handleMarkSelectedAsRead}
+                            disabled={selectedNotificaciones.length === 0 || isLoading}
+                            className='mark-read-button'
+                        >
+                            {isLoading ? "Cargando..." : "Marcar como leídas"}
+                        </button>
+                        <button
+                            className='delete-notificacion'
+                            disabled={notificaciones.length === 0}
+                            onClick={() => handleDelete(notificaciones)}
+                        >
                             {notificaciones.length === 0 ? (
                                 <img src={DeleteIconDisable} alt="delete-disabled" />
                             ) : (
-                                <img src={DeleteIcon} alt="delete"/>
+                                <img src={DeleteIcon} alt="delete" />
                             )}
                         </button>
                     </div>
@@ -81,4 +108,3 @@ const Notificaciones = () => {
 };
 
 export default Notificaciones;
-
