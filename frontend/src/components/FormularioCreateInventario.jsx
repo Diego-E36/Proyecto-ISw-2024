@@ -2,6 +2,7 @@
 import Form from './Form.jsx';
 import '@styles/popup.css';
 import CloseIcon from '@assets/XIcon.svg';
+import QuestionIcon from '@assets/QuestionCircleIcon.svg';
 
 // Popup para la creación de inventarios
 export default function CreateInventario({ show, setShow, action }) {
@@ -74,7 +75,15 @@ export default function CreateInventario({ show, setShow, action }) {
                                     patternMessage: "Debe contener sólo letras",
                                 },
                                 {
-                                    label: "Precio por unidad",
+                                    label: (
+                                        <span>
+                                            Precio por unidad
+                                            <span className='tooltip-icon'>
+                                                <img src={QuestionIcon} />
+                                                <span className='tooltip-text'>Campo opcional, en caso de no ingresar valor, será 0 y no se considerará a la venta.</span>
+                                                </span>
+                                        </span>
+                                    ),
                                     name: "precioUnidad",
                                     defaultValue: "",
                                     placeholder: '10000',
@@ -125,9 +134,12 @@ export default function CreateInventario({ show, setShow, action }) {
                                     label: "¿Son materiales?",
                                     name: "boolMateriales",
                                     defaultValue: "",
-                                    fieldType: 'input',
-                                    type: 'checkbox',
-                                    required: false
+                                    fieldType: 'select',
+                                    options: [
+                                        { value: "true", label: "Sí" },
+                                        { value: "false", label: "No" }
+                                    ],
+                                    required: true
                                 }
                             ]}
                             onSubmit={handleSubmit}
