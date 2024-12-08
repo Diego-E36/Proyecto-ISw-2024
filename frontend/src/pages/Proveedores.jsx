@@ -76,7 +76,7 @@ const Proveedores = () => {
                                 <img src={UpdateIcon} alt="edit" />
                             )}
                         </button>
-                        <button className='delete-proveedor' disabled = {dataProveedor.length === 0} onclick = {() => handleDelete(dataProveedor)}>
+                        <button className='delete-proveedor' disabled = {dataProveedor.length === 0} onClick = {() => handleDelete(dataProveedor)}>
                             {dataProveedor.length === 0 ? (
                                 <img src={DeleteIconDisable} alt="delete-disabled" />
                             ) : (
