@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {updateInventario} from '@services/inventario.service.js';
 import {showErrorAlert, showSuccessAlert} from '@helpers/sweetAlert.js';
 import { formatPostInventario } from '@helpers/formatInventario.js';
+import { set } from 'lodash';
 
 const useEditInventario = (setInventario) => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -16,19 +17,14 @@ const useEditInventario = (setInventario) => {
     const handleUpdate = async (updatedInventarioData) => {
         if (updatedInventarioData) {
             try {
-                const updatedInventario = await updateInventario(updatedInventarioData, dataInventario[0].numeroSerie);
+                const dataUpdate = { ...updatedInventarioData };
+                const updatedInventario = await updateInventario(dataUpdate, dataInventario[0].id);
                 showSuccessAlert('¡Actualizado!','El producto ha sido actualizado correctamente.');
                 setIsPopupOpen(false);
                 const formattedInventario = formatPostInventario(updatedInventario);
-
-                setInventario(prevInventario => prevInventario.map(inventario => {
-                    console.log("Producto actual:", inventario);
-                    if (inventario.id === formattedInventario.id) {
-                        console.log("Reemplazando con:", formattedInventario);
-                    }
-                    return inventario.numeroSerie === formattedInventario.numeroSerie ? formattedInventario : inventario;
-                }));
-
+                setInventario(prevInventario => prevInventario.map(inventario =>
+                    inventario.id === formattedInventario.id ? formattedInventario : inventario
+                ))
                 setDataInventario([]);
             } catch (error) {
                 console.error('Error al actualizar el producto:', error);

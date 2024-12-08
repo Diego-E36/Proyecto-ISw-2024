@@ -38,12 +38,12 @@ export const provBodyValidation = Joi.object({
     }),
     nombre: Joi.string()
     .max(50)
-    .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
+    .pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)
     .messages({
         "string.empty": "El nombre no puede estar vacío.",
         "string.base": "El nombre debe ser de tipo string.",
         "string.max": "El nombre debe tener como máximo 50 caracteres.",
-        "string.pattern.base": "El nombre solo puede contener letras.",
+        "string.pattern.base": "El nombre solo puede contener letras y números.",
     }),
     email: Joi.string()
     .max(50)

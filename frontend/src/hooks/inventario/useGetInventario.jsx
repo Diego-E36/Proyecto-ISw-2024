@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { getAllInventario } from '@services/inventario.service.js';
-import { set } from 'lodash';
 
 const useInventario = () => {
     const [inventario, setInventario] = useState([]);
@@ -9,13 +8,14 @@ const useInventario = () => {
         try {
             const response = await getAllInventario();
             const formattedDataInv = response.map(inventario => ({
+                id: inventario.id,
                 numeroSerie: inventario.numeroSerie,
                 nombreStock: inventario.nombreStock,
                 cantidadStock: inventario.cantidadStock,
                 descripcionUnidad: inventario.descripcionUnidad,
                 precioUnidad: inventario.precioUnidad,
                 marcaUnidad: inventario.marcaUnidad, 
-                proveedor: inventario.proveedor,
+                id_proveedor: inventario.id_proveedor,
                 restockSugerido: inventario.restockSugerido,
                 umbralMinimo: inventario.umbralMinimo,
                 boolMateriales: inventario.boolMateriales,
