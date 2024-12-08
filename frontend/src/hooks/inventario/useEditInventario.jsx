@@ -1,13 +1,13 @@
 import {useState} from 'react';
-import {updateInventario} from '@services/inventario.service.js';
-import {showErrorAlert, showSuccessAlert} from '@helpers/sweetAlert.js';
+import { updateInventario } from '@services/inventario.service.js';
+import { showErrorAlert, showSuccessAlert } from '@helpers/sweetAlert.js';
 import { formatPostInventario } from '@helpers/formatInventario.js';
-import { set } from 'lodash';
 
 const useEditInventario = (setInventario) => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [dataInventario, setDataInventario] = useState([]);
 
+    // Al hacer click en el botón de editar
     const handleClickUpdate = () => {
         if (dataInventario.length > 0) {
             setIsPopupOpen(true);

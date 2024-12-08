@@ -62,7 +62,6 @@ export const invBodyValidation = Joi.object({
     precioUnidad: Joi.number()
         .integer()
         .positive()
-        .allow(null)
         .messages({
             "number.base": "El precio de la unidad debe ser un número.",
             "number.integer": "El precio de la unidad debe ser un número entero.",

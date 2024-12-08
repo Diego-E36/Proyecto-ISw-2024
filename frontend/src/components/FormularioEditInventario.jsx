@@ -2,6 +2,7 @@
 import Form from './Form.jsx';
 import '@styles/popup.css';
 import CloseIcon from '@assets/XIcon.svg';
+import QuestionIcon from '@assets/QuestionCircleIcon.svg';
 
 // Popup para la edición de inventarios
 export default function EditInventario({ show, setShow, data, action }) {
@@ -16,6 +17,30 @@ export default function EditInventario({ show, setShow, data, action }) {
     const serialPattern = /^[a-zA-Z0-9]+$/
     const alphanumericPattern = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/
     const alphaPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/
+    
+    // Manejo del valor del precio
+    let costoUnidad;
+    const precioToNumber = (str) => {
+        if (str) {
+            return parseInt(str.replace(/[$.]/g, ''), 10);
+        }
+    }
+    costoUnidad = precioToNumber(inventarioData.precioUnidad);
+    if (isNaN(costoUnidad)) {
+        costoUnidad = 0;
+    }
+
+    // // Manejo de booleano
+    // let booleano;
+    // const boolToString = (bool) => {
+    //     if (bool === true) {
+    //         return "Sí";
+    //     } else {
+    //         return "No";
+    //     }
+    // }
+
+    // booleano = boolToString(inventarioData.boolMateriales);
 
     return (
         <div>
@@ -77,9 +102,17 @@ export default function EditInventario({ show, setShow, data, action }) {
                                     patternMessage: "Debe contener sólo letras",
                                 },
                                 {
-                                    label: "Precio por unidad",
+                                    label: (
+                                        <span>
+                                            Precio por unidad
+                                            <span className='tooltip-icon'>
+                                                <img src={QuestionIcon} />
+                                                <span className='tooltip-text'>Campo opcional, en caso de no ingresar valor, será 0 y no se considerará a la venta.</span>
+                                                </span>
+                                        </span>
+                                    ),
                                     name: "precioUnidad",
-                                    defaultValue: inventarioData.precioUnidad || "",
+                                    defaultValue: costoUnidad ||"",
                                     placeholder: '10000',
                                     fieldType: 'input',
                                     type: 'number',
@@ -127,14 +160,17 @@ export default function EditInventario({ show, setShow, data, action }) {
                                 {
                                     label: "¿Son materiales?",
                                     name: "boolMateriales",
-                                    defaultValue: inventarioData.boolMateriales || "",
-                                    fieldType: 'input',
-                                    type: 'checkbox',
+                                    defaultValue: "",
+                                    fieldType: 'select',
+                                    options: [
+                                        { value: true, label: "Sí" },
+                                        { value: false, label: "No" }
+                                    ],
                                     required: false
                                 }
                             ]}
                             onSubmit={handleSubmit}
-                            buttonText={"Crear inventario"}
+                            buttonText={"Editar inventario"}
                         />
                     </div>
                 </div>

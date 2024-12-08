@@ -33,8 +33,8 @@ const InventarioSchema = new EntitySchema({
         },
         precioUnidad: {
             type: "int",
-            nullable: true,
-            default: null
+            nullable: false,
+            default: 0
         },
         marcaUnidad: {
             type: "varchar",
