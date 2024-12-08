@@ -62,12 +62,11 @@ export async function getAllInv(req, res) {
 
 export async function updateInv(req, res) {
     try {
-        const { id } = req.params;
-        const { numeroSerie } = req.query;
+        const { id } = req.query;
         const { body } = req;
 
         // Validacion del query
-        const { error: queryError } = invQueryValidation.validate({ id ,numeroSerie });
+        const { error: queryError } = invQueryValidation.validate({ id });
 
         if (queryError) {
             return handleErrorClient(res, 400, "Error de validación en la consulta", queryError.message);
@@ -76,7 +75,7 @@ export async function updateInv(req, res) {
         const { error: bodyError } = invBodyValidation.validate(body);
 
         if (bodyError) {
-            return handleErrorClient(res, 400, "Error de validación en los datos enviados", bodyError);
+            return handleErrorClient(res, 418, "Error de validación en los datos enviados", bodyError);
         }
 
         // Verificar si el id_proveedor existe en la tabla proveedores
@@ -84,7 +83,7 @@ export async function updateInv(req, res) {
         // Devolver error si no existe el proveedor
         if (errorProveedor) return handleErrorClient(res, 418, errorProveedor);
 
-        const [inventario, errorInv] = await updateInvService({ id, numeroSerie }, body);
+        const [inventario, errorInv] = await updateInvService({ id }, body);
 
         if (errorInv) return handleErrorClient(res, 500, "Error modificando el inventario", errorInv);
 
