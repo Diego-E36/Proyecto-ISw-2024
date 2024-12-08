@@ -1,7 +1,5 @@
 import { startCase } from "lodash";
 import { format as formatTempo } from "@formkit/tempo";
-import { formatPostUpdate } from "./formatData";
-import { useMemo } from "react";
 
 export function formatInventarioData(inventario) {
     return {
@@ -11,7 +9,7 @@ export function formatInventarioData(inventario) {
         descripcionUnidad: startCase(inventario.descripcionUnidad),
         precioUnidad: inventario.precioUnidad !== null ? `$${inventario.precioUnidad.toLocaleString('es-ES')}` : "No está a la venta",
         marcaUnidad: startCase(inventario.marcaUnidad),
-        proveedor: startCase(inventario.proveedor),
+        id_proveedor: inventario.id_proveedor,
         restockSugerido: inventario.restockSugerido,
         umbralMinimo: inventario.umbralMinimo,
         boolMateriales: startCase(inventario.boolMateriales),
@@ -27,7 +25,7 @@ export function formatPostInventario(inventario) {
         descripcionUnidad: startCase(inventario.descripcionUnidad),
         precioUnidad: inventario.precioUnidad !== null ? `$${inventario.precioUnidad.toLocaleString('es-ES')}` : "No está a la venta",
         marcaUnidad: startCase(inventario.marcaUnidad),
-        proveedor: startCase(inventario.proveedor),
+        id_proveedor: inventario.id_proveedor,
         restockSugerido: inventario.restockSugerido,
         umbralMinimo: inventario.umbralMinimo,
         boolMateriales: inventario.boolMateriales,
