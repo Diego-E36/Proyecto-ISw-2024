@@ -1,6 +1,6 @@
 // Imports
-import { deleteProveedores } from "../../services/proveedores.service";
-import { showErrorAlert, showSuccessAlert } from "../../helpers/sweetAlert.js";
+import { deleteProveedores } from "@services/proveedores.service.js";
+import { deleteDataAlert ,showErrorAlert, showSuccessAlert } from "@helpers/sweetAlert.js";
 
 // Hook
 const useDeleteProveedores = (fetchProveedores, setDataProveedor) => {
@@ -16,9 +16,15 @@ const useDeleteProveedores = (fetchProveedores, setDataProveedor) => {
                         return showErrorAlert('Error', response.details);
                     }
                     // Si se elimina correctamente, mostrar una alerta
-                    showSuccessAlert('¡Eliminado!', 'El proveedor ha sido eliminado correctamente.');
-                    await fetchProveedores();
-                    setDataProveedor([]);
+                    if (response.status === 'Success'){
+                        console.log(response)
+                        showSuccessAlert('¡Eliminado!', 'El proveedor ha sido eliminado correctamente.');
+                        await fetchProveedores();
+                        setDataProveedor([]);
+                    } else {
+                        showErrorAlert('Cancelado', 'El proveedor tiene productos de inventario asociados.');
+                    }
+                    
                 } else { // Si se cancela la eliminación
                     showErrorAlert('Cancelado', 'La operación ha sido cancelada.');
                 }
