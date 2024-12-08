@@ -19,7 +19,7 @@ router
     .use(isAdmin) // A partir de aquí, solo los administradores
     .get("/all", getAllNotifications)
     .delete("/:id", deleteNotification)
-    .get("/unread", getUnreadNotifications)
+    .get("/", getUnreadNotifications)
     .patch("/:id", markAsRead);
     
 
