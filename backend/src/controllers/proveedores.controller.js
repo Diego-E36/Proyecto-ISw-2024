@@ -76,7 +76,7 @@ export async function deleteProv(req, res) {
 
         if (errorProv && errorProv === "caso 1") {
             return handleErrorClient(res, 404, "Proveedor no encontrado");
-        } else {
+        } else if (errorProv === "caso 2") {
             return handleErrorServer(res, 418, "Proveedor tiene asignado al menos un item de inventario");
         }
 
