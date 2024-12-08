@@ -8,6 +8,7 @@ import PedalBikeIcon from '@mui/icons-material/PedalBike';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 
@@ -118,6 +119,20 @@ const Navbar = () => {
                             activeClassName="active"
                         >
                             <PeopleAltIcon className="icon" /> Usuarios
+                        </NavLink>
+                    </li>
+                    )}
+                    {(userRole === 'administrador') && (
+                    <li>
+                        <NavLink 
+                            to="/proveedores" 
+                            onClick={() => { 
+                                setMenuOpen(false); 
+                                addActiveClass();
+                            }} 
+                            activeClassName="active"
+                        >
+                            <ManageAccountsIcon className="icon" /> Proveedores
                         </NavLink>
                     </li>
                     )}
