@@ -28,9 +28,9 @@ const ServicioSchema = new EntitySchema({
             nullable: false,
         },
         estado: {
-            type: "varchar",
-            length: 50,
-            nullable: false,
+            type: "enum",
+            enum: ["Espera", "Reparación", "Finalizado"],
+            default: "Espera",
         },
         valor: {
             type: "int",
@@ -47,11 +47,12 @@ const ServicioSchema = new EntitySchema({
         },
         createdAt: {
             type: "timestamp with time zone",
-            onUpdate: "CURRENT_TIMESTAMP",
+            default: () => "CURRENT_TIMESTAMP",
             nullable: false,
         },
         updatedAt: {
             type: "timestamp with time zone",
+            default: () => "CURRENT_TIMESTAMP",
             onUpdate: "CURRENT_TIMESTAMP",
             nullable: false,
         },
