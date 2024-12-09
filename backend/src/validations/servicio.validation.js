@@ -11,6 +11,9 @@ export const servicioQuerySchema = Joi.object({
             "number.integer": "El id debe ser un número entero.",
             "number.positive": "El id debe ser un número positivo.",
         }),
+})
+
+export const servicioBodySchema = Joi.object({
     id_bicicleta: Joi.number()
         .integer()
         .positive()
@@ -19,23 +22,6 @@ export const servicioQuerySchema = Joi.object({
             "number.integer": "El id de bicicleta debe ser un número entero.",
             "number.positive": "El id de bicicleta debe ser un número positivo.",
         }),
-    id_usuario: Joi.number()
-        .integer()
-        .positive()
-        .messages({
-            "number.base": "El id de usuario debe ser un número.",
-            "number.integer": "El id de usuario debe ser un número entero.",
-            "number.positive": "El id de usuario debe ser un número positivo.",
-        }),
-})
-    .or("id", "id_bicicleta", "id_usuario")
-    .unknown(false)
-    .messages({
-        "object.unknown": "No se permiten propiedades adicionales.",
-        "object.missing": "Debes proporcionar al menos un parámetro: id, id_bicicleta o id_usuario",
-    });
-
-export const servicioBodySchema = Joi.object({
     id_inventario: Joi.number()
         .integer()
         .positive()
@@ -43,6 +29,14 @@ export const servicioBodySchema = Joi.object({
             "number.base": "El id de inventario debe ser un número.",
             "number.integer": "El id de inventario debe ser un número entero.",
             "number.positive": "El id de inventario debe ser un número positivo.",
+        }),
+    id_usuario: Joi.number()
+        .integer()
+        .positive()
+        .messages({
+            "number.base": "El id de usuario debe ser un número.",
+            "number.integer": "El id de usuario debe ser un número entero.",
+            "number.positive": "El id de usuario debe ser un número positivo.",
         }),
     tipo: Joi.string()
         .min(5)
@@ -56,16 +50,12 @@ export const servicioBodySchema = Joi.object({
             "string.pattern.base": "El tipo solo puede contener letras.",
         }),
     estado: Joi.string()
-        .min(5)
-        .max(500)
-        .pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)
+        .valid("Espera", "Reparación", "Finalizado")
         .messages({
+            "any.only": "El estado debe ser uno de los siguientes: Espera, Reparacion, Finalizado.",
             "string.empty": "El estado no puede estar vacío.",
             "string.base": "El estado debe ser de tipo string.",
-            "string.min": "El estado debe tener como mínimo 5 caracteres.",
-            "string.max": "El estado debe tener como.maxcdn 500 caracteres.",
-            "string.pattern.base": "El estado solo puede contener letras.",
-        }),
+        }),    
     valor: Joi.number()
         .integer()
         .positive()
@@ -95,6 +85,9 @@ export const servicioBodySchema = Joi.object({
         }),
 })
     .or(
+        "id_bicicleta",
+        "id_inventario",
+        "id_usuario",
         "tipo",
         "estado",
         "valor",

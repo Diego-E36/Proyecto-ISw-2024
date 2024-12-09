@@ -10,6 +10,7 @@ import Bicicletas from '@pages/Bicicletas';
 import Inventario from '@pages/Inventario';
 import Proveedores from '@pages/Proveedores';
 import Notificaciones from '@pages/Notificaciones';
+import Servicios from '@pages/Servicio';
 import EstadisticasInventarioprueba from '@pages/EstadisticasInventarioprueba';
 import EstadisticasBicicletasprueba from '@pages/EstadisticasBicicletasprueba';
 import ProtectedRoute from '@components/ProtectedRoute';
@@ -63,6 +64,14 @@ const router = createBrowserRouter([
         element: (
         <ProtectedRoute allowedRoles={['administrador']}>
           <Notificaciones />
+        </ProtectedRoute>
+        )
+      },
+      {
+        path: '/servicio',
+        element: (
+        <ProtectedRoute allowedRoles={['administrador']}>
+          <Servicios />
         </ProtectedRoute>
         )
       },
