@@ -60,12 +60,14 @@ export async function updateBicicletaService(query, body) {
 
         if(!bicicletaFound) return [null, "Bicicleta no encontrada"];
 
-        const existingBicicleta = await bicicletaRepository.findOne({
-            where: [{ numeroSerie: body.numeroSerie }]
-        });
+        if (body.numeroSerie !== undefined) {
+            const existingBicicleta = await bicicletaRepository.findOne({
+                where: [{ numeroSerie: body.numeroSerie }]
+            });
 
-        if (existingBicicleta && existingBicicleta.id !== bicicletaFound.id) {
-            return [null, "Ya existe una bicicleta con estos datos"];
+            if (existingBicicleta && existingBicicleta.id !== bicicletaFound.id) {
+                return [null, "Ya existe una bicicleta con estos datos"];
+            }
         }
 
         const dataBicicleta = {

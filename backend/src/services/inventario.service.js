@@ -6,25 +6,28 @@ import { AppDataSource } from "../config/configDb.js";
 
 export async function updateInvService(query, body) {
     try {
-        const { id, numeroSerie } = query;
+        const { id } = query;
         
         const invRepository = AppDataSource.getRepository(Inventario);
         const proveedorRepo = AppDataSource.getRepository(Proveedores);
 
         const invFound = await invRepository.findOne({
-            where: [{ id: id }, { numeroSerie: numeroSerie }],
+            where: [{ id: id }],
         });
 
         // Verificar si el item del inventario existe
         if (!invFound) return [null, "Item del inventario no encontrado"];
+
+
+        if (body.numeroSerie !== undefined) {
+            // Verificar si el numero de serie está duplicado
+            const existingInv = await invRepository.findOne({
+                where: [{ numeroSerie: body.numeroSerie }]
+            });
         
-        // Verificar si el numero de serie está duplicado
-        const existingInv = await invRepository.findOne({
-            where: [{ numeroSerie: body.numeroSerie }]
-        });
-        
-        if (existingInv && existingInv.id !== invFound.id) {
+            if (existingInv.id !== invFound.id) {
             return [null, "Ya existe un item con ese número de serie"];
+            }
         }
 
         // Verificar si el proveedor ya existe
