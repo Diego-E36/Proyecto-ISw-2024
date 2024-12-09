@@ -14,7 +14,7 @@ export async function getAllProveedores() {
 
 export async function updateProveedores(data, id) {
     try {
-        const response = await axios.patch(`/proveedores/detail/?id=${id}`, data);
+        const response = await axios.patch(`/proveedores/${id}`, data);
         return response.data.data; // data === status, message, data | data.data === data
     } catch (error) {
         console.log(error);

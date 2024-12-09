@@ -12,7 +12,7 @@ export async function getAllBicicletas() {
 
 export async function updateBicicletas(data, id) {
     try {
-        const response = await axios.patch(`/bicicleta/detail/?id=${id}`, data);
+        const response = await axios.patch(`/bicicleta/${id}`, data);
         return response.data.data;
     } catch (error) {
         console.log(error);

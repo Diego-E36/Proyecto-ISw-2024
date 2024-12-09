@@ -14,7 +14,7 @@ export async function getAllInventario() {
 
 export async function updateInventario(data, id) {
     try {
-        const response = await axios.patch(`/inventario/detail/?id=${id}`, data);
+        const response = await axios.patch(`/inventario/${id}`, data);
         return response.data.data;
     } catch (error) {
         console.log(error);
