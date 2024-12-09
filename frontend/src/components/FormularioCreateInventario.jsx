@@ -107,7 +107,7 @@ export default function CreateInventario({ show, setShow, action }) {
                                 {
                                     label: "Proveedor",
                                     name: "id_proveedor",
-                                    defaultValue: "",
+                                    defaultValue: "0",
                                     fieldType: 'input',
                                     type: 'number',
                                     required: true
@@ -115,7 +115,7 @@ export default function CreateInventario({ show, setShow, action }) {
                                 {
                                     label: "Restock sugerido",
                                     name: "restockSugerido",
-                                    defaultValue: "",
+                                    defaultValue: "0",
                                     placeholder: '10',
                                     fieldType: 'input',
                                     type: 'number',
@@ -124,7 +124,7 @@ export default function CreateInventario({ show, setShow, action }) {
                                 {
                                     label: "Umbral mínimo",
                                     name: "umbralMinimo",
-                                    defaultValue: "",
+                                    defaultValue: "0",
                                     placeholder: '5',
                                     fieldType: 'input',
                                     type: 'number',
@@ -133,11 +133,11 @@ export default function CreateInventario({ show, setShow, action }) {
                                 {
                                     label: "¿Son materiales?",
                                     name: "boolMateriales",
-                                    defaultValue: "",
+                                    defaultValue: true,
                                     fieldType: 'select',
                                     options: [
-                                        { value: "true", label: "Sí" },
-                                        { value: "false", label: "No" }
+                                        { value: true, label: "Sí" },
+                                        { value: false, label: "No" },
                                     ],
                                     required: true
                                 }

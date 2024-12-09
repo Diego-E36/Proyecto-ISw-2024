@@ -16,11 +16,11 @@ const useCreateInventario = (fetchInventario) => {
         restockSugerido: "",
         umbralMinimo: "",
         boolMateriales: "",
-    })
+    });
     const [isPopupOpenCreate, setIsPopupOpenCreate] = useState(false); //?
 
     // Crear inventario
-    const createInventarioFuncion = async (inventario) => {
+    const createInventarios = async (inventario) => {
         try {
             const response = await createInventario(inventario);
             if (response.error) {
@@ -33,22 +33,22 @@ const useCreateInventario = (fetchInventario) => {
         } catch (error) {
             console.error('Error: ', error);
         }
-    }
+    };
 
     // Pasar los datos recibidos desde el formulario
     const handleCreate = (formData) => {
-        createInventarioFuncion(formData).then();
-    }
+        createInventarios(formData).then();
+    };
 
     // Retornar valores
     return {
-        createInventarioFuncion,
+        createInventarios,
         inventario,
         setInventario,
         isPopupOpenCreate,
         setIsPopupOpenCreate,
         handleCreate
-    }
-}
+    };
+};
 
 export default useCreateInventario;

@@ -56,6 +56,7 @@ const InventarioSchema = new EntitySchema({
         boolMateriales: {
             type: "boolean",
             nullable: false,
+            default: false,
         },
         createdAt: {
             type: "timestamp with time zone",

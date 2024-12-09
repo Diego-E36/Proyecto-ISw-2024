@@ -97,7 +97,7 @@ const Inventario = () => {
                     onSelectionChange={handleSelectionChange}
                 />
             </div>
-            <FormularioCreateInventario show={isPopupOpenCreate} setShow={setIsPopupOpenCreate} handleCreate={handleCreate} />
+            <FormularioCreateInventario show={isPopupOpenCreate} setShow={setIsPopupOpenCreate} action={handleCreate} />
             <FormularioEditInventario show={isPopupOpen} setShow={setIsPopupOpen} data={dataInventario} action={handleUpdate} />
         </div>
     )
