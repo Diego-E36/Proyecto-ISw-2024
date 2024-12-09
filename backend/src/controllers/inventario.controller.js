@@ -62,7 +62,7 @@ export async function getAllInv(req, res) {
 
 export async function updateInv(req, res) {
     try {
-        const { id } = req.query;
+        const { id } = req.params;
         const { body } = req;
 
         // Validacion del query
