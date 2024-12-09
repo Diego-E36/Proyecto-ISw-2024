@@ -160,7 +160,7 @@ export default function EditInventario({ show, setShow, data, action }) {
                                 {
                                     label: "¿Son materiales?",
                                     name: "boolMateriales",
-                                    defaultValue: "",
+                                    defaultValue: inventarioData.boolMateriales || "",
                                     fieldType: 'select',
                                     options: [
                                         { value: true, label: "Sí" },
