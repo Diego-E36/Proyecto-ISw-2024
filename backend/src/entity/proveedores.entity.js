@@ -13,7 +13,7 @@ const ProveedoresSchema = new EntitySchema({
         },
         rut:{
             type: "varchar",
-            length: 10,
+            length: 20,
             nullable: false,
             unique: true,
         },
