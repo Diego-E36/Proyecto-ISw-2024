@@ -173,7 +173,7 @@
 .hamburger .bar {
     width: 25px;
     height: 3px;
-    background-color: #DBFCD1;
+    background-color: #d800b4;
     margin: 4px 0;
 }
 
@@ -191,7 +191,7 @@
 
     .nav-menu.activado ul {
         display: flex;
-        background-color: #DBFCD1;
+        background-color: #391abe;
         justify-content: center;
         padding: 0;
     }
