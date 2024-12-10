@@ -60,10 +60,10 @@ const Bicicletas = () => {
                     <h1 className='title-table'>Bicicletas</h1>
                     <div className='filter-actions'>
                         <Search value={filterNumeroSerie} onChange={handleNumeroSerieFilterChange} placeholder={'Número de serie'} />
-                        <button className='create-bicicleta' onClick={() => setIsPopupOpenCreate(true)}>
+                        <button onClick={() => setIsPopupOpenCreate(true)}>
                             <img src={AddIcon}/>
                         </button>
-                        <button className='edit-bicicleta' onClick={handleClickUpdate} disabled={dataBicicleta.length === 0}>
+                        <button onClick={handleClickUpdate} disabled={dataBicicleta.length === 0}>
                             {dataBicicleta.length === 0 ? (
                                 <img src={UpdateIconDisable} alt="edit-disabled" />
                             ) : (

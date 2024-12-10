@@ -69,10 +69,10 @@ const Inventario = () => {
                     <h1 className="title-table">Inventario</h1>
                     <div className="filter-actions">
                         <Search value={filterNumeroSerie} onChange={handleIDFilterChange} placeholder={"Número de serie"} />
-                        <button className="create-inventario" onClick={() => setIsPopupOpenCreate(true)}>
+                        <button onClick={() => setIsPopupOpenCreate(true)}>
                             <img src={AddIcon}/>
                         </button>
-                        <button className="edit-inventario" onClick={handleClickUpdate} disabled={dataInventario.length === 0}>
+                        <button onClick={handleClickUpdate} disabled={dataInventario.length === 0}>
                             {dataInventario.length === 0 ? (
                                 <img src={UpdateIconDisable} alt="edit-disabled" />
                             ) : (
