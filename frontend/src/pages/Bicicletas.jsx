@@ -59,7 +59,7 @@ const Bicicletas = () => {
                 <div className='top-table'>
                     <h1 className='title-table'>Bicicletas</h1>
                     <div className='filter-actions'>
-                        <Search value={filterNumeroSerie} onChange={handleNumeroSerieFilterChange} placeholder={'Filtrar por número de serie'} />
+                        <Search value={filterNumeroSerie} onChange={handleNumeroSerieFilterChange} placeholder={'Número de serie'} />
                         <button className='create-bicicleta' onClick={() => setIsPopupOpenCreate(true)}>
                             <img src={AddIcon}/>
                         </button>
