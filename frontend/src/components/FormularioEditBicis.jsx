@@ -110,8 +110,8 @@ export default function EditBici({show, setShow, data, action}){
                                     fieldType: 'input',
                                     type: 'number',
                                     required: true,
-                                    min: 12,
-                                    max: 30,
+                                    min: 10,
+                                    max: 35,
                                 },
                                 {
                                     label: (
