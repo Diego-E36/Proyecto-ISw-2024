@@ -18,8 +18,8 @@ const useCreateServicios = (fetchServicio) => {
     const createServicios = async (servicio) => {
         try {
             const response = await createServicio(servicio);
-            if (response.error) {
-                showErrorAlert(response.message);
+            if (response.error || response.status === "Client error") {
+                showErrorAlert(response.message, response.details);
             } else {
                 showSuccessAlert('Servicio creado exitosamente');
                 fetchServicio();
