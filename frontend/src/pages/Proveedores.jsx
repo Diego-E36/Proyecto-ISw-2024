@@ -52,7 +52,7 @@ const Proveedores = () => {
 
     const columns = [
         { title: "ID", field: "id", width: 55, responsive: 0, resizable: false},
-        { title: "Rut", field: "rut", width: 200, responsive: 0, resizable: false },
+        { title: "RUT", field: "rut", width: 200, responsive: 0, resizable: false },
         { title: "Nombre", field: "nombre", width: 200, responsive: 0, resizable: false },
         { title: "Email", field: "email", width: 300, responsive: 0, resizable: false },
         { title: "Teléfono", field: "telefono", width: 300, responsive: 0, resizable: false },
@@ -65,7 +65,7 @@ const Proveedores = () => {
                 <div className='top-table'>
                     <h1 className='title-table'>Proveedores</h1>
                     <div className='filter-actions'>
-                        <Search value={filterRut} onChange={handleRutFilterChange} placeholder={'Filtrar por rut'} />
+                        <Search value={filterRut} onChange={handleRutFilterChange} placeholder={'RUT'} />
                         <button className='create-proveedor' onClick={() => setIsPopupOpenCreate(true)}>
                             <img src={AddIcon}/>
                         </button>
