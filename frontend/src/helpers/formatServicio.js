@@ -1,5 +1,6 @@
 import { startCase } from "lodash";
 import { format as formatTempo } from "@formkit/tempo";
+import { format as formatRut } from "rut.js";
 
 // Funciones
 export function formatServicioData(servicio){
@@ -8,7 +9,7 @@ export function formatServicioData(servicio){
             id: servicio.id,
             bicicleta: servicio.bicicleta,
             item: servicio.item,
-            rut: servicio.rut,
+            rut: formatRut(servicio.rut),
             tipo: servicio.tipo,
             estado: startCase(servicio.estado),
             valor: servicio.valor,
@@ -23,7 +24,7 @@ export function formatPostServicio(servicio){
     return {
             bicicleta: servicio.bicicleta,
             item: servicio.item,
-            rut: servicio.rut,
+            rut: formatRut(servicio.rut),
             tipo: servicio.tipo,
             estado: startCase(servicio.estado),
             valor: servicio.valor,
