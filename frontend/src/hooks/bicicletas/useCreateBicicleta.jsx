@@ -17,8 +17,9 @@ const useCreateBicicleta = (fetchBicicletas) => {
     const createBicicleta = async (bicicleta) => {
         try {
             const response = await createBicicletas(bicicleta);
-            if (response.error) {
-                showErrorAlert(response.message);
+            console.log("Response: ", response);
+            if (response.error || response.status === "Client error") {
+                showErrorAlert(response.message, response.details);
             } else {
                 showSuccessAlert("Bicicleta creada exitosamente");
                 fetchBicicletas();
