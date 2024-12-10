@@ -5,19 +5,13 @@
     <link rel="icon" type="image/svg+xml" href="/bicycleIcon.svg" />
     <link href="https://unpkg.com/tabulator-tables@4.9.1/dist/css/tabulator.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Software de gestión de inventario</title>
+    <title>Bikeep: Gestión de bicicletas</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
     <script>
-      document.addEventListener('visibilitychange', function() {
-          if (document.hidden) {
-              document.title = '¿Todo bien por allá? 👀';
-          } else {
               document.title = 'Bikeep';
-          }
-      });
   </script>
   </body>
 </html>
