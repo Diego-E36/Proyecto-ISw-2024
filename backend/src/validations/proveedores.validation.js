@@ -2,6 +2,21 @@
 
 import Joi from "joi";
 
+const domainEmailValidator = (value, helper) => {
+    if (
+    !(
+        value.endsWith("@alumnos.ubiobio.cl") 
+        || value.endsWith("@gmail.com") 
+        || value.endsWith("@gmail.cl")
+    )
+    ) {
+        return helper.message(
+        "El correo electrónico debe ser del dominio @alumnos.ubiobio.cl, @gmail.com o @gmail.cl",
+        );
+    }
+    return value;
+};
+
 export const provQueryValidation = Joi.object({
     id: Joi.number()
         .integer()
@@ -53,7 +68,8 @@ export const provBodyValidation = Joi.object({
         "string.base": "El email debe ser de tipo string.",
         "string.max": "El email debe tener como máximo 50 caracteres.",
         "string.email": "El email debe ser un email válido.",
-    }),
+    })
+    .custom(domainEmailValidator, "Validación dominio email"),
     telefono: Joi.string()
     .min(9)
     .max(12)
