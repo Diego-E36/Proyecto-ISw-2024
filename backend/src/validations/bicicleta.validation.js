@@ -92,11 +92,11 @@ export const bicicletaBodySchema = Joi.object({
         .integer()
         .positive()
         .min(10)
-        .max(40)
+        .max(35)
         .messages({
             "number.base": "El aro debe ser un número.",
             "number.min": "El aro debe ser como mínimo 10.",
-            "number.max": "El aro debe ser como máximo 40.",
+            "number.max": "El aro debe ser como máximo 35.",
             "number.integer": "El aro debe ser un número entero.",
             "number.positive": "El aro debe ser un número positivo.",
         }),
