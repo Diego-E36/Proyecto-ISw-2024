@@ -4,9 +4,9 @@ import { showErrorAlert, showSuccessAlert } from '@helpers/sweetAlert.js';
 
 const useCreateServicios = (fetchServicio) => {
     const [servicio, setServicio] = useState({
-        id_bicicleta: "",
-        id_inventario: "",
-        id_usuario: "",
+        bicicleta: "",
+        item: "",
+        rut: "",
         tipo: "",
         estado: "",
         valor: "",

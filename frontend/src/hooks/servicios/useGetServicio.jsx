@@ -10,9 +10,9 @@ const useGetServicios = () => {
             const response = await getAllServicios();
             const formattedData = response.map(servicio =>({
                 id: servicio.id,
-                id_bicicleta: servicio.id_bicicleta,
-                id_inventario: servicio.id_inventario,
-                id_usuario: servicio.id_usuario,
+                bicicleta: servicio.bicicleta,
+                item: servicio.item,
+                rut: servicio.rut,
                 tipo: servicio.tipo,
                 estado: servicio.estado,
                 valor: servicio.valor,
