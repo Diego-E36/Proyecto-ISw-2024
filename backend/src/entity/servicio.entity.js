@@ -10,16 +10,16 @@ const ServicioSchema = new EntitySchema({
             primary: true,
             generated: true,
         },
-        id_bicicleta: {
-            type: "int",
+        bicicleta: {
+            type: "varchar",
             nullable: false,
         },
-        id_inventario: {
-            type: "int",
+        item: {
+            type: "varchar",
             nullable: false,
         },
-        id_usuario: {
-            type: "int",
+        rut: {
+            type: "varchar",
             nullable: false,
         },
         tipo:{
@@ -69,24 +69,24 @@ const ServicioSchema = new EntitySchema({
             target: "Bicicleta",
             type: "many-to-one",
             joinColumn: {
-                name: "id_bicicleta",
-                referencedColumnName: "id",
+                name: "bicicleta",
+                referencedColumnName: "numeroSerie",
             },
         },
         {
             target: "Inventario",
             type: "many-to-many",
             joinColumn: {
-                name: "id_inventario",
-                referencedColumnName: "id",
+                name: "item",
+                referencedColumnName: "numeroSerie",
             },
         },
         {
             target: "User",
             type: "many-to-one",
             joinColumn: {
-                name: "id_usuario",
-                referencedColumnName: "id",
+                name: "rut",
+                referencedColumnName: "rut",
             },
         }
     ]

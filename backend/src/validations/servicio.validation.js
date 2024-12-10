@@ -14,30 +14,39 @@ export const servicioQuerySchema = Joi.object({
 })
 
 export const servicioBodySchema = Joi.object({
-    id_bicicleta: Joi.number()
-        .integer()
-        .positive()
+    bicicleta: Joi.string()
+        .min(5)
+        .max(50)
+        .case("upper")
+        .pattern(/^[a-zA-Z0-9]+$/)
         .messages({
-            "number.base": "El id de bicicleta debe ser un número.",
-            "number.integer": "El id de bicicleta debe ser un número entero.",
-            "number.positive": "El id de bicicleta debe ser un número positivo.",
-        }),
-    id_inventario: Joi.number()
-        .integer()
-        .positive()
+            "string.empty": "El número de serie no puede estar vacío.",
+            "string.base": "El número de serie debe ser de tipo string.",
+            "string.min": "El número de serie debe tener como mínimo 5 caracteres.",
+            "string.max": "El número de serie debe tener como máximo 50 caracteres.",
+            "string.pattern.base": "El número de serie solo puede contener letras y números.",
+    }),
+    item: Joi.string()
+        .min(5)
+        .max(50)
+        .pattern(/^[a-zA-Z0-9]+$/)
+        .uppercase()
         .messages({
-            "number.base": "El id de inventario debe ser un número.",
-            "number.integer": "El id de inventario debe ser un número entero.",
-            "number.positive": "El id de inventario debe ser un número positivo.",
+            "string.pattern.base": "El número de serie solo puede contener letras, números y espacios.",
+            "string.min": "El número de serie debe tener como mínimo 5 caracteres.",
+            "string.max": "El número de serie debe tener como máximo 50 caracteres.",
         }),
-    id_usuario: Joi.number()
-        .integer()
-        .positive()
+    rut: Joi.string()
+        .min(9)
+        .max(12)
+        .pattern(/^(?:(?:[1-9]\d{0}|[1-2]\d{1})(\.\d{3}){2}|[1-9]\d{6}|[1-2]\d{7}|29\.999\.999|29999999)-[\dkK]$/)
         .messages({
-            "number.base": "El id de usuario debe ser un número.",
-            "number.integer": "El id de usuario debe ser un número entero.",
-            "number.positive": "El id de usuario debe ser un número positivo.",
-        }),
+            "string.empty": "El rut no puede estar vacío.",
+            "string.base": "El rut debe ser de tipo string.",
+            "string.min": "El rut debe tener como mínimo 9 caracteres.",
+            "string.max": "El rut debe tener como máximo 12 caracteres.",
+            "string.pattern.base": "Formato rut inválido, debe ser xx.xxx.xxx-x o xxxxxxxx-x.",
+    }),
     tipo: Joi.string()
         .min(5)
         .max(50)
@@ -85,9 +94,9 @@ export const servicioBodySchema = Joi.object({
         }),
 })
     .or(
-        "id_bicicleta",
-        "id_inventario",
-        "id_usuario",
+        "bicicleta",
+        "item",
+        "rut",
         "tipo",
         "estado",
         "valor",

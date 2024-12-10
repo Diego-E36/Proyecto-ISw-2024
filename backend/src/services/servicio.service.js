@@ -4,8 +4,6 @@ import Inventario from "../entity/inventario.entity.js";
 import Bicicleta from "../entity/bicicleta.entity.js";
 import User from "../entity/user.entity.js"; 
 
-
-
 import Servicio from "../entity/servicio.entity.js";
 
 export async function createServicioService(dataServicio) {
@@ -15,22 +13,22 @@ export async function createServicioService(dataServicio) {
         const bicicletaRepository = AppDataSource.getRepository(Bicicleta);
         const servicioRepository = AppDataSource.getRepository(Servicio);
 
-        const inventario = await inventarioRepository.findOne({ where: { id: dataServicio.id_inventario } });
+        const inventario = await inventarioRepository.findOne({ where: { numeroSerie: dataServicio.item } });
 
         if (!inventario) return [null, "Item no encontrado"];
 
-        const user = await userRepository.findOne({ where: { id: dataServicio.id_usuario } });
+        const user = await userRepository.findOne({ where: { rut: dataServicio.rut } });
 
         if (!user) return [null, "Usuario no encontrado"];
 
-        const bicicleta = await bicicletaRepository.findOne({ where: { id: dataServicio.id_bicicleta } });
+        const bicicleta = await bicicletaRepository.findOne({ where: { numeroSerie: dataServicio.bicicleta } });
         
         if (!bicicleta) return [null, "bicicleta no encontrada"];
 
         const newServicio = servicioRepository.create({
-            id_bicicleta: dataServicio.id_bicicleta,
-            id_inventario: dataServicio.id_inventario,
-            id_usuario: dataServicio.id_usuario,
+            bicicleta: dataServicio.bicicleta,
+            item: dataServicio.item,
+            rut: dataServicio.rut,
             tipo: dataServicio.tipo,
             valor: dataServicio.valor,
             descripcion: dataServicio.descripcion,
@@ -74,19 +72,19 @@ export async function updateServicioService(query, body) {
             const servicioFound = await servicioRepository.findOne({ where: { id: id } });
             if (!servicioFound) return [null, "Servicio no encontrado"];
     
-            const inventario = await inventarioRepository.findOne({ where: { id: body.id_inventario } });
+            const inventario = await inventarioRepository.findOne({ where: { numeroSerie: body.item } });
             if (!inventario) return [null, "Item no encontrado"];
     
-            const user = await userRepository.findOne({ where: { id: body.id_usuario } });
+            const user = await userRepository.findOne({ where: { rut: body.rut } });
             if (!user) return [null, "Usuario no encontrado"];
     
-            const bicicleta = await bicicletaRepository.findOne({ where: { id: body.id_bicicleta } });
+            const bicicleta = await bicicletaRepository.findOne({ where: { numeroSerie: body.bicicleta } });
             if (!bicicleta) return [null, "Bicicleta no encontrada"];
     
             const dataServicio = {
-                id_bicicleta: body.id_bicicleta,
-                id_inventario: body.id_inventario,
-                id_usuario: body.id_usuario,
+                bicicleta: body.bicicleta,
+                item: body.item,
+                rut: body.rut,
                 tipo: body.tipo,
                 estado: body.estado,
                 valor: body.valor,
