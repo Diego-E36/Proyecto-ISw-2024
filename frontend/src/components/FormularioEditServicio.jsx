@@ -11,7 +11,10 @@ export default function EditServicio({ show, setShow, data, action }) {
         action(formData);
     };
 
-
+    const serialPattern = /^[a-zA-Z0-9]+$/;
+    const patronSN = /^[0-9a-zA-Z\s]+$/;
+    const patternRut = new RegExp(/^(?:(?:[1-9]\d{0}|[1-2]\d{1})(\.\d{3}){2}|[1-9]\d{6}|[1-2]\d{7}|29\.999\.999|29999999)-[\dkK]$/);
+    const alphaPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/
 
     return (
         <div>
@@ -25,30 +28,85 @@ export default function EditServicio({ show, setShow, data, action }) {
                             title="Editar Servicio"
                             fields={[
                                 {
-                                    label: "id_bicicleta",
-                                    name: "id_bicicleta",
-                                    defaultValue: servicioData.id_bicicleta || "",
-                                    placeholder: "",
-                                    fieldType: "input",
-                                    type: "number",
-                                    required: false,
-                                    minLength: 1,
+                                    label: "Rut",
+                                    name: "rut",
+                                    defaultValue: servicioData.rut || "",
+                                    placeholder: '21.308.770-3',
+                                    fieldType: 'input',
+                                    type: "text",
+                                    minLength: 9,
                                     maxLength: 12,
+                                    pattern: patternRut,
+                                    patternMessage: "Debe ser xx.xxx.xxx-x o xxxxxxxx-x",
                                 },
-
+                                {
+                                    label: "Bicicleta",
+                                    name: "bicicleta",
+                                    defaultValue: servicioData.bicicleta || "",
+                                    placeholder: '1234ABCabc',
+                                    fieldType: 'input',
+                                    type: "text",
+                                    minLength: 5,
+                                    maxLength: 50,
+                                    pattern: patronSN,
+                                    patternMessage: "Debe contener sólo letras y números, sin caracteres especiales",
+                                },
+                                {
+                                    label: "Item",
+                                    name: "item",
+                                    defaultValue: servicioData.item || "",
+                                    placeholder: 'ID000',
+                                    fieldType: 'input',
+                                    type: "text",
+                                    minLength: 5,
+                                    maxLength: 50,
+                                    pattern: serialPattern,
+                                    patternMessage: "Debe contener sólo letras y números, sin caracteres especiales",
+                                },
+                                {
+                                    label: "Tipo",
+                                    name: "tipo",
+                                    defaultValue: servicioData.tipo || "",
+                                    placeholder: 'Cambio de rueda',
+                                    fieldType: 'input',
+                                    type: 'text',
+                                    minLength: 3,
+                                    maxLength: 100,
+                                    pattern: alphaPattern,
+                                    patternMessage: "Debe contener sólo letras"
+                                },
                                 {
                                     label: "¿Estado?",
                                     name: "estado",
-                                    defaultValue: "Espera",
+                                    defaultValue: servicioData.estado || "",
                                     fieldType: 'select',
                                     options: [
                                         { value: "Espera", label: "Espera" },
                                         { value: "Reparación", label: "Reparación" },
                                         { value: "Finalizado", label: "Finalizado" }
                                     ],
-                                    required: true
+                                },
+                                {
+                                    label: "Valor",
+                                    name: "valor",
+                                    defaultValue: servicioData.valor || "",
+                                    fieldType: 'input',
+                                    type: 'number',
+                                },
+                                {
+                                    label: "Descripción",
+                                    name: "descripcion",
+                                    defaultValue: servicioData.descripcion || "",
+                                    fieldType: 'input',
+                                    type: 'text',
+                                },
+                                {
+                                    label: "Duración en minutos",
+                                    name: "duracionMins",
+                                    defaultValue: servicioData.duracionMins || "",
+                                    fieldType: 'input',
+                                    type: 'number'
                                 }
-
                             ]}
                             onSubmit={handleSubmit}
                             buttonText={"Registrar servicio"}
