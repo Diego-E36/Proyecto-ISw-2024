@@ -37,7 +37,7 @@
 .revenueCard {
     grid-column: 1 / 3;
     width: 100%;
-    height: 33rem; 
+    height: 32rem; 
 }
 
 /*cuadros gráficos de abajo */
@@ -85,4 +85,12 @@
 .table-container2 {
     width: 97.4%;
     margin: 0;
+}
+
+/* estilo para el desplegable*/
+.month-selector {
+    font-size: 1rem; 
+    padding: 0.5rem; 
+    margin-bottom: 1rem; 
+    border-radius: 0.5rem; 
 }
