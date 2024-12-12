@@ -94,8 +94,12 @@ export async function updateBici(req, res){
         if (bodyError) return handleErrorClient(res, 400, "Error de validación en los datos enviados", bodyError.message);
         
         const [bicicleta, errorBicicleta] = await updateBicicletaService({ id }, body);
-        
+
+        if(errorBicicleta === "Bicicleta asociada a un Servicio") return handleErrorClient(res, 418, "Bicicleta en uso",errorBicicleta);
+
         if (errorBicicleta) return handleErrorClient(res, 404, errorBicicleta);
+
+
 
         handleSuccess(res, 200, "Bicicleta actualizada", bicicleta);
     } catch (error) {
