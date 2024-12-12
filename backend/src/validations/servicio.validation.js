@@ -76,7 +76,7 @@ export const servicioBodySchema = Joi.object({
     descripcion: Joi.string()
         .min(5)
         .max(500)
-        .pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)
+        .pattern(/^[a-zA-Z0-9áéíóúüÁÉÍÓÚñÑ,.: \s]+$/)
         .messages({
             "string.empty": "La descripción no puede estar vacía.",
             "string.base": "La descripción debe ser de tipo string.",
