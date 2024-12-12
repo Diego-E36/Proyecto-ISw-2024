@@ -10,6 +10,7 @@ import useGetServicios from '../hooks/servicios/useGetServicio';
 import useCreateServicios from '../hooks/servicios/useCreateServicio';
 import useEditServicios from '../hooks/servicios/useUpdateServicio';
 import '@styles/servicio.css';
+import CloseIcon from '../assets/XIcon.svg';
 
 const Servicios = () => {
     const { servicios, fetchServicios, setServicios } = useGetServicios();
@@ -47,16 +48,11 @@ const Servicios = () => {
     }, [setDataServicio]);
 
     const columns = [
-        { title: "Rut", field: "rut", width: 150, responsive: 0 , rezisable: false },
-        { title: "Item", field: "item", width: 150, responsive: 0 , rezisable: false },
-        { title: "Bicicleta", field: "bicicleta", width: 150, responsive: 0 , rezisable: false },
-        { title: "Tipo", field: "tipo", width: 150, responsive: 0 , rezisable: false },
-        { title: "Estado", field: "estado", width: 150, responsive: 0 , rezisable: false },
-        { title: "Valor", field: "valor", width: 150, responsive: 0 , rezisable: false },
-        { title: "Descripción", field: "descripcion", width: 150, responsive: 0 , rezisable: false },
-        { title: "Duración", field: "duracionMins", width: 150, responsive: 0 , rezisable: false },
-        { title: "Creada", field: "createdAt", width: 150, responsive: 0 , rezisable: false },
-        { title: "Actualizada", field: "updatedAt", width: 150, responsive: 0 , rezisable: false },
+        { title: "RUT", field: "rut", width: 208, responsive: 0 , rezisable: false },
+        { title: "Bicicleta", field: "bicicleta", width: 300, responsive: 0 , rezisable: false },
+        { title: "Estado", field: "estado", width: 300, responsive: 0 , rezisable: false },
+        { title: "Creada", field: "createdAt", width: 200, responsive: 0 , rezisable: false },
+        { title: "Actualizada", field: "updatedAt", width: 200, responsive: 0 , rezisable: false },
     ];
 
     return (
@@ -109,7 +105,7 @@ const PopupDetails = ({ data, onClose }) => {
         <div className='popup-container'>
             <div className='popup-content'>
                 <h2>Detalles del Servicio</h2>
-                <button className='close-button' onClick={onClose}>×</button>
+                <button className='close-button' onClick={onClose}> <img src={CloseIcon} alt="Close" /></button>
                 <p><strong>ID:</strong> {data.id}</p>
                 <p><strong>Rut:</strong> {data.rut}</p>
                 <p><strong>Item:</strong> {data.item}</p>
