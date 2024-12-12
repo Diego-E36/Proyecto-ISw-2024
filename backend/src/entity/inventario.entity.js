@@ -82,6 +82,16 @@ const InventarioSchema = new EntitySchema({
             unique: true,
         },
     ],
+    relations: [
+        {
+            target: "Proveedores",
+            type: "many-to-one",
+            joinColumn: {
+                name: "id_proveedor",
+                referencedColumnName: "id",
+            },
+        }
+    ]
 });
 
 export default InventarioSchema;
