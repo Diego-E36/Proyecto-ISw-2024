@@ -68,7 +68,7 @@ const Users = () => {
         <div className="top-table">
           <h1 className="title-table">Usuarios</h1>
           <div className="filter-actions">
-            <Search value={filterRut} onChange={handleRutFilterChange} placeholder={'Rut'} />
+            <Search value={filterRut} onChange={handleRutFilterChange} placeholder={'RUT'} />
             <button onClick={handleClickUpdate} disabled={dataUser.length === 0}>
               {dataUser.length === 0 ? (
                 <img src={UpdateIconDisable} alt="edit-disabled" />
