@@ -85,7 +85,7 @@ export default function EditInventario({ show, setShow, data, action }) {
                                     defaultValue: inventarioData.cantidadStock || "",
                                     placeholder: '10',
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true
                                 },
                                 {
@@ -115,7 +115,7 @@ export default function EditInventario({ show, setShow, data, action }) {
                                     defaultValue: costoUnidad ||"",
                                     placeholder: '10000',
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true
                                 },
                                 {
@@ -136,7 +136,7 @@ export default function EditInventario({ show, setShow, data, action }) {
                                     name: "id_proveedor",
                                     defaultValue: inventarioData.id_proveedor || "",
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true
                                 },
                                 {
@@ -145,7 +145,7 @@ export default function EditInventario({ show, setShow, data, action }) {
                                     defaultValue: inventarioData.restockSugerido || "",
                                     placeholder: '10',
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true
                                 },
                                 {
@@ -154,7 +154,7 @@ export default function EditInventario({ show, setShow, data, action }) {
                                     defaultValue: inventarioData.umbralMinimo || "",
                                     placeholder: '5',
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true
                                 },
                                 {

@@ -58,7 +58,7 @@ export default function CreateInventario({ show, setShow, action }) {
                                     defaultValue: "",
                                     placeholder: '10',
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true
                                 },
                                 {
@@ -88,7 +88,7 @@ export default function CreateInventario({ show, setShow, action }) {
                                     defaultValue: "",
                                     placeholder: '10000',
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true
                                 },
                                 {
@@ -109,7 +109,7 @@ export default function CreateInventario({ show, setShow, action }) {
                                     name: "id_proveedor",
                                     defaultValue: "0",
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true
                                 },
                                 {
@@ -118,7 +118,7 @@ export default function CreateInventario({ show, setShow, action }) {
                                     defaultValue: "0",
                                     placeholder: '10',
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true
                                 },
                                 {
@@ -127,7 +127,7 @@ export default function CreateInventario({ show, setShow, action }) {
                                     defaultValue: "0",
                                     placeholder: '5',
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true
                                 },
                                 {

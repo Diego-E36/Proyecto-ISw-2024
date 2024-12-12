@@ -108,7 +108,7 @@ export default function EditBici({show, setShow, data, action}){
                                     defaultValue: biciData.aro || "",
                                     placeholder: '26',
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true,
                                     min: 10,
                                     max: 35,
@@ -127,7 +127,7 @@ export default function EditBici({show, setShow, data, action}){
                                     defaultValue: dineroVenta || "0",
                                     placeholder: '100000',
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: false,
                                     min: 1,
                                 }

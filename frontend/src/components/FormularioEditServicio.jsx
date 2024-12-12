@@ -91,7 +91,7 @@ export default function EditServicio({ show, setShow, data, action }) {
                                     name: "valor",
                                     defaultValue: servicioData.valor || "",
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                 },
                                 {
                                     label: "Descripción",
@@ -105,7 +105,7 @@ export default function EditServicio({ show, setShow, data, action }) {
                                     name: "duracionMins",
                                     defaultValue: servicioData.duracionMins || "",
                                     fieldType: 'input',
-                                    type: 'number'
+                                    type: 'text'
                                 }
                             ]}
                             onSubmit={handleSubmit}

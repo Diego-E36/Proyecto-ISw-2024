@@ -95,7 +95,7 @@ export default function CreateBici({ show, setShow, action }) {
                                     defaultValue: "",
                                     placeholder: '26',
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true,
                                     min: 10,
                                     max: 35,
@@ -114,7 +114,7 @@ export default function CreateBici({ show, setShow, action }) {
                                     defaultValue: "0",
                                     placeholder: '100000',
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: false,
                                     min: 0,
                                 }

@@ -187,23 +187,6 @@
 	align-items: center;
 }
 
-input[type='email'] {
-	background-image: url('../assets/MentionIcon.svg');
-}
-
-input[name='rut'] {
-	background-image: url('../assets/IdentityCardIcon.svg');
-}
-
-input[name='nombreCompleto'] {
-	background-image: url('../assets/PersonIcon.svg');
-}
-
-input[name='rol'] {
-	background-image: url('../assets/PasskeyIcon.svg');
-	
-}
-
 .container_inputs {
     position: relative;
     margin-bottom: 5px;
@@ -248,4 +231,118 @@ body.dark-mode{
 			color: rgba(93, 93, 93, 0.65);
 		}
 	}
+}
+
+/* Imagen en el input */
+
+input[type='email'] {
+	background-image: url('../assets/alternate_email_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='email'] {
+	background-image: url('../assets/alternate_email_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='rut'] {
+	background-image: url('../assets/fingerprint_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='nombreCompleto'] {
+	background-image: url('../assets/person_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='numeroSerie'] {
+	background-image: url('../assets/barcode_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='marca'] {
+	background-image: url('../assets/edit_note_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='modelo'] {
+	background-image: url('../assets/edit_note_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='color'] {
+	background-image: url('../assets/format_paint_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='tipo'] {
+	background-image: url('../assets/edit_note_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='aro'] {
+	background-image: url('../assets/straighten_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='nombreStock'] {
+	background-image: url('../assets/inventory_2_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='cantidadStock'] {
+	background-image: url('../assets/tag_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='descripcionUnidad'] {
+	background-image: url('../assets/edit_note_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='precioUnidad'] {
+	background-image: url('../assets/paid_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='marcaUnidad'] {
+	background-image: url('../assets/edit_note_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='id_proveedor'] {
+	background-image: url('../assets/manage_accounts_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='restockSugerido'] {
+	background-image: url('../assets/tag_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='umbralMinimo'] {
+	background-image: url('../assets/tag_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='nombre'] {
+	background-image: url('../assets/manage_accounts_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='telefono'] {
+	background-image: url('../assets/call_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='venta'] {
+	background-image: url('../assets/paid_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='tipo'] {
+	background-image: url('../assets/edit_note_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='tipo'] {
+	background-image: url('../assets/edit_note_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='valor'] {
+	background-image: url('../assets/paid_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='descripcion'] {
+	background-image: url('../assets/edit_note_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='duracionMins'] {
+	background-image: url('../assets/schedule_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='item'] {
+	background-image: url('../assets/inventory_2_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
+
+input[name='bicicleta'] {
+	background-image: url('../assets/pedal_bike_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
 }
