@@ -1,5 +1,11 @@
 "use strict";
+// Importar entidades
 import User from "../entity/user.entity.js";
+import Bicicleta from "../entity/bicicleta.entity.js";
+import Inventario from "../entity/inventario.entity.js";
+import Proveedores from "../entity/proveedores.entity.js";
+import Servicio from "../entity/servicio.entity.js";
+
 import { AppDataSource } from "./configDb.js";
 import { encryptPassword } from "../helpers/bcrypt.helper.js";
 
@@ -81,4 +87,117 @@ async function createUsers() {
   }
 }
 
+async function createBicicletasInitial() {
+  try {
+    // Repositorio
+    const bicicletaRepo = AppDataSource.getRepository(Bicicleta);
+    // Contabilizar
+    const count = await bicicletaRepo.count();
+    if (count > 0) return;
+    // Crear
+    await Promise.all([
+      bicicletaRepo.save(
+        bicicletaRepo.create({
+          numeroSerie: "DummyIdBicicleta",
+          marca: "DummyMarca",
+          modelo: "DummyModelo",
+          color: "Blanco",
+          tipo: "TBD",
+          aro: 26,
+          venta: 150000
+        })
+      ),
+    ])
+    console.log("* => Bicicletas creadas exitosamente");
+  } catch (error) {
+    console.error("Error al crear bicicletas:", error);
+  }
+}
+
+async function createInventarioInitial() {
+  try {
+    // Repositorio
+    const inventarioRepo = AppDataSource.getRepository(Inventario);
+    // Contabilizar
+    const count = await inventarioRepo.count();
+    if (count > 0) return;
+    // Crear
+    await Promise.all([
+      inventarioRepo.save(
+        inventarioRepo.create({
+          numeroSerie: "DummyIdInv",
+          nombreStock: "DummyNombre",
+          descripcionUnidad: "DummyDescripcion",
+          cantidadStock: 100,
+          precioUnidad: 100000,
+          marcaUnidad: "DummyMarca",
+          id_proveedor: 1,
+          restockSugerido: 10,
+          umbralMinimo: 10,
+          boolMateriales: false,
+        })
+      ),
+    ])
+    console.log("* => Inventario creado exitosamente");
+  } catch (error) {
+    console.error("Error al crear inventario:", error);
+  }
+}
+
+async function createProveedoresInitial() {
+  try {
+    // Repositorio
+    const proveedoresRepo = AppDataSource.getRepository(Proveedores);
+    // Contabilizar
+    const count = await proveedoresRepo.count();
+    if (count > 0) return;
+    // Crear
+    await Promise.all([
+      proveedoresRepo.save(
+        proveedoresRepo.create({
+          rut: "15000000-0",
+          nombre: "Proveedor Dummy",
+          email: "proveedordummy@gmail.cl",
+          telefono: "+56912345678",
+        })
+      )
+    ])
+    console.log("* => Proveedores creados exitosamente");
+  } catch (error) {
+    console.error("Error al crear proveedores:", error);
+  }
+}
+
+async function createServicioInitial() {
+  try {
+    // Repositorio
+    const servicioRepo = AppDataSource.getRepository(Servicio);
+    // Contabilizar
+    const count = await servicioRepo.count();
+    if (count > 0) return;
+    // Crear
+    await Promise.all([
+      servicioRepo.save(
+        servicioRepo.create({
+          tipo: "DummyTipo",
+          valor: 10000,
+          descripcion: "DummyDescripcion",
+          duracionMins: 120,
+          estado: "Espera",
+          bicicleta: "DummyIdBicicleta",
+          item: "DummyIdItem",
+          rut: "21.308.770-3",
+        })
+      )
+    ])
+    console.log("* => Servicios creados exitosamente");
+  } catch (error) {
+    console.error("Error al crear servicios:", error);
+  }
+}
+
 export { createUsers };
+export { createBicicletasInitial };
+export { createInventarioInitial };
+export { createProveedoresInitial };
+export { createServicioInitial };
