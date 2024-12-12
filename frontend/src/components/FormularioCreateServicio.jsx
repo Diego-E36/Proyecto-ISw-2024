@@ -95,7 +95,7 @@ export default function createServicio({ show, setShow, action }) {
                                     name: "valor",
                                     defaultValue: "",
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true,
                                 },
                                 {
@@ -112,7 +112,7 @@ export default function createServicio({ show, setShow, action }) {
                                     name: "duracionMins",
                                     defaultValue: "",
                                     fieldType: 'input',
-                                    type: 'number',
+                                    type: 'text',
                                     required: true,
                                 }
 
