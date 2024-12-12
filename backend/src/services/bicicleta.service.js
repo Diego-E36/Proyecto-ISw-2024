@@ -1,6 +1,7 @@
 "use strict";
 import { AppDataSource } from "../config/configDb.js";
-import Bicicleta  from "../entity/bicicleta.entity.js";
+import Bicicleta from "../entity/bicicleta.entity.js";
+import Servicio from "../entity/servicio.entity.js";
 
 export async function createBicicletaService(dataBicicleta) {
     try {
@@ -53,6 +54,7 @@ export async function updateBicicletaService(query, body) {
         const { id } = query;
 
         const bicicletaRepository = AppDataSource.getRepository(Bicicleta);
+        const servicioRepository = AppDataSource.getRepository(Servicio);
 
         const bicicletaFound = await bicicletaRepository.findOne({
             where: [{ id: id }],
@@ -69,6 +71,13 @@ export async function updateBicicletaService(query, body) {
                 return [null, "Ya existe una bicicleta con estos datos"];
             }
         }
+
+        const serviciosFound = await servicioRepository.findOne({
+            where: [{ bicicleta: bicicletaFound.numeroSerie }]
+        });
+
+        console.log(serviciosFound);
+        if(serviciosFound) return [null, "Bicicleta asociada a un Servicio"];
 
         const dataBicicleta = {
             numeroSerie: body.numeroSerie,
