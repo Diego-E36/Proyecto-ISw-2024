@@ -18,14 +18,17 @@ const useEditBicicleta = (setBicicletas) => {
             try{
                 const dataUpdate = { ...updatedBicicletaData };
                 const updatedBicicleta = await updateBicicletas(dataUpdate, dataBicicleta[0].id);
-                showSuccessAlert('¡Actualizado!','La bicicleta ha sido actualizada correctamente.');
-                setIsPopupOpen(false);
-                const formattedBicicleta = formatPostBicicletas(updatedBicicleta);
-                setBicicletas(prevBicicletas => prevBicicletas.map(bicicleta =>
-                    bicicleta.id === formattedBicicleta.id ? formattedBicicleta : bicicleta
-                ));
-
-                setDataBicicleta([]);
+                if(updatedBicicleta.error || updatedBicicleta.status === 'Client error'){
+                    showErrorAlert(updatedBicicleta.message, updatedBicicleta.details);
+                }else{
+                    showSuccessAlert('¡Actualizado!', 'La bicicleta ha sido actualizada correctamente.');
+                    setIsPopupOpen(false);
+                    const formattedBicicleta = formatPostBicicletas(updatedBicicleta);
+                    setBicicletas(prevBicicletas => prevBicicletas.map(bicicleta =>
+                        bicicleta.id === formattedBicicleta.id ? formattedBicicleta : bicicleta
+                    ));
+                    setDataBicicleta([]);
+                }
             }catch(error){
                 console.error('Error al actualizar la bicicleta:', error);
                 showErrorAlert('Cancelado','Ocurrió un error al actualizar la bicicleta.');
