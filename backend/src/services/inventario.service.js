@@ -18,10 +18,9 @@ export async function updateInvService(query, body) {
         // Verificar si el item del inventario existe
         if (!invFound) return [null, "Item del inventario no encontrado"];
 
-
         if (body.numeroSerie !== undefined) {
             const inventario = await invRepository.findOne({ where: { numeroSerie: body.numeroSerie } });
-            if (inventario) return [null, "Item repetido"];
+            if (inventario && inventario.numeroSerie === undefined) return [null, "Item repetido"];
         }
 
         // Verificar si el proveedor ya existe

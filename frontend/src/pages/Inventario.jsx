@@ -51,7 +51,7 @@ const Inventario = () => {
     }, [setDataInventario]);
 
     const columns = [
-        { title: "ID", field: "id", width: 55, responsive: 0, resizable: false },
+        // { title: "ID", field: "id", width: 55, responsive: 0, resizable: false },
         { title: "Número de serie", field: "numeroSerie", width: 200, responsive: 0, resizable: false },
         { title: "Nombre", field: "nombreStock", width: 200, responsive: 0, resizable: false },
         { title: "Descripción", field: "descripcionUnidad", width: 300, responsive: 0, resizable: false },

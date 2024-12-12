@@ -51,7 +51,7 @@ export default function EditInventario({ show, setShow, data, action }) {
                             <img src={CloseIcon} />
                         </button>
                         <Form
-                            title="Crear inventario"
+                            title="Editar inventario"
                             fields={[
                                 {
                                     label: "Número de serie",
