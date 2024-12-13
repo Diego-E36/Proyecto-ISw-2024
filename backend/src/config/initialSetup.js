@@ -132,6 +132,7 @@ async function createInventarioInitial() {
           precioUnidad: 100000,
           marcaUnidad: "DummyMarca",
           id_proveedor: 1,
+          nombre_proveedor: "Proveedor Dummy",
           restockSugerido: 10,
           umbralMinimo: 10,
           boolMateriales: false,

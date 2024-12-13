@@ -106,11 +106,16 @@ export default function CreateInventario({ show, setShow, action }) {
                                 },
                                 {
                                     label: "Proveedor",
-                                    name: "id_proveedor",
-                                    defaultValue: "0",
+                                    name: "nombre_proveedor",
+                                    defaultValue: "",
+                                    placeholder: 'Aceites S.A.',
                                     fieldType: 'input',
                                     type: 'text',
-                                    required: true
+                                    required: true,
+                                    minLength: 3,
+                                    maxLength: 50,
+                                    pattern: alphanumericPattern,
+                                    patternMessage: "Debe contener sólo letras y números",
                                 },
                                 {
                                     label: "Restock sugerido",

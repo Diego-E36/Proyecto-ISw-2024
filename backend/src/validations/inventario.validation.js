@@ -84,6 +84,15 @@ export const invBodyValidation = Joi.object({
             "number.integer": "El id del proveedor debe ser un número entero.",
             "number.positive": "El id del proveedor debe ser un número positivo.",
         }),
+    nombre_proveedor: Joi.string()
+        .max(50)
+        .pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)
+        .messages({
+            "string.empty": "El nombre no puede estar vacío.",
+            "string.base": "El nombre debe ser de tipo string.",
+            "string.max": "El nombre debe tener como máximo 50 caracteres.",
+            "string.pattern.base": "El nombre solo puede contener letras y números.",
+        }),
     restockSugerido: Joi.number()
         .integer()
         .positive()
@@ -113,6 +122,7 @@ export const invBodyValidation = Joi.object({
         "precioUnidad", 
         "marcaUnidad",
         "id_proveedor",
+        "nombre_proveedor",
         "restockSugerido",
         "umbralMinimo",
         "boolMateriales"
@@ -120,6 +130,6 @@ export const invBodyValidation = Joi.object({
     .unknown(false)
     .messages({
         "object.unknown": "No se permiten propiedades adicionales.",
-        "object.missing": "Debes proporcionar al menos un parámetro: numeroSerie, nombreStock, cantidadStock, descripcionUnidad, precioUnidad, marcaUnidad, id_proveedor, restockSugerido, umbralMinimo o boolMateriales.",
+        "object.missing": "Debes proporcionar al menos un parámetro: numeroSerie, nombreStock, cantidadStock, descripcionUnidad, precioUnidad, marcaUnidad, id_proveedor, nombre_proveedor, restockSugerido, umbralMinimo o boolMateriales.",
     });
 

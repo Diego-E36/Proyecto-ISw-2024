@@ -295,8 +295,8 @@ input[name='marcaUnidad'] {
 	background-image: url('../assets/edit_note_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
 }
 
-input[name='id_proveedor'] {
-	background-image: url('../assets/manage_accounts_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+input[name='nombre_proveedor'] {
+	background-image: url('../assets/edit_note_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
 }
 
 input[name='restockSugerido'] {

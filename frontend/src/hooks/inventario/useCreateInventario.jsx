@@ -13,6 +13,7 @@ const useCreateInventario = (fetchInventario) => {
         precioUnidad: "",
         marcaUnidad: "",
         id_proveedor: "",
+        nombre_proveedor: "",
         restockSugerido: "",
         umbralMinimo: "",
         boolMateriales: "",
@@ -23,8 +24,9 @@ const useCreateInventario = (fetchInventario) => {
     const createInventarios = async (inventario) => {
         try {
             const response = await createInventario(inventario);
-            if (response.error) {
-                showErrorAlert(response.message);
+            console.log('Response: ', response);
+            if (response.error || response.status === "Client error") {
+                showErrorAlert(response.message, response.details);
             } else {
                 showSuccessAlert('Inventario creado exitosamente');
                 fetchInventario();

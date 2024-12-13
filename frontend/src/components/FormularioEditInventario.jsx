@@ -133,11 +133,16 @@ export default function EditInventario({ show, setShow, data, action }) {
                                 },
                                 {
                                     label: "Proveedor",
-                                    name: "id_proveedor",
-                                    defaultValue: inventarioData.id_proveedor || "",
+                                    name: "nombre_proveedor",
+                                    defaultValue: inventarioData.nombre_proveedor || "",
+                                    placeholder: 'Aceites S.A.',
                                     fieldType: 'input',
                                     type: 'text',
-                                    required: true
+                                    required: true,
+                                    minLength: 3,
+                                    maxLength: 50,
+                                    pattern: alphanumericPattern,
+                                    patternMessage: "Debe contener sólo letras y números",
                                 },
                                 {
                                     label: "Restock sugerido",
