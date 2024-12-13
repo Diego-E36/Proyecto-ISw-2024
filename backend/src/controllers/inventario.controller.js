@@ -137,12 +137,14 @@ export async function createInv(req, res) {
             return handleErrorClient(res, 400, "Ya existe un item con ese número de serie");
         }
 
-        // Verificar si el id_proveedor existe en la tabla proveedores
-        const [proveedor, errorProveedor] = await getProvService({ id: inventario.id_proveedor });
-        // Devolver error si no existe el proveedor
-        if (errorProveedor) return handleErrorClient(res, 418, errorProveedor);
+        // // Verificar si el id_proveedor existe en la tabla proveedores
+        // const [proveedor, errorProveedor] = await getProvService({ id: inventario.id_proveedor });
+        // // Devolver error si no existe el proveedor
+        // if (errorProveedor) return handleErrorClient(res, 418, errorProveedor);
 
         const [newInv, errorInv] = await createInvService(inventario);
+
+        if (errorInv) return handleErrorClient(res, 418, errorInv);
 
         await createNotificactionService(newInv, "create");
 
