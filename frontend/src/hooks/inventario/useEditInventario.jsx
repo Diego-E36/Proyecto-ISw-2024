@@ -19,13 +19,18 @@ const useEditInventario = (setInventario) => {
             try {
                 const dataUpdate = { ...updatedInventarioData };
                 const updatedInventario = await updateInventario(dataUpdate, dataInventario[0].id);
-                showSuccessAlert('¡Actualizado!','El producto ha sido actualizado correctamente.');
-                setIsPopupOpen(false);
-                const formattedInventario = formatPostInventario(updatedInventario);
-                setInventario(prevInventario => prevInventario.map(inventario =>
+                // Mostrar una alerta de éxito
+                if (updatedInventario.error || updatedInventario.status === "Client error") {
+                    showErrorAlert(updatedInventario.message, updatedInventario.details);
+                } else {
+                    showSuccessAlert('¡Actualizado!','El producto ha sido actualizado correctamente.');
+                    setIsPopupOpen(false);
+                    const formattedInventario = formatPostInventario(updatedInventario);
+                    setInventario(prevInventario => prevInventario.map(inventario =>
                     inventario.id === formattedInventario.id ? formattedInventario : inventario
-                ))
-                setDataInventario([]);
+                    ))
+                    setDataInventario([]);
+                }
             } catch (error) {
                 console.error('Error al actualizar el producto:', error);
                 showErrorAlert('Cancelado','Ocurrió un error al actualizar el producto.');
