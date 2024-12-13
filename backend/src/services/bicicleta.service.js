@@ -114,9 +114,17 @@ export async function deleteBicicletaService(query) {
 
         const bicicletaRepository = AppDataSource.getRepository(Bicicleta);
 
+        const serviceRepository = AppDataSource.getRepository(Servicio);
+
         const bicicletaFound = await bicicletaRepository.findOne({
             where: [{ id: id }],
         });
+
+        const serviceFound = await serviceRepository.findOne({
+            where: [{ bicicleta: bicicletaFound.numeroSerie }]
+        });
+
+        if (serviceFound) return [null, "Bicicleta asociada a un Servicio"];
 
         if (!bicicletaFound) return [null, "Bicicleta no encontrada"];
 
