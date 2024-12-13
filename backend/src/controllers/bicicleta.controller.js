@@ -117,6 +117,8 @@ export async function deleteBici(req, res){
 
         const [bicicleta, errorBicicleta] = await deleteBicicletaService({ id });
 
+        if(errorBicicleta === "Bicicleta asociada a un Servicio") return handleErrorClient(res, 418, "Bicicleta en uso",errorBicicleta);
+
         if (errorBicicleta) return handleErrorClient(res, 404, errorBicicleta);
 
         handleSuccess(res, 200, "Bicicleta eliminada", bicicleta);
