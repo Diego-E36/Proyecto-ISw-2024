@@ -1,6 +1,7 @@
 "use strict";
 import { Router } from "express";
-import {  getBicicletasPorAroMesController, getBicicletasPorTipoMesController, getBicicletasVentasMesController } from "../controllers/estadisticasBici.controller.js";
+import {  getAllBicicletasPorAroController, getAllBicicletasTipoController, getAllBicicletasVentaController,  getBicicletasPorAroMesController, 
+getBicicletasPorTipoMesController, getBicicletasVentasMesController } from "../controllers/estadisticasBici.controller.js";
 import { authenticateJwt } from "../middlewares/authentication.middleware.js";
 import { isAdmin } from "../middlewares/authorization.middleware.js";
 
@@ -13,8 +14,11 @@ router
 
 // Define rutas para las estadísticas de bicicletas
 router
+    .get("/alltipo", getAllBicicletasTipoController)
     .get("/tipobici/:mes", getBicicletasPorTipoMesController)
+    .get("/allventa", getAllBicicletasVentaController)
     .get("/ventabici/:mes", getBicicletasVentasMesController)
+    .get("/allaros", getAllBicicletasPorAroController)
     .get("/arobici/:mes", getBicicletasPorAroMesController);
 
 export default router;
