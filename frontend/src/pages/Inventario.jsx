@@ -57,7 +57,7 @@ const Inventario = () => {
         { title: "Descripción", field: "descripcionUnidad", width: 300, responsive: 0, resizable: false },
         { title: "Precio", field: "precioUnidad", width: 200, responsive: 0, resizable: false },
         { title: "Marca", field: "marcaUnidad", width: 200, responsive: 0, resizable: false },
-        { title: "ID Proveedor", field: "id_proveedor", width: 200, responsive: 0, resizable: false },
+        { title: "Proveedor", field: "nombre_proveedor", width: 200, responsive: 0, resizable: false },
         { title: "Restock sugerido", field: "restockSugerido", width: 200, responsive: 0, resizable: false },
         { title: "Actualizado", field: "updatedAt", width: 200, responsive: 0, resizable: false },
     ];
