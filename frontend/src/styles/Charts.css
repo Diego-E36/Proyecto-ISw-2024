@@ -94,3 +94,19 @@
     margin-bottom: 1rem; 
     border-radius: 0.5rem; 
 }
+
+/*estilo para el desplegable de filtro*/
+.filter-selector {
+    font-size: 1rem; 
+    padding: 0.5rem; 
+    margin-bottom: 1rem; 
+    border-radius: 0.5rem; 
+    margin-left: 0.5rem;
+}
+
+/*estilo para el contenedor de los desplegables*/
+.selectors-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
