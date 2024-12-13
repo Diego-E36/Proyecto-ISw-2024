@@ -10,7 +10,7 @@ import useGetServicios from '../hooks/servicios/useGetServicio';
 import useCreateServicios from '../hooks/servicios/useCreateServicio';
 import useEditServicios from '../hooks/servicios/useUpdateServicio';
 import '@styles/servicio.css';
-import CloseIcon from '../assets/XIcon.svg';
+import PopupDetailsServicios from "@components/PopupDetailsServicios.jsx";
 
 const Servicios = () => {
     const { servicios, fetchServicios, setServicios } = useGetServicios();
@@ -61,7 +61,7 @@ const Servicios = () => {
                 <div className='top-table'>
                     <h1 className='title-table'>Servicios</h1>
                     <div className='filter-actions'>
-                        <Search value={filterRut} onChange={handleRutFilterChange} placeholder={'Filtrar por rut'} />
+                        <Search value={filterRut} onChange={handleRutFilterChange} placeholder={'RUT de usuario'} />
                         <button onClick={() => setIsPopupOpenCreate(true)}>
                             <img src={AddIcon} alt="Add" />
                         </button>
@@ -90,34 +90,11 @@ const Servicios = () => {
             <FormularioCreateServicio show={isPopupOpenCreate} setShow={setIsPopupOpenCreate} action={handleCreate} />
             <FormularioEditServicio show={isPopupOpen} setShow={setIsPopupOpen} data={dataServicio} action={handleUpdate} />
             {isPopupOpenDetails && selectedRow && (
-                <PopupDetails
+                <PopupDetailsServicios
                     data={selectedRow}
                     onClose={() => setIsPopupOpenDetails(false)}
                 />
             )}
-        </div>
-    );
-};
-
-// Componente Popup para Detalles
-const PopupDetails = ({ data, onClose }) => {
-    return (
-        <div className='popup-container'>
-            <div className='popup-content'>
-                <h2>Detalles del Servicio</h2>
-                <button className='close-button' onClick={onClose}> <img src={CloseIcon} alt="Close" /></button>
-                <p><strong>ID:</strong> {data.id}</p>
-                <p><strong>RUT:</strong> {data.rut}</p>
-                <p><strong>Item:</strong> {data.item}</p>
-                <p><strong>Bicicleta:</strong> {data.bicicleta}</p>
-                <p><strong>Tipo:</strong> {data.tipo}</p>
-                <p><strong>Estado:</strong> {data.estado}</p>
-                <p><strong>Valor:</strong> {data.valor}</p>
-                <p><strong>Descripción:</strong> {data.descripcion}</p>
-                <p><strong>Duración:</strong> {data.duracionMins} mins</p>
-                <p><strong>Creada:</strong> {data.createdAt}</p>
-                <p><strong>Actualizada:</strong> {data.updatedAt}</p>
-            </div>
         </div>
     );
 };
