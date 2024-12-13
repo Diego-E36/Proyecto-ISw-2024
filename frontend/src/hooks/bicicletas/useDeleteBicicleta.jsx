@@ -9,7 +9,7 @@ const useDeleteBicicleta = (fetchBicicletas, setDataBicicleta) => {
                 if(result.isConfirmed){
                     const response = await deleteBicicletas(dataBicicleta[0].id);
                     if(response.status === 'Client error'){
-                        return showErrorAlert('Error', response.details);
+                        return showErrorAlert(response.message, response.details);
                     }
                     showSuccessAlert('¡Eliminado!','La bicicleta ha sido eliminada correctamente.');
                     await fetchBicicletas();
