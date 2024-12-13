@@ -24,7 +24,7 @@ export async function updateInvService(query, body) {
         }
 
         // Verificar si el proveedor ya existe
-        const proveedorFind = await proveedorRepo.findOne({ where: { id: body.id_proveedor } });
+        const proveedorFind = await proveedorRepo.findOne({ where: { nombre: body.nombre_proveedor } });
 
         if (!proveedorFind) return [null, "Proveedor no encontrado"];
 
@@ -35,7 +35,8 @@ export async function updateInvService(query, body) {
             descripcionUnidad: body.descripcionUnidad,
             precioUnidad: body.precioUnidad,
             marcaUnidad: body.marcaUnidad,
-            id_proveedor: body.id_proveedor,
+            id_proveedor: proveedorFind.id,
+            nombre_proveedor: body.nombre_proveedor,
             restockSugerido: body.restockSugerido,
             umbralMinimo: body.umbralMinimo,
             boolMateriales: body.boolMateriales,
@@ -128,7 +129,7 @@ export async function createInvService(dataInventario) {
         const proveedorRepo = AppDataSource.getRepository(Proveedores);
 
         // Verificar si el proveedor ya existe
-        const proveedor = await proveedorRepo.findOne({ where: { id: dataInventario.id_proveedor } });
+        const proveedor = await proveedorRepo.findOne({ where: { nombre: dataInventario.nombre_proveedor } });
 
         if (!proveedor) return [null, "Proveedor no encontrado"];
 
@@ -145,7 +146,8 @@ export async function createInvService(dataInventario) {
             descripcionUnidad: dataInventario.descripcionUnidad,
             precioUnidad: dataInventario.precioUnidad,
             marcaUnidad: dataInventario.marcaUnidad,
-            id_proveedor: dataInventario.id_proveedor,
+            id_proveedor: proveedor.id,
+            nombre_proveedor: dataInventario.nombre_proveedor,
             restockSugerido: dataInventario.restockSugerido,
             umbralMinimo: dataInventario.umbralMinimo,
             boolMateriales: dataInventario.boolMateriales,
