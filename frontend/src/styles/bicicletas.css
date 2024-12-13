@@ -2,3 +2,30 @@
 .delete-bicicleta {
     margin-right: 70px;
 }
+.filter-actions button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinear contenido al inicio */
+    gap: 8px; /* Espacio entre ícono y texto */
+    padding: 8px 12px; /* Espaciado interno */
+    background-color: #fff; /* Fondo blanco */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño del texto */
+    color: #003365; /* Color del texto */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.filter-actions button img {
+    width: 16px; /* Tamaño uniforme para el ícono */
+    height: 16px;
+}
+
+.filter-actions button:hover {
+    background-color: #f0f0f0; /* Cambio de fondo al pasar el mouse */
+}
+
+.filter-actions button:active {
+    background-color: #e0e0e0; /* Fondo más oscuro al hacer clic */
+}
