@@ -16,6 +16,7 @@ const useInventario = () => {
                 precioUnidad: inventario.precioUnidad,
                 marcaUnidad: inventario.marcaUnidad, 
                 id_proveedor: inventario.id_proveedor,
+                nombre_proveedor: inventario.nombre_proveedor,
                 restockSugerido: inventario.restockSugerido,
                 umbralMinimo: inventario.umbralMinimo,
                 boolMateriales: inventario.boolMateriales,
