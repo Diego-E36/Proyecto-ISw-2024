@@ -9,6 +9,10 @@ import {
 } from "../services/inventario.service.js";
 
 import {
+    createHistorialService
+} from "../services/historial.service.js";
+
+import {
     getProvService
 } from "../services/proveedores.service.js";
 
@@ -87,7 +91,13 @@ export async function updateInv(req, res) {
 
         if (errorInv) return handleErrorClient(res, 500, "Error modificando el inventario", errorInv);
 
+        // Crear historial
+
+        const [historial, errorHist] = await createHistorialService(inventario);
+
+        if (errorHist) return handleErrorClient(res, 500, errorHist);
         
+        // Crear notificacion
         await createNotificactionService(inventario, "update");
 
         handleSuccess(res, 200, "inventario modificado correctamente", inventario);
@@ -147,6 +157,15 @@ export async function createInv(req, res) {
         if (errorInv) return handleErrorClient(res, 418, errorInv);
 
         await createNotificactionService(newInv, "create");
+
+        // Crear historial
+        
+        const [historial, errorHist] = await createHistorialService(newInv);
+
+        if (errorHist) return handleErrorClient(res, 500, errorHist);
+
+        // console.log(newInv);
+        // console.log(historial);
 
         handleSuccess(res, 201, "Item del inventario creado", newInv);
     } catch (error) {
