@@ -1,66 +1,49 @@
 import Table from '../components/Table';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import DeleteIcon from '../assets/deleteIcon.svg';
 import DeleteIconDisable from '../assets/deleteIconDisabled.svg';
 
+import UpdateIcon from "../assets/updateIcon.svg";
+import UpdateIconDisable from "../assets/updateIconDisabled.svg";
+
 import useGetNotificacion from '../hooks/notificaciones/useGetNotificacion';
 import useDeleteNotificacion from '../hooks/notificaciones/useDeleteNotificacion';
-import useGetUnreadNotificacion from '../hooks/notificaciones/useGetUnreadNotificacion';
 import useMarkAsReadNotificacion from '../hooks/notificaciones/useMarkAsRead';
+
 
 const Notificaciones = () => {
     const { notificaciones, fetchNotificaciones, setNotificaciones } = useGetNotificacion();
-    const { handleDelete } = useDeleteNotificacion(fetchNotificaciones, setNotificaciones);
+    const [ notificacionesFilter, setnotificacionesFilter ] = useState(null);
 
-    const { unreadNotificaciones, fetchUnreadNotificaciones } = useGetUnreadNotificacion();
-    const { handleMarkAsRead, isLoading } = useMarkAsReadNotificacion();
+    const {
+        handleMarkAsRead,
+        dataNotificaciones,
+        setDataNotificaciones,
+    } = useMarkAsReadNotificacion(fetchNotificaciones, setNotificaciones);
 
-    const [filterId] = useState('');
-    const [showUnread, setShowUnread] = useState(false);
-    const [selectedNotificaciones, setSelectedNotificaciones] = useState([]);
+    const { handleDelete } = useDeleteNotificacion(fetchNotificaciones, setDataNotificaciones);
 
     const columns = [
-        { title: "ID", field: "id", width: 100, responsive: 0, resizable: false },
-        { title: "Mensaje", field: "message", width: 650, responsive: 0, resizable: false },
+        { title: "ID", field: "id", width: 55, responsive: 0, resizable: false },
+        { title: "Mensaje", field: "message", width: 701, responsive: 0, resizable: false },
         { title: "Estado", field: "status", width: 150, responsive: 0, resizable: false },
         { title: "Creado", field: "createdAt", width: 300, responsive: 0, resizable: false },
     ];
 
-    const handleShowUnread = async () => {
-        setShowUnread(true);
-        await fetchUnreadNotificaciones(); // Llama a la función que obtiene las no leídas
-    };
-
-    const handleShowAll = async () => {
-        setShowUnread(false);
-        await fetchNotificaciones(); // Restaura todas las notificaciones
-    };
-
-    const handleSelectionChange = useCallback(
-        (selectedRows) => {
-            setSelectedNotificaciones(selectedRows);
-        },
-        []
+    const handleSelectionChange = useCallback((selectedRows) => {
+            setDataNotificaciones(selectedRows);
+        }, [setDataNotificaciones]
     );
 
-    const handleMarkSelectedAsRead = async () => {
-        for (const notificacion of selectedNotificaciones) {
-            const success = await handleMarkAsRead(notificacion.id);
-            if (success) {
-                // Actualiza las notificaciones después de marcarlas como leídas
-                if (showUnread) {
-                    fetchUnreadNotificaciones();
-                } else {
-                    fetchNotificaciones();
-                }
-            }
-        }
-        setSelectedNotificaciones([]); // Limpia la selección
-    };
-
-    const displayedData = showUnread ? unreadNotificaciones : notificaciones;
+    const filteresNotificaciones = useMemo(() => {
+        return notificaciones.filter((notificaciones) => {
+            if(notificacionesFilter === null) return true;
+            if(notificacionesFilter === 0) return notificaciones.status === "No leído";
+            return true;
+        })
+    }, [notificaciones, notificacionesFilter]);
 
     return (
         <div className='main-container'>
@@ -68,25 +51,22 @@ const Notificaciones = () => {
                 <div className='top-table'>
                     <h1 className='title-table'>Notificaciones</h1>
                     <div className='filter-actions'>
-                        <button onClick={handleShowUnread} disabled={showUnread} className='unread-button'>
+                        <button onClick={() => setnotificacionesFilter(null)}>
+                            Mostrar todos
+                        </button>
+                        <button onClick={() => setnotificacionesFilter(0)}>
                             Mostrar no leídas
                         </button>
-                        <button onClick={handleShowAll} disabled={!showUnread} className='all-button'>
-                            Mostrar todas
+                        <button onClick={handleMarkAsRead} disabled={dataNotificaciones.length === 0}>
+                            {dataNotificaciones.length === 0 ? (
+                                <img src={UpdateIconDisable} alt="edit-disabled"/>
+                            ) : (
+                                <img src={UpdateIcon} alt="edit"/>
+                            )}
                         </button>
-                        <button
-                            onClick={handleMarkSelectedAsRead}
-                            disabled={selectedNotificaciones.length === 0 || isLoading}
-                            className='mark-read-button'
-                        >
-                            {isLoading ? "Cargando..." : "Marcar como leídas"}
-                        </button>
-                        <button
-                            className='delete-notificacion'
-                            disabled={notificaciones.length === 0}
-                            onClick={() => handleDelete(notificaciones)}
-                        >
-                            {notificaciones.length === 0 ? (
+                        <button className='delete-notificacion' disabled={dataNotificaciones.length === 0}
+                            onClick={() => handleDelete(dataNotificaciones)}>
+                            {dataNotificaciones.length === 0 ? (
                                 <img src={DeleteIconDisable} alt="delete-disabled" />
                             ) : (
                                 <img src={DeleteIcon} alt="delete" />
@@ -95,10 +75,10 @@ const Notificaciones = () => {
                     </div>
                 </div>
                 <Table
-                    data={displayedData}
+                    data={filteresNotificaciones}
                     columns={columns}
-                    filter={filterId}
-                    dataToFilter={''}
+                    filter={""}
+                    dataToFilter={"id"}
                     initialSortName={'id'}
                     onSelectionChange={handleSelectionChange}
                 />

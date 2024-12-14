@@ -1,0 +1,56 @@
+.filter-actions {
+    display: flex;
+    gap: 10px;
+    button {
+        background: rgba(255, 255, 255, 0.87);
+        border: #fff;
+        cursor: pointer;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;        
+    }
+}
+
+.delete-notificacion{
+    margin-right:  70px;
+}
+
+.tooltip {
+    position: absolute;
+    top: -40px; /* Ajusta según la posición del botón */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    color: white; /* Color base para el texto */
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    animation: fadeIn 0.3s ease-in-out, rainbow 3s linear infinite;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rainbow {
+    0% { color: #ff0000; } /* Rojo */
+    14% { color: #ff7f00; } /* Naranja */
+    28% { color: #ffff00; } /* Amarillo */
+    42% { color: #00ff00; } /* Verde */
+    57% { color: #0000ff; } /* Azul */
+    71% { color: #4b0082; } /* Índigo */
+    85% { color: #9400d3; } /* Violeta */
+    100% { color: #ff0000; } /* Regresa al rojo */
+}
+
+.unread-button {
+    position: relative; /* Necesario para posicionar el tooltip */
+}
