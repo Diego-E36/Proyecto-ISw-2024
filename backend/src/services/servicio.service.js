@@ -6,6 +6,13 @@ import User from "../entity/user.entity.js";
 
 import Servicio from "../entity/servicio.entity.js";
 
+import RelacionalInvServ from "../entity/relacionalInvServ.js";
+
+import { format } from "rut.js";
+
+import { updateInvService } from "../services/inventario.service.js";
+import { createHistorialService } from "../services/historial.service.js";
+
 export async function createServicioService(dataServicio) {
     try{
         const inventarioRepository = AppDataSource.getRepository(Inventario);
@@ -13,12 +20,13 @@ export async function createServicioService(dataServicio) {
         const bicicletaRepository = AppDataSource.getRepository(Bicicleta);
         const servicioRepository = AppDataSource.getRepository(Servicio);
 
+        const relacionRepository = AppDataSource.getRepository(RelacionalInvServ);
+
         const inventario = await inventarioRepository.findOne({ where: { numeroSerie: dataServicio.item } });
 
         if (!inventario) return [null, "Item no encontrado"];
 
-        const user = await userRepository.findOne({ where: { rut: dataServicio.rut } });
-
+        const user = await userRepository.findOne({ where: { rut: format(dataServicio.rut) } });
         if (!user) return [null, "Usuario no encontrado"];
 
         const bicicleta = await bicicletaRepository.findOne({ where: { numeroSerie: dataServicio.bicicleta } });
@@ -26,9 +34,9 @@ export async function createServicioService(dataServicio) {
         if (!bicicleta) return [null, "bicicleta no encontrada"];
 
         const newServicio = servicioRepository.create({
-            bicicleta: dataServicio.bicicleta,
-            item: dataServicio.item,
-            rut: dataServicio.rut,
+            bicicleta: bicicleta.numeroSerie,
+            item: inventario.numeroSerie,
+            rut: user.rut,
             tipo: dataServicio.tipo,
             valor: dataServicio.valor,
             descripcion: dataServicio.descripcion,
@@ -36,6 +44,23 @@ export async function createServicioService(dataServicio) {
         });
 
         const servicioSaved = await servicioRepository.save(newServicio);
+        if(servicioSaved){
+        const newRelacion = relacionRepository.create({
+            idServicio: servicioSaved.id,
+            numSerie: inventario.numeroSerie,
+            cantidad: dataServicio.cantidad
+        })
+        const relacionSaved = await relacionRepository.save(newRelacion);
+            if(relacionSaved) {
+            const stockEdit = inventario.cantidadStock-dataServicio.cantidad
+            if(stockEdit >= 0){
+                await updateInvService({ id: inventario.id }, { cantidadStock: stockEdit });
+                await createHistorialService({ id: inventario.id, cantidadStock: stockEdit });
+                } else {
+                    return [null, "Cantidad mayor que el stock"] 
+                }
+            }
+        }
 
         return [servicioSaved, null];
 
@@ -68,23 +93,23 @@ export async function updateServicioService(query, body) {
             const userRepository = AppDataSource.getRepository(User);
             const bicicletaRepository = AppDataSource.getRepository(Bicicleta);
             const servicioRepository = AppDataSource.getRepository(Servicio);
-    
+
             const servicioFound = await servicioRepository.findOne({ where: { id: id } });
             if (!servicioFound) return [null, "Servicio no encontrado"];
     
             const inventario = await inventarioRepository.findOne({ where: { numeroSerie: body.item } });
             if (!inventario) return [null, "Item no encontrado"];
     
-            const user = await userRepository.findOne({ where: { rut: body.rut } });
+            const user = await userRepository.findOne({ where: { rut: format(body.rut) } });
             if (!user) return [null, "Usuario no encontrado"];
     
             const bicicleta = await bicicletaRepository.findOne({ where: { numeroSerie: body.bicicleta } });
             if (!bicicleta) return [null, "Bicicleta no encontrada"];
     
             const dataServicio = {
-                bicicleta: body.bicicleta,
-                item: body.item,
-                rut: body.rut,
+                bicicleta: bicicleta.numeroSerie,
+                item: inventario.numeroSerie,
+                rut: user.rut,
                 tipo: body.tipo,
                 estado: body.estado,
                 valor: body.valor,

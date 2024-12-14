@@ -12,6 +12,7 @@ const useCreateServicios = (fetchServicio) => {
         valor: "",
         descripcion: "",
         duracionMins: "",
+        cantidad:"",
     })
     const [isPopupOpenCreate, setIsPopupOpenCreate] = useState(false);
 

@@ -92,6 +92,15 @@ export const servicioBodySchema = Joi.object({
             "number.integer": "La duración en minutos debe ser un número entero.",
             "number.positive": "La duración en minutos debe ser un número positivo.",
         }),
+    cantidad: Joi.number()
+        .integer()
+        .min(1)
+        .messages({
+            "number.base": "La cantidad debe ser un número.",
+            "number.integer": "La cantidad debe ser un número entero.",
+            "number.positive": "La cantidad debe ser un número positivo.",
+        }),
+
 })
     .or(
         "bicicleta",
@@ -101,7 +110,8 @@ export const servicioBodySchema = Joi.object({
         "estado",
         "valor",
         "descripcion",
-        "duracionMins"
+        "duracionMins",
+        "cantidad"
     )
     .unknown(false)
     .messages({

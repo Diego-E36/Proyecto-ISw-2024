@@ -32,7 +32,7 @@ export default function EditServicio({ show, setShow, data, action }) {
                                     name: "rut",
                                     defaultValue: servicioData.rut || "",
                                     placeholder: '21.308.770-3',
-                                    fieldType: 'input',
+                                    fieldType: "input",
                                     type: "text",
                                     minLength: 9,
                                     maxLength: 12,
@@ -106,6 +106,14 @@ export default function EditServicio({ show, setShow, data, action }) {
                                     defaultValue: servicioData.duracionMins || "",
                                     fieldType: 'input',
                                     type: 'text'
+                                },
+                                {
+                                    label: "Cantidad",
+                                    name: "cantidad",
+                                    defaultValue: "",
+                                    fieldType: "input",
+                                    type: "text",
+                                    required: true,
                                 }
                             ]}
                             onSubmit={handleSubmit}

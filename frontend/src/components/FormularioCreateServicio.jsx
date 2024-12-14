@@ -10,7 +10,7 @@ export default function createServicio({ show, setShow, action }) {
 
     const serialPattern = /^[a-zA-Z0-9]+$/;
     const patronSN = /^[0-9a-zA-Z\s]+$/;
-    const patternRut = new RegExp(/^(?:(?:[1-9]\d{0}|[1-2]\d{1})(\.\d{3}){2}|[1-9]\d{6}|[1-2]\d{7}|29\.999\.999|29999999)-[\dkK]$/);
+    const rutPattern = /^(?:(?:[1-9]\d{0}|[1-2]\d{1})(\.\d{3}){2}|[1-9]\d{6}|[1-2]\d{7}|29\.999\.999|29999999)-[\dkK]$/
     const alphaPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/
 
     return (
@@ -28,21 +28,21 @@ export default function createServicio({ show, setShow, action }) {
                                     label: "Rut",
                                     name: "rut",
                                     defaultValue: "",
-                                    placeholder: '21.308.770-3',
-                                    fieldType: 'input',
+                                    placeholder: "xxxxxxxx-x",
+                                    fieldType: "input",
                                     type: "text",
+                                    required: true,
                                     minLength: 9,
                                     maxLength: 12,
-                                    pattern: patternRut,
-                                    patternMessage: "Debe ser xx.xxx.xxx-x o xxxxxxxx-x",
-                                    required: true,
+                                    pattern: rutPattern,
+                                    patternMessage: "Formato rut inválido"
                                 },
                                 {
                                     label: "Bicicleta",
                                     name: "bicicleta",
                                     defaultValue: "",
-                                    placeholder: '1234ABCabc',
-                                    fieldType: 'input',
+                                    placeholder: "1234ABCabc",
+                                    fieldType: "input",
                                     type: "text",
                                     required: true,
                                     minLength: 5,
@@ -55,8 +55,8 @@ export default function createServicio({ show, setShow, action }) {
                                     label: "Item",
                                     name: "item",
                                     defaultValue: "",
-                                    placeholder: 'ID000',
-                                    fieldType: 'input',
+                                    placeholder: "ID000",
+                                    fieldType: "input",
                                     type: "text",
                                     required: true,
                                     minLength: 5,
@@ -68,9 +68,9 @@ export default function createServicio({ show, setShow, action }) {
                                     label: "Tipo",
                                     name: "tipo",
                                     defaultValue: "",
-                                    placeholder: 'Cambio de rueda',
-                                    fieldType: 'input',
-                                    type: 'text',
+                                    placeholder: "Cambio de rueda",
+                                    fieldType: "input",
+                                    type: "text",
                                     minLength: 3,
                                     maxLength: 100,
                                     pattern: alphaPattern,
@@ -82,7 +82,7 @@ export default function createServicio({ show, setShow, action }) {
                                     label: "¿Estado?",
                                     name: "estado",
                                     defaultValue: "",
-                                    fieldType: 'select',
+                                    fieldType: "select",
                                     options: [
                                         { value: "Espera", label: "Espera" },
                                         { value: "Reparación", label: "Reparación" },
@@ -94,16 +94,16 @@ export default function createServicio({ show, setShow, action }) {
                                     label: "Valor",
                                     name: "valor",
                                     defaultValue: "",
-                                    fieldType: 'input',
-                                    type: 'text',
+                                    fieldType: "input",
+                                    type: "text",
                                     required: true,
                                 },
                                 {
                                     label: "Descripción",
                                     name: "descripcion",
                                     defaultValue: "",
-                                    fieldType: 'input',
-                                    type: 'text',
+                                    fieldType: "input",
+                                    type: "text",
                                     required: true,
 
                                 },
@@ -111,8 +111,16 @@ export default function createServicio({ show, setShow, action }) {
                                     label: "Duración en minutos",
                                     name: "duracionMins",
                                     defaultValue: "",
-                                    fieldType: 'input',
-                                    type: 'text',
+                                    fieldType: "input",
+                                    type: "text",
+                                    required: true,
+                                },
+                                {
+                                    label: "Cantidad",
+                                    name: "cantidad",
+                                    defaultValue: "",
+                                    fieldType: "input",
+                                    type: "text",
                                     required: true,
                                 }
 
