@@ -33,6 +33,10 @@ export async function createServicioService(dataServicio) {
         
         if (!bicicleta) return [null, "bicicleta no encontrada"];
 
+        if(bicicleta.venta !== 0) {
+            return [null, "No se puede crear un servicio con una bicicleta a la venta"]
+        }
+
         const newServicio = servicioRepository.create({
             bicicleta: bicicleta.numeroSerie,
             item: inventario.numeroSerie,
