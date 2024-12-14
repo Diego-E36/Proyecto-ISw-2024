@@ -16,13 +16,14 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
                 { 
                     formatter: "rowSelection", 
                     titleFormatter: false, 
-                    hozAlign: "center", 
+                    hozAlign: "center", // Alinea horizontalmente el contenido al centro
+                    vertAlign: "middle", // Alinea verticalmente el contenido al centro
                     headerSort: false,
                     frozen: true,
                     responsive: 0,
                     width: 50,
                     resizable: false,
-                    
+                    cssClass: "center-checkbox no-border",
                     cellClick: function (e, cell) {
                         cell.getRow().toggleSelect();
                     } 

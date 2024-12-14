@@ -51,10 +51,43 @@
         border: 2px solid #000000; /* Borde que coincide con el fondo */
 }
 
+.no-border {
+    border-right: none !important;
+}
+
+.center-checkbox .tabulator-cell {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;    /* Centra verticalmente */
+    padding: 0;             /* Asegúrate de que no haya espacio adicional */
+}
+
+div.tabulator-row.tabulator-selectable.tabulator-row-even{
+    background-color: #000000;
+
+    .tabulator-cell{
+        background-color: #dcdcdc;
+    }
+}
+
+div.tabulator-row.tabulator-selectable.tabulator-row-even.tabulator-selected{
+    .tabulator-cell{
+        background-color: #9abcea;
+    }
+}
+
+.tabulator {
+    border: 2px solid #092B50; /* Cambia el color y grosor del borde */
+    border-radius: 10px;       /* Opcional: bordes redondeados */
+}
 
 /* Para DarkMode */
 
 body.dark-mode {
+
+    .tabulator{
+        border: 2px solid #bbb;
+    }
 
     .table-container .tabulator .tabulator-col {
         background-color: #121228;
@@ -98,6 +131,18 @@ body.dark-mode {
 
         .tabulator-cell{
             background-color: #121212;
+        }
+    }
+
+    div.tabulator-row.tabulator-selectable.tabulator-row-even.tabulator-selected{
+        .tabulator-cell{
+            background-color: #092B50;
+        }
+    }
+
+    div.tabulator-row.tabulator-selectable.tabulator-row-odd.tabulator-selected{
+        .tabulator-cell{
+            background-color: #092B50;
         }
     }
     

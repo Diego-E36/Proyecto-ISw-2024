@@ -3,63 +3,26 @@ import axios from './root.service.js';
 export async function getAllNotificaciones() {
     try {
         const { data: notificacionesData } = await axios.get('/notificaciones/all');
-        return {
-            success: true,
-            data: notificacionesData.data
-        };
+        return notificacionesData.data;
     } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Error al obtener las notificaciones',
-            errorDetails: error.response?.data || error.message
-        };
+        return error.response.data;
     }
 }
 
 export async function deleteNotificacion(id) {
     try {
-        const { data: notificacionesData } = await axios.delete(`/notificaciones/${id}`);
-        return {
-            success: true,
-            data: notificacionesData.data
-        };
+        const response = await axios.delete(`/notificaciones/${id}`);
+        return response.data
     } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Error al obtener las notificaciones',
-            errorDetails: error.response?.data || error.message
-        };
-    }
-}
-
-export async function getUnreadNotificaciones() {
-    try {
-        const { data: notificacionesData } = await axios.get('/notificaciones/');
-        return {
-            success: true,
-            data: notificacionesData.data
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Error al obtener las notificaciones',
-            errorDetails: error.response?.data || error.message
-        };
+        return error.response.data
     }
 }
 
 export async function markAsRead(id) {
     try {
-        const { data: notificacionesData } = await axios.patch(`/notificaciones/${id}`);
-        return {
-        success: true,
-        data: notificacionesData.data
-        };
+        const response = await axios.patch(`/notificaciones/${id}`);
+        return response.data
     } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Error al obtener las notificaciones',
-            errorDetails: error.response?.data || error.message
-        };
+        return error.response.data;      
     }
 }
