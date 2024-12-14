@@ -75,7 +75,6 @@ export async function markAsReadService(query) {
         }
         // Marcar la notificación como leída
         notification.status = "read";
-        console.log("hola")
         // Guardar la notificación actualizada en la base de datos
         const updatedNotification = await notificationRepository.save(notification);
 

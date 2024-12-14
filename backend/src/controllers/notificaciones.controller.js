@@ -15,7 +15,7 @@ import {
 
 export async function deleteNotification(req, res) {
     try {
-        const { id } = req.query;
+        const { id } = req.params;
         
         const [notiDelete, errorNoti] = await deleteNotificationService({ id });
 
@@ -57,7 +57,7 @@ export async function getUnreadNotifications(req, res) {
 
 export async function markAsRead(req, res) {
     try{
-        const { id } = req.query;
+        const { id } = req.params;
         
         const [notificacion, errorNoti] = await markAsReadService({ id });
         
