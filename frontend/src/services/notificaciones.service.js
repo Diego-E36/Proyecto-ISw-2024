@@ -18,7 +18,7 @@ export async function getAllNotificaciones() {
 
 export async function deleteNotificacion(id) {
     try {
-        const { data: notificacionesData } = await axios.delete(`/notificaciones/detail/?id=${id}`);
+        const { data: notificacionesData } = await axios.delete(`/notificaciones/${id}`);
         return {
             success: true,
             data: notificacionesData.data
@@ -50,7 +50,7 @@ export async function getUnreadNotificaciones() {
 
 export async function markAsRead(id) {
     try {
-        const { data: notificacionesData } = await axios.patch(`/notificaciones/detail/?id=${id}`);
+        const { data: notificacionesData } = await axios.patch(`/notificaciones/${id}`);
         return {
         success: true,
         data: notificacionesData.data
