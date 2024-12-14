@@ -120,7 +120,7 @@ export default function EditInventario({ show, setShow, data, action }) {
                                             Precio por unidad
                                             <span className='tooltip-icon'>
                                                 <img src={QuestionIcon} />
-                                                <span className='tooltip-text'>Campo opcional, en caso de no ingresar valor, será 0 y no se considerará a la venta.</span>
+                                                <span className='tooltip-text'>En caso de ingresar un 0, se considerará que el producto no está en venta.</span>
                                                 </span>
                                         </span>
                                     ),
@@ -175,17 +175,17 @@ export default function EditInventario({ show, setShow, data, action }) {
                                     type: 'text',
                                     required: true
                                 },
-                                {
-                                    label: "¿Son materiales?",
-                                    name: "boolMateriales",
-                                    fieldType: 'select',
-                                    defaultValue: inventarioData.boolMateriales === true ? true : false,
-                                    options: [
-                                        { value: true, label: "Sí" },
-                                        { value: false, label: "No" }
-                                    ],
-                                    required: true
-                                }
+                                // {
+                                //     label: "¿Son materiales?",
+                                //     name: "boolMateriales",
+                                //     fieldType: 'select',
+                                //     defaultValue: inventarioData.boolMateriales === true ? true : false,
+                                //     options: [
+                                //         { value: true, label: "Sí" },
+                                //         { value: false, label: "No" }
+                                //     ],
+                                //     required: true
+                                // }
                             ]}
                             onSubmit={handleSubmit}
                             buttonText={"Editar inventario"}
