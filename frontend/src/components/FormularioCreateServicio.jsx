@@ -79,7 +79,7 @@ export default function createServicio({ show, setShow, action }) {
                                     ),
                                     name: "item",
                                     defaultValue: "",
-                                    placeholder: "ID000",
+                                    placeholder: "ID0000",
                                     fieldType: "input",
                                     type: "text",
                                     required: true,
