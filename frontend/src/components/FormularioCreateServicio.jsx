@@ -25,7 +25,7 @@ export default function createServicio({ show, setShow, action }) {
                             title="Crear Servicio"
                             fields={[
                                 {
-                                    label: "Rut",
+                                    label: "RUT",
                                     name: "rut",
                                     defaultValue: "",
                                     placeholder: "xxxxxxxx-x",
