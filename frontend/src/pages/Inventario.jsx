@@ -8,17 +8,21 @@ import AddIcon from "../assets/Addicon.svg";
 import UpdateIcon from "../assets/updateIcon.svg";
 import UpdateIconDisable from "../assets/updateIconDisabled.svg";
 import DeleteIconDisable from "../assets/deleteIconDisabled.svg";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useMemo } from "react";
 import "@styles/inventario.css";
 import useCreateInventario from "../hooks/inventario/useCreateInventario";
 import useEditInventario from "../hooks/inventario/useEditInventario";
 import useDeleteInventario from "../hooks/inventario/useDeleteInventario";
 import useGetInventario from "../hooks/inventario/useGetInventario";
+import ViewIcon from '../assets/ViewIcon.svg';
+import MoneyIcon from '../assets/MoneyIcon.svg';
+import ToolIcon from '../assets/HandymanIcon.svg';
 
 const Inventario = () => {
     // Obtener inventario
     const { inventario, fetchInventario, setInventario } = useGetInventario();
     const [filterNumeroSerie, setFilterNumeroSerie] = useState("");
+    const [materialesFilter, setMaterialesFilter] = useState(null);
 
     // Editar inventario
     const {
@@ -62,34 +66,60 @@ const Inventario = () => {
         { title: "Actualizado", field: "updatedAt", width: 200, responsive: 0, resizable: false },
     ];
 
+    // Filtrar inventario según si se trata de un material o no, basándose en el valo del atributo precioUnidad
+    const filteredInventario = useMemo(() => {
+        return inventario.filter((inventario) => {
+            if(materialesFilter === null) return true; //Mostrar todo el inventario.
+            if(materialesFilter === 0) return inventario.precioUnidad === "No está a la venta"; // Es material
+            if(materialesFilter === 1) return inventario.precioUnidad !== "No está a la venta"; // No es material
+            return true;
+        })
+    }, [inventario, materialesFilter]);
+
     return (
         <div className="main-container">
             <div className="table-container">
                 <div className="top-table">
                     <h1 className="title-table">Inventario</h1>
                     <div className="filter-actions">
-                        <Search value={filterNumeroSerie} onChange={handleIDFilterChange} placeholder={"Número de serie"} />
+
+                        <button onClick={() => setMaterialesFilter(null)}>
+                            <img src={ViewIcon}/>
+                            Mostrar todos
+                        </button>
+                        <button onClick={() => setMaterialesFilter(0)}>
+                            <img src={ToolIcon}/>
+                            Materiales
+                        </button>
+                        <button onClick={() => setMaterialesFilter(1)}>
+                            <img src={MoneyIcon}/>
+                            Productos a la venta
+                        </button>
+
+                        <Search value={filterNumeroSerie} onChange={handleIDFilterChange}
+                                placeholder={"Número de serie"}/>
                         <button onClick={() => setIsPopupOpenCreate(true)}>
                             <img src={AddIcon}/>
                         </button>
                         <button onClick={handleClickUpdate} disabled={dataInventario.length === 0}>
                             {dataInventario.length === 0 ? (
-                                <img src={UpdateIconDisable} alt="edit-disabled" />
+                                <img src={UpdateIconDisable} alt="edit-disabled"/>
                             ) : (
-                                <img src={UpdateIcon} alt="edit" />
+                                <img src={UpdateIcon} alt="edit"/>
                             )}
                         </button>
-                        <button className="delete-inventario" disabled={dataInventario.length === 0} onClick={() => handleDelete(dataInventario)}>
+                        <button className="delete-inventario" disabled={dataInventario.length === 0}
+                                onClick={() => handleDelete(dataInventario)}>
                             {dataInventario.length === 0 ? (
-                                <img src={DeleteIconDisable} alt="delete-disabled" />
+                                <img src={DeleteIconDisable} alt="delete-disabled"/>
                             ) : (
-                                <img src={DeleteIcon} alt="delete" />
+                                <img src={DeleteIcon} alt="delete"/>
                             )}
                         </button>
                     </div>
                 </div>
                 <Table
-                    data={inventario}
+                    data={filteredInventario}
                     columns={columns}
                     filter={filterNumeroSerie}
                     dataToFilter={"numeroSerie"}
@@ -97,7 +127,7 @@ const Inventario = () => {
                     onSelectionChange={handleSelectionChange}
                 />
             </div>
-            <FormularioCreateInventario show={isPopupOpenCreate} setShow={setIsPopupOpenCreate} action={handleCreate} />
+            <FormularioCreateInventario show={isPopupOpenCreate} setShow={setIsPopupOpenCreate} action={handleCreate}/>
             <FormularioEditInventario show={isPopupOpen} setShow={setIsPopupOpen} data={dataInventario} action={handleUpdate} />
         </div>
     )
