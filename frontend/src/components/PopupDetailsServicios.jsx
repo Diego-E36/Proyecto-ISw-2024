@@ -1,5 +1,5 @@
 import CloseIcon from "@assets/XIcon.svg";
-import '@styles/popupDetailsServicios.css';
+import '@styles/popupDetails.css';
 
 const PopupDetailsServicios = ({ data, onClose }) => {
     return (
