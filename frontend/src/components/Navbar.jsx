@@ -207,7 +207,7 @@ const Navbar = () => {
                                         }}
                                         activeClassName="active"
                                     >
-                                        BicicletasChart
+                                        Bicicletas
                                     </NavLink>
                                 </li>
                             </ul>
