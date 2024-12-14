@@ -13,7 +13,7 @@ export function formatInventarioData(inventario) {
         nombre_proveedor: inventario.nombre_proveedor,
         restockSugerido: inventario.restockSugerido,
         umbralMinimo: inventario.umbralMinimo,
-        boolMateriales: inventario.boolMateriales,
+        // boolMateriales: inventario.boolMateriales,
         createdAt: formatTempo(inventario.createdAt, "DD-MM-YYYY HH:mm"),
         updatedAt: formatTempo(inventario.updatedAt, "DD-MM-YYYY HH:mm"),
     };
@@ -30,7 +30,7 @@ export function formatPostInventario(inventario) {
         nombre_proveedor: inventario.nombre_proveedor,
         restockSugerido: inventario.restockSugerido,
         umbralMinimo: inventario.umbralMinimo,
-        boolMateriales: inventario.boolMateriales,
+        // boolMateriales: inventario.boolMateriales,
         createdAt: formatTempo(inventario.createdAt, "DD-MM-YYYY HH:mm"),
         updatedAt: formatTempo(inventario.updatedAt, "DD-MM-YYYY HH:mm"),
     };

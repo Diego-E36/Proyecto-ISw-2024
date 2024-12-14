@@ -1,7 +1,7 @@
 import Form from './Form.jsx';
 import '@styles/popup.css';
 import CloseIcon from '@assets/XIcon.svg';
-
+import QuestionIcon from '@assets/QuestionCircleIcon.svg';
 
 export default function createServicio({ show, setShow, action }) {
     const handleSubmit = (formData) => {
@@ -25,7 +25,15 @@ export default function createServicio({ show, setShow, action }) {
                             title="Crear Servicio"
                             fields={[
                                 {
-                                    label: "RUT",
+                                    label: (
+                                        <span>
+                                            RUT
+                                            <span className='tooltip-icon'>
+                                                <img src={QuestionIcon} />
+                                                <span className='tooltip-text'>El RUT ingresado debe ser el de un usuario registrado en el sistema.</span>
+                                                </span>
+                                        </span>
+                                    ),
                                     name: "rut",
                                     defaultValue: "",
                                     placeholder: "xxxxxxxx-x",
@@ -38,10 +46,18 @@ export default function createServicio({ show, setShow, action }) {
                                     patternMessage: "Formato rut inválido"
                                 },
                                 {
-                                    label: "Bicicleta",
+                                    label: (
+                                        <span>
+                                            Bicicleta
+                                            <span className='tooltip-icon'>
+                                                <img src={QuestionIcon} />
+                                                <span className='tooltip-text'>El parámetro ingresado debe ser el número de serie de una bicicleta.</span>
+                                                </span>
+                                        </span>
+                                    ),
                                     name: "bicicleta",
                                     defaultValue: "",
-                                    placeholder: "1234ABCabc",
+                                    placeholder: "ID0000",
                                     fieldType: "input",
                                     type: "text",
                                     required: true,
@@ -52,10 +68,18 @@ export default function createServicio({ show, setShow, action }) {
                                 },
 
                                 {
-                                    label: "Item",
+                                    label: (
+                                        <span>
+                                            Item
+                                            <span className='tooltip-icon'>
+                                                <img src={QuestionIcon} />
+                                                <span className='tooltip-text'>El parámetro ingresado debe ser el número de serie de un item de inventario.</span>
+                                                </span>
+                                        </span>
+                                    ),
                                     name: "item",
                                     defaultValue: "",
-                                    placeholder: "ID000",
+                                    placeholder: "ID0000",
                                     fieldType: "input",
                                     type: "text",
                                     required: true,
@@ -96,6 +120,7 @@ export default function createServicio({ show, setShow, action }) {
                                     defaultValue: "",
                                     fieldType: "input",
                                     type: "text",
+                                    placeholder: 150000,
                                     required: true,
                                 },
                                 {
@@ -104,6 +129,7 @@ export default function createServicio({ show, setShow, action }) {
                                     defaultValue: "",
                                     fieldType: "input",
                                     type: "text",
+                                    placeholder: "Cambio de rueda trasera",
                                     required: true,
 
                                 },
@@ -113,14 +139,24 @@ export default function createServicio({ show, setShow, action }) {
                                     defaultValue: "",
                                     fieldType: "input",
                                     type: "text",
+                                    placeholder: 120,
                                     required: true,
                                 },
                                 {
-                                    label: "Cantidad",
+                                    label: (
+                                        <span>
+                                            Cantidad
+                                            <span className='tooltip-icon'>
+                                                <img src={QuestionIcon} />
+                                                <span className='tooltip-text'>El número ingresado será restado de las unidades de inventario respectivas.</span>
+                                                </span>
+                                        </span>
+                                    ),
                                     name: "cantidad",
                                     defaultValue: "",
                                     fieldType: "input",
                                     type: "text",
+                                    placeholder: 2,
                                     required: true,
                                 }
 

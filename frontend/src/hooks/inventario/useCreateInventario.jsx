@@ -16,7 +16,7 @@ const useCreateInventario = (fetchInventario) => {
         nombre_proveedor: "",
         restockSugerido: "",
         umbralMinimo: "",
-        boolMateriales: "",
+        // boolMateriales: "",
     });
     const [isPopupOpenCreate, setIsPopupOpenCreate] = useState(false); //?
 

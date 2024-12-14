@@ -111,10 +111,10 @@ export const invBodyValidation = Joi.object({
             "number.integer": "El umbral mínimo debe ser un número entero.",
             "number.positive": "El umbral mínimo debe ser un número positivo.",
         }),
-    boolMateriales: Joi.boolean()
-        .messages({
-            "boolean.base": "El valor de materiales debe ser un booleano.",
-        }),
+    // boolMateriales: Joi.boolean()
+    //     .messages({
+    //         "boolean.base": "El valor de materiales debe ser un booleano.",
+    //     }),
 })
     .or(
         "numeroSerie",
@@ -127,11 +127,11 @@ export const invBodyValidation = Joi.object({
         "nombre_proveedor",
         "restockSugerido",
         "umbralMinimo",
-        "boolMateriales"
+        // "boolMateriales"
     )
     .unknown(false)
     .messages({
         "object.unknown": "No se permiten propiedades adicionales.",
-        "object.missing": "Debes proporcionar al menos un parámetro: numeroSerie, nombreStock, cantidadStock, descripcionUnidad, precioUnidad, marcaUnidad, id_proveedor, nombre_proveedor, restockSugerido, umbralMinimo o boolMateriales.",
+        "object.missing": "Debes proporcionar los parametros parámetro: numeroSerie, nombreStock, cantidadStock, descripcionUnidad, precioUnidad, marcaUnidad, id_proveedor, nombre_proveedor, restockSugerido, umbralMinimo.",
     });
 

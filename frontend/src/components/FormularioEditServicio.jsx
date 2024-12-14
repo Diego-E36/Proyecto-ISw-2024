@@ -1,6 +1,7 @@
 import Form from './Form.jsx';
 import '@styles/popup.css';
 import CloseIcon from '@assets/XIcon.svg';
+import QuestionIcon from '@assets/QuestionCircleIcon.svg';
 
 
 export default function EditServicio({ show, setShow, data, action }) {
@@ -28,10 +29,18 @@ export default function EditServicio({ show, setShow, data, action }) {
                             title="Editar Servicio"
                             fields={[
                                 {
-                                    label: "Rut",
+                                    label: (
+                                        <span>
+                                            RUT
+                                            <span className='tooltip-icon'>
+                                                <img src={QuestionIcon} />
+                                            <span className='tooltip-text'>El RUT ingresado debe ser el de un usuario registrado en el sistema.</span>
+                                            </span>
+                                        </span>
+                                    ),
                                     name: "rut",
                                     defaultValue: servicioData.rut || "",
-                                    placeholder: '21.308.770-3',
+                                    placeholder: "xxxxxxxx-x",
                                     fieldType: "input",
                                     type: "text",
                                     minLength: 9,
@@ -40,10 +49,18 @@ export default function EditServicio({ show, setShow, data, action }) {
                                     patternMessage: "Debe ser xx.xxx.xxx-x o xxxxxxxx-x",
                                 },
                                 {
-                                    label: "Bicicleta",
+                                    label: (
+                                        <span>
+                                            Bicicleta
+                                                <span className='tooltip-icon'>
+                                                    <img src={QuestionIcon} />
+                                            <span className='tooltip-text'>El parámetro ingresado debe ser el número de serie de una bicicleta.</span>
+                                            </span>
+                                        </span>
+                                    ),
                                     name: "bicicleta",
                                     defaultValue: servicioData.bicicleta || "",
-                                    placeholder: '1234ABCabc',
+                                    placeholder: "ID0000",
                                     fieldType: 'input',
                                     type: "text",
                                     minLength: 5,
@@ -52,10 +69,18 @@ export default function EditServicio({ show, setShow, data, action }) {
                                     patternMessage: "Debe contener sólo letras y números, sin caracteres especiales",
                                 },
                                 {
-                                    label: "Item",
+                                    label: (
+                                        <span>
+                                            Item
+                                            <span className='tooltip-icon'>
+                                                <img src={QuestionIcon} />
+                                                <span className='tooltip-text'>El parámetro ingresado debe ser el número de serie de un item de inventario.</span>
+                                            </span>
+                                        </span>
+                                    ),
                                     name: "item",
                                     defaultValue: servicioData.item || "",
-                                    placeholder: 'ID000',
+                                    placeholder: "ID0000",
                                     fieldType: 'input',
                                     type: "text",
                                     minLength: 5,
@@ -91,6 +116,7 @@ export default function EditServicio({ show, setShow, data, action }) {
                                     name: "valor",
                                     defaultValue: servicioData.valor || "",
                                     fieldType: 'input',
+                                    placeholder: 150000,
                                     type: 'text',
                                 },
                                 {
@@ -98,6 +124,7 @@ export default function EditServicio({ show, setShow, data, action }) {
                                     name: "descripcion",
                                     defaultValue: servicioData.descripcion || "",
                                     fieldType: 'input',
+                                    placeholder: "Cambio de rueda trasera",
                                     type: 'text',
                                 },
                                 {
@@ -105,10 +132,19 @@ export default function EditServicio({ show, setShow, data, action }) {
                                     name: "duracionMins",
                                     defaultValue: servicioData.duracionMins || "",
                                     fieldType: 'input',
+                                    placeholder: 120,
                                     type: 'text'
                                 },
                                 {
-                                    label: "Cantidad",
+                                    label: (
+                                        <span>
+                                            Cantidad
+                                            <span className='tooltip-icon'>
+                                                <img src={QuestionIcon} />
+                                                <span className='tooltip-text'>Se revertirá la resta de inventario anterior, y dependiendo del número ingresado se volvera a restar el stock, ahora corregido.</span>
+                                            </span>
+                                        </span>
+                                    ),
                                     name: "cantidad",
                                     defaultValue: "",
                                     fieldType: "input",

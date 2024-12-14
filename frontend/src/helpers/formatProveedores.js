@@ -8,7 +8,7 @@ export function formatProveedoresData(proveedor){
     return {
         ...proveedor,
         rut: formatRut(proveedor.rut),
-        nombre: startCase(proveedor.nombre),
+        nombre: proveedor.nombre,
         email: proveedor.email,
         telefono: proveedor.telefono,
         createdAt: formatTempo(proveedor.createdAt, "DD-MM-YYYY"),
@@ -19,7 +19,7 @@ export function formatProveedoresData(proveedor){
 export function formatPostProveedores(proveedor){
     return {
         rut: formatRut(proveedor.rut),
-        nombre: startCase(proveedor.nombre),
+        nombre: proveedor.nombre,
         email: proveedor.email,
         telefono: proveedor.telefono,
         createdAt: formatTempo(proveedor.createdAt, "DD-MM-YYYY"),

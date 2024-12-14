@@ -62,7 +62,7 @@ const Inventario = () => {
         { title: "Precio", field: "precioUnidad", width: 200, responsive: 0, resizable: false },
         { title: "Marca", field: "marcaUnidad", width: 200, responsive: 0, resizable: false },
         { title: "Proveedor", field: "nombre_proveedor", width: 200, responsive: 0, resizable: false },
-        { title: "Restock sugerido", field: "restockSugerido", width: 200, responsive: 0, resizable: false },
+        // { title: "Restock sugerido", field: "restockSugerido", width: 200, responsive: 0, resizable: false },
         { title: "Actualizado", field: "updatedAt", width: 200, responsive: 0, resizable: false },
     ];
 
@@ -89,7 +89,7 @@ const Inventario = () => {
                         </button>
                         <button onClick={() => setMaterialesFilter(0)}>
                             <img src={ToolIcon}/>
-                            Materiales
+                            Productos no a la venta
                         </button>
                         <button onClick={() => setMaterialesFilter(1)}>
                             <img src={MoneyIcon}/>

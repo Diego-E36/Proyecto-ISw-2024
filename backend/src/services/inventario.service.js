@@ -39,7 +39,7 @@ export async function updateInvService(query, body) {
             nombre_proveedor: body.nombre_proveedor,
             restockSugerido: body.restockSugerido,
             umbralMinimo: body.umbralMinimo,
-            boolMateriales: body.boolMateriales,
+            // boolMateriales: body.boolMateriales,
             updatedAt: new Date(),
         }
 
@@ -150,7 +150,7 @@ export async function createInvService(dataInventario) {
             nombre_proveedor: dataInventario.nombre_proveedor,
             restockSugerido: dataInventario.restockSugerido,
             umbralMinimo: dataInventario.umbralMinimo,
-            boolMateriales: dataInventario.boolMateriales,
+            // boolMateriales: dataInventario.boolMateriales,
         });
 
         // Guardar el producto en el inventario
