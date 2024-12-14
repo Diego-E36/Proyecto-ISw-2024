@@ -57,6 +57,7 @@ const Bicicletas = () => {
         { title: "Tipo", field: "tipo", width: 200, responsive: 0 },
         { title: "Aro", field: "aro", width: 200, responsive: 0 },
         { title: "Venta", field: "venta", width: 200, responsive: 0 },
+        { title: "Actualizado", field: "updatedAt", width: 200, responsive: 0, resizable: false },
     ];
 
     // Filtrar bicicletas según el filtro actual de valor de venta
