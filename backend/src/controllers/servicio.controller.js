@@ -26,6 +26,8 @@ export async function createServicio(req, res){
 
         const [servicioCreated, errorServicio] = await createServicioService(servicio);
 
+        if(errorServicio === "No se puede crear un servicio con una bicicleta a la venta") return handleErrorClient(res, 418, "Bicicleta a la venta", errorServicio);
+
         if(errorServicio) return handleErrorClient(res, 400, errorServicio);
 
         handleSuccess(res, 201, "Servicio creado", servicioCreated);
