@@ -12,7 +12,7 @@ export const sendEmail = async (to, subject, text, html) => {
         });
 
         const mailOptions = {
-            from: `"Software de inventario" <${emailConfig.user}>`,
+            from: `"Sistema de correos Bikeep" <${emailConfig.user}>`,
             to: to,
             subject: subject,
             text: text,

@@ -346,3 +346,7 @@ input[name='item'] {
 input[name='bicicleta'] {
 	background-image: url('../assets/pedal_bike_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
 }
+
+input[name='subject'] {
+	background-image: url('../assets/edit_note_24dp_092B50_FILL0_wght400_GRAD0_opsz24.svg');
+}
