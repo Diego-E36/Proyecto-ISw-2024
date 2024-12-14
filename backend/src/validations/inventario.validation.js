@@ -45,6 +45,7 @@ export const invBodyValidation = Joi.object({
     cantidadStock: Joi.number()
         .integer()
         .positive()
+        .allow(0)
         .messages({
             "number.base": "La cantidad de stock debe ser un número.",
             "number.integer": "La cantidad de stock debe ser un número entero.",
@@ -62,6 +63,7 @@ export const invBodyValidation = Joi.object({
     precioUnidad: Joi.number()
         .integer()
         .positive()
+        .allow(0)
         .messages({
             "number.base": "El precio de la unidad debe ser un número.",
             "number.integer": "El precio de la unidad debe ser un número entero.",
