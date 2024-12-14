@@ -1,3 +1,31 @@
 .delete-inventario {
     margin-right: 70px;
 }
+
+.filter-actions button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #003365;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.filter-actions button img {
+    width: 16px; /* Tamaño uniforme para el ícono */
+    height: 16px;
+}
+
+.filter-actions button:hover {
+    background-color: #f0f0f0; /* Cambio de fondo al pasar el mouse */
+}
+
+.filter-actions button:active {
+    background-color: #e0e0e0; /* Fondo más oscuro al hacer clic */
+}
