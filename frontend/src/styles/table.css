@@ -57,7 +57,7 @@
 body.dark-mode {
 
     .table-container .tabulator .tabulator-col {
-        background-color: #1f1f1f;
+        background-color: #121228;
         color: #bbb;
     }
 
@@ -92,6 +92,15 @@ body.dark-mode {
     .tabulator-cell.tabulator-frozen{
         background-color: #1f1f1f;
     }
+
+    div.tabulator-row.tabulator-selectable.tabulator-row-even{
+        background-color: #000000;
+
+        .tabulator-cell{
+            background-color: #121212;
+        }
+    }
+    
 
 /* Color de fondo del track (canal del scroll) */
     ::-webkit-scrollbar-track {
