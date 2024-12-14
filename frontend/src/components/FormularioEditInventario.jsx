@@ -31,6 +31,19 @@ export default function EditInventario({ show, setShow, data, action }) {
     }
 
     // // Manejo de booleano
+    // const manejarBool = (bool) => {
+    //     console.log("1", bool);
+    //     if (bool === true) {
+    //         console.log("2", bool);
+    //         return true;
+    //     } else {
+    //         console.log("2", bool);
+    //         return false;
+    //     }
+    // }
+    
+    
+    // // Manejo de booleano
     // let booleano;
     // const boolToString = (bool) => {
     //     if (bool === true) {
@@ -82,7 +95,7 @@ export default function EditInventario({ show, setShow, data, action }) {
                                 {
                                     label: "Cantidad en stock",
                                     name: "cantidadStock",
-                                    defaultValue: inventarioData.cantidadStock || "",
+                                    defaultValue: inventarioData.cantidadStock || "0",
                                     placeholder: '10',
                                     fieldType: 'input',
                                     type: 'text',
@@ -112,7 +125,7 @@ export default function EditInventario({ show, setShow, data, action }) {
                                         </span>
                                     ),
                                     name: "precioUnidad",
-                                    defaultValue: costoUnidad ||"",
+                                    defaultValue: costoUnidad ||"0",
                                     placeholder: '10000',
                                     fieldType: 'input',
                                     type: 'text',
@@ -165,13 +178,13 @@ export default function EditInventario({ show, setShow, data, action }) {
                                 {
                                     label: "¿Son materiales?",
                                     name: "boolMateriales",
-                                    defaultValue: inventarioData.boolMateriales || "",
                                     fieldType: 'select',
+                                    defaultValue: inventarioData.boolMateriales === true ? true : false,
                                     options: [
                                         { value: true, label: "Sí" },
                                         { value: false, label: "No" }
                                     ],
-                                    required: false
+                                    required: true
                                 }
                             ]}
                             onSubmit={handleSubmit}
