@@ -29,17 +29,17 @@ export default function EditProveedor({ show, setShow, data, action }) {
                             title="Editar proveedor"
                             fields={[
                                 {
-                                    label: "Rut",
+                                    label: "RUT del proveedor",
                                     name: "rut",
                                     defaultValue: proveedorData.rut || "",
-                                    placeholder: "xxxxxxxx-x",
+                                    placeholder: "XXXXXXXX-X",
                                     fieldType: "input",
                                     type: "text",
                                     required: true,
                                     minLength: 9,
                                     maxLength: 12,
                                     pattern: rutPattern,
-                                    patternMessage: "Formato rut inválido"
+                                    patternMessage: "Formato RUT inválido"
                                 },
                                 {
                                     label: "Nombre",
