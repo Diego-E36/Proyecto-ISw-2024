@@ -3,6 +3,8 @@ import User from "../entity/user.entity.js";
 import { AppDataSource } from "../config/configDb.js";
 import { comparePassword, encryptPassword } from "../helpers/bcrypt.helper.js";
 
+import { format } from "rut.js";
+
 export async function getUserService(query) {
   try {
     const { rut, id, email } = query;
@@ -72,7 +74,7 @@ export async function updateUserService(query, body) {
 
     const dataUserUpdate = {
       nombreCompleto: body.nombreCompleto,
-      rut: body.rut,
+      rut: format(body.rut),
       email: body.email,
       rol: body.rol,
       updatedAt: new Date(),

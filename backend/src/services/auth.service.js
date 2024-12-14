@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { AppDataSource } from "../config/configDb.js";
 import { comparePassword, encryptPassword } from "../helpers/bcrypt.helper.js";
 import { ACCESS_TOKEN_SECRET } from "../config/configEnv.js";
+import { format } from "rut.js";
 
 export async function loginService(user) {
   try {
@@ -69,7 +70,7 @@ export async function registerService(user) {
 
     const existingRutUser = await userRepository.findOne({
       where: {
-        rut,
+        rut: format(rut),
       },
     });
 
@@ -78,7 +79,7 @@ export async function registerService(user) {
     const newUser = userRepository.create({
       nombreCompleto,
       email,
-      rut,
+      rut: format(rut),
       password: await encryptPassword(user.password),
       rol: "invitado",
     });
