@@ -7,8 +7,7 @@ const PopupDetailsServicios = ({ data, onClose }) => {
             <div className='popup-content'>
                 <h2>Detalles del Servicio</h2>
                 <button className='close-button' onClick={onClose}> <img src={CloseIcon} alt="Close" /></button>
-                <p><strong>ID:</strong> {data.id}</p>
-                <p><strong>RUT:</strong> {data.rut}</p>
+                <p><strong>RUT de Usuario:</strong> {data.rut}</p>
                 <p><strong>Item:</strong> {data.item}</p>
                 <p><strong>Bicicleta:</strong> {data.bicicleta}</p>
                 <p><strong>Tipo:</strong> {data.tipo}</p>
