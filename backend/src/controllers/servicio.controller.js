@@ -64,6 +64,8 @@ export async function updateServicio(req, res){
 
         const [servicio, errorServicio] = await updateServicioService({ id }, body);
 
+        if(errorServicio === "No se puede crear un servicio con una bicicleta a la venta") return handleErrorClient(res, 418, "Bicicleta a la venta", errorServicio);
+
         if(errorServicio) return handleErrorClient(res, 404, errorServicio);
 
         handleSuccess(res, 200, "Servicio actualizado", servicio);

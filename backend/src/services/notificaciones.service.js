@@ -2,10 +2,11 @@
 import { AppDataSource } from "../config/configDb.js";
 import Notificaciones from "../entity/notificaciones.entity.js";
 
-export async function createNotificactionService(data, operationType) {
+export async function createNotificactionService(data, operationType, stock) {
     try {
         const notificationRepository = AppDataSource.getRepository(Notificaciones);
-
+        console.log(data)
+        console.log(stock)
         let message;
         switch (operationType) {
             case "create":
@@ -13,15 +14,21 @@ export async function createNotificactionService(data, operationType) {
                 break;
             case "update":
                 message = `Se ha actualizado ${data.nombreStock} en la base de datos con ID ${data.numeroSerie}.`;
-                if (data.cantidadStock < data.umbralMinimo) {
-                    await createNotificactionService(data, "below");
+                if (data.cantidadStock <= data.umbralMinimo) {
+                    await createNotificactionService(data, "below", stock);
                 }
                 break;
+            case "updateStock":
+                message = `se han restado ${stock} unidades de ${data.nombreStock} en la base de datos`
+                if (data.cantidadStock <= data.umbralMinimo) {
+                    await createNotificactionService(data, "below", stock);
+                }
+                break; 
             case "delete":
                 message = `Se ha eliminado ${data.nombreStock} de la base de datos con ID ${data.numeroSerie}.`;
                 break;
             case "below":
-                message = `${data.nombreStock} está bajo umbral de inventario.`;
+                message = `${data.nombreStock} está bajo umbral de inventario con ${data.cantidadStock} unidades`;
                 break;
             default:
                 message = "Operación desconocida";
