@@ -56,14 +56,14 @@ const Inventario = () => {
 
     const columns = [
         // { title: "ID", field: "id", width: 55, responsive: 0, resizable: false },
-        { title: "Número de serie", field: "numeroSerie", width: 200, responsive: 0, resizable: false },
-        { title: "Nombre", field: "nombreStock", width: 200, responsive: 0, resizable: false },
-        { title: "Descripción", field: "descripcionUnidad", width: 300, responsive: 0, resizable: false },
-        { title: "Precio", field: "precioUnidad", width: 200, responsive: 0, resizable: false },
-        { title: "Marca", field: "marcaUnidad", width: 200, responsive: 0, resizable: false },
-        { title: "Proveedor", field: "nombre_proveedor", width: 200, responsive: 0, resizable: false },
+        { title: "Número de serie", field: "numeroSerie", width: 200, responsive: 0, resizable: false, vertAlign: "middle"},
+        { title: "Nombre", field: "nombreStock", width: 200, responsive: 0, resizable: false, vertAlign: "middle"},
+        { title: "Descripción", field: "descripcionUnidad", width: 300, responsive: 0, resizable: false, vertAlign: "middle"},
+        { title: "Precio", field: "precioUnidad", width: 200, responsive: 0, resizable: false, vertAlign: "middle"},
+        { title: "Marca", field: "marcaUnidad", width: 200, responsive: 0, resizable: false, vertAlign: "middle"},
+        { title: "Proveedor", field: "nombre_proveedor", width: 200, responsive: 0, resizable: false, vertAlign: "middle" },
         // { title: "Restock sugerido", field: "restockSugerido", width: 200, responsive: 0, resizable: false },
-        { title: "Actualizado", field: "updatedAt", width: 200, responsive: 0, resizable: false },
+        { title: "Actualizado", field: "updatedAt", width: 200, responsive: 0, resizable: false, vertAlign: "middle"},
     ];
 
     // Filtrar inventario según si se trata de un material o no, basándose en el valo del atributo precioUnidad

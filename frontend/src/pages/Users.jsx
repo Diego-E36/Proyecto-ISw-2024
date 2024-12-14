@@ -55,11 +55,11 @@ const Users = () => {
   );
 
   const columns = [
-    { title: 'Nombre', field: 'nombreCompleto', width: 350, responsive: 0 },
-    { title: 'Correo electrónico', field: 'email', width: 300, responsive: 3 },
-    { title: 'Rol', field: 'rol', width: 200, responsive: 2 },
-    { title: 'RUT', field: 'rut', width: 150, responsive: 2 },
-    { title: 'Creado', field: 'createdAt', width: 200, responsive: 2 },
+    { title: 'Nombre', field: 'nombreCompleto', width: 350, responsive: 0, vertAlign: "middle"},
+    { title: 'Correo electrónico', field: 'email', width: 300, responsive: 3, vertAlign: "middle"},
+    { title: 'Rol', field: 'rol', width: 200, responsive: 2, vertAlign: "middle" },
+    { title: 'RUT', field: 'rut', width: 150, responsive: 2, vertAlign: "middle" },
+    { title: 'Creado', field: 'createdAt', width: 200, responsive: 2, vertAlign: "middle" },
   ];
 
   return (

@@ -52,11 +52,11 @@ const Proveedores = () => {
 
     const columns = [
         // { title: "ID", field: "id", width: 55, responsive: 0, resizable: false},
-        { title: "RUT", field: "rut", width: 200, responsive: 0, resizable: false },
-        { title: "Nombre", field: "nombre", width: 250, responsive: 0, resizable: false },
-        { title: "Email", field: "email", width: 300, responsive: 0, resizable: false },
-        { title: "Teléfono", field: "telefono", width: 300, responsive: 0, resizable: false },
-        { title: "Actualizado", field: "updatedAt", width: 200, responsive: 0, resizable: false },
+        { title: "RUT", field: "rut", width: 200, responsive: 0, resizable: false, vertAlign: "middle"},
+        { title: "Nombre", field: "nombre", width: 250, responsive: 0, resizable: false, vertAlign: "middle"},
+        { title: "Email", field: "email", width: 300, responsive: 0, resizable: false, vertAlign: "middle"},
+        { title: "Teléfono", field: "telefono", width: 300, responsive: 0, resizable: false, vertAlign: "middle"},
+        { title: "Actualizado", field: "updatedAt", width: 200, responsive: 0, resizable: false, vertAlign: "middle"},
     ];
 
     return (

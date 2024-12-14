@@ -26,10 +26,10 @@ const Notificaciones = () => {
     const { handleDelete } = useDeleteNotificacion(fetchNotificaciones, setDataNotificaciones);
 
     const columns = [
-        { title: "ID", field: "id", width: 55, responsive: 0, resizable: false },
-        { title: "Mensaje", field: "message", width: 701, responsive: 0, resizable: false },
-        { title: "Estado", field: "status", width: 150, responsive: 0, resizable: false },
-        { title: "Creado", field: "createdAt", width: 300, responsive: 0, resizable: false },
+        { title: "ID", field: "id", width: 55, responsive: 0, resizable: false, vertAlign: "middle"},
+        { title: "Mensaje", field: "message", width: 701, responsive: 0, resizable: false, vertAlign: "middle"},
+        { title: "Estado", field: "status", width: 150, responsive: 0, resizable: false, vertAlign: "middle"},
+        { title: "Creado", field: "createdAt", width: 300, responsive: 0, resizable: false, vertAlign: "middle"},
     ];
 
     const handleSelectionChange = useCallback((selectedRows) => {
