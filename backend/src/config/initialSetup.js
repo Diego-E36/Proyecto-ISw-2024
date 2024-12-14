@@ -98,13 +98,13 @@ async function createBicicletasInitial() {
     await Promise.all([
       bicicletaRepo.save(
         bicicletaRepo.create({
-          numeroSerie: "DummyIdBicicleta",
-          marca: "DummyMarca",
-          modelo: "DummyModelo",
+          numeroSerie: "SN0001B",
+          marca: "Bianchi",
+          modelo: "Competicion",
           color: "Blanco",
-          tipo: "TBD",
+          tipo: "Montaña",
           aro: 26,
-          venta: 150000
+          venta: 2000000
         })
       ),
     ])
@@ -125,17 +125,17 @@ async function createInventarioInitial() {
     await Promise.all([
       inventarioRepo.save(
         inventarioRepo.create({
-          numeroSerie: "DummyIdInv",
-          nombreStock: "DummyNombre",
-          descripcionUnidad: "DummyDescripcion",
-          cantidadStock: 100,
+          numeroSerie: "SN0001I",
+          nombreStock: "Llanta",
+          descripcionUnidad: "Llanta de bicicleta carrera",
+          cantidadStock: 50,
           precioUnidad: 100000,
-          marcaUnidad: "DummyMarca",
+          marcaUnidad: "Bianchi",
           id_proveedor: 1,
-          nombre_proveedor: "Proveedor Dummy",
+          nombre_proveedor: "UtenciliosCorp",
           restockSugerido: 10,
           umbralMinimo: 10,
-          boolMateriales: false,
+          // boolMateriales: false,
         })
       ),
     ])
@@ -156,9 +156,9 @@ async function createProveedoresInitial() {
     await Promise.all([
       proveedoresRepo.save(
         proveedoresRepo.create({
-          rut: "15000000-0",
-          nombre: "Proveedor Dummy",
-          email: "proveedordummy@gmail.cl",
+          rut: "15123456-7",
+          nombre: "UtenciliosCorp",
+          email: "utencilios@gmail.cl",
           telefono: "+56912345678",
         })
       )
@@ -180,13 +180,13 @@ async function createServicioInitial() {
     await Promise.all([
       servicioRepo.save(
         servicioRepo.create({
-          tipo: "DummyTipo",
+          tipo: "Reparación",
           valor: 10000,
-          descripcion: "DummyDescripcion",
-          duracionMins: 120,
+          descripcion: "Cambio de rueda",
+          duracionMins: 60,
           estado: "Espera",
-          bicicleta: "DummyIdBicicleta",
-          item: "DummyIdItem",
+          bicicleta: "SN0001B",
+          item: "SN0001I",
           rut: "21.308.770-3",
         })
       )
