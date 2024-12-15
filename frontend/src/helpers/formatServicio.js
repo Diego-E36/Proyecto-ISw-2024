@@ -15,6 +15,7 @@ export function formatServicioData(servicio){
             valor: servicio.valor,
             descripcion: servicio.descripcion,
             duracionMins: servicio.duracionMins,
+            cantidad: servicio.cantidad,
             createdAt: formatTempo(servicio.createdAt, "DD-MM-YYYY"),
             updatedAt: formatTempo(servicio.updatedAt, "DD-MM-YYYY HH:mm"),
     }
@@ -30,6 +31,7 @@ export function formatPostServicio(servicio){
             valor: servicio.valor,
             descripcion: servicio.descripcion,
             duracionMins: servicio.duracionMins,
+            cantidad: servicio.cantidad,
             createdAt: formatTempo(servicio.createdAt, "DD-MM-YYYY"),
             updatedAt: formatTempo(servicio.updatedAt, "DD-MM-YYYY HH:mm"),
 
