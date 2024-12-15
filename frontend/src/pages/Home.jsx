@@ -120,9 +120,9 @@ const Home = () => {
                     <div className='button-item-uneven'>
                         <div className='icon-button'>
                             <EqualizerIcon className='iconHome'></EqualizerIcon>
-                            <a href='/estadisticas' className='button'>Ver Estadísticas</a>
+                            <a href='/estadisticas' className='button'>Ver Estadísticas de Inventario</a>
                         </div>
-                        <p className='description'>Visualiza las estadísticas de la empresa.</p>
+                        <p className='description'>Visualiza las estadísticas del inventario de la empresa.</p>
                     </div>
                     <div className='button-item'>
                         <div className='icon-button'>
