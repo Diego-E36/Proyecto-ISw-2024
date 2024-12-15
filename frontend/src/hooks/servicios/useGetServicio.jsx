@@ -18,6 +18,7 @@ const useGetServicios = () => {
                 valor: servicio.valor,
                 descripcion: servicio.descripcion,
                 duracionMins: servicio.duracionMins,
+                cantidad: servicio.cantidad,
                 createdAt: servicio.createdAt,
                 updatedAt: servicio.updatedAt
                 }));

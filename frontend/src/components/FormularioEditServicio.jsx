@@ -146,7 +146,8 @@ export default function EditServicio({ show, setShow, data, action }) {
                                         </span>
                                     ),
                                     name: "cantidad",
-                                    defaultValue: "",
+                                    defaultValue: servicioData.cantidad,
+                                    placeholder: 2,
                                     fieldType: "input",
                                     type: "text",
                                     required: true,
