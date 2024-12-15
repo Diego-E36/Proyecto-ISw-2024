@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import estadisticasBiciService from '@services/estadisticasBici.service.js';
 
-const useGetBicicletasPorTipoMes = (mes) => {
+const useGetBicicletasPorTipoMes = (mes, year) => {
     const [bicicletasPorTipoMes, setBicicletasPorTipoMes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -10,7 +10,7 @@ const useGetBicicletasPorTipoMes = (mes) => {
     useEffect(() => {
         const fetchBicicletasPorTipoMes = async () => {
             try {
-                const data = await estadisticasBiciService.getBicicletasPorTipoMes(mes);
+                const data = await estadisticasBiciService.getBicicletasPorTipoMes(mes, year);
                 setBicicletasPorTipoMes(data);
             } catch (error) {
                 setError(error.message);
@@ -21,7 +21,7 @@ const useGetBicicletasPorTipoMes = (mes) => {
         };
 
         fetchBicicletasPorTipoMes();
-    }, [mes]);
+    }, [mes, year]);
 
     return { bicicletasPorTipoMes, loading, error };
 };

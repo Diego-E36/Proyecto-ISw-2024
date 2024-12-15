@@ -39,7 +39,7 @@ const BarChartAllComponent = ({ data }) => {
                 <YAxis />
                 <Tooltip />
                 <Legend verticalAlign="top" />
-                <Bar dataKey="cantidad" fill="#82ca9d" />
+                <Bar dataKey="cantidad" fill="#82ca9d" isAnimationActive={true}/>
             </BarChart>
         </ResponsiveContainer>
     );
@@ -61,7 +61,7 @@ const BarChartTipoComponent = ({ data }) => {
             <YAxis />
             <Tooltip />
             <Legend verticalAlign="top" />
-            <Bar dataKey="cantidad" fill="#8884d8" />
+            <Bar dataKey="cantidad" fill="#8884d8" isAnimationActive={true}/>
         </BarChart>
     </ResponsiveContainer>
     );
@@ -83,7 +83,7 @@ const BarChartTipoAnoComponent = ({ data }) => {
                 <YAxis />
                 <Tooltip />
                 <Legend verticalAlign="top" />
-                <Bar dataKey="cantidad" fill="#8884d8" />
+                <Bar dataKey="cantidad" fill="#8884d8" isAnimationActive={true}/>
             </BarChart>
         </ResponsiveContainer>
     );
@@ -105,7 +105,7 @@ const BarChartTipoUltimosTresMesesComponent = ({ data }) => {
                 <YAxis />
                 <Tooltip />
                 <Legend verticalAlign="top" />
-                <Bar dataKey="cantidad" fill="#8884d8" />
+                <Bar dataKey="cantidad" fill="#8884d8" isAnimationActive={true}/>
             </BarChart>
         </ResponsiveContainer>
     );
@@ -128,7 +128,7 @@ const BarChartAllVentaComponent = ({ data }) => {
                 <YAxis />
                 <Tooltip />
                 <Legend verticalAlign="top" />
-                <Bar dataKey="bicicleta_venta" fill="#82ca9d" />
+                <Bar dataKey="bicicleta_venta" fill="#82ca9d" isAnimationActive={true}/>
             </BarChart>
         </ResponsiveContainer>
     );
@@ -157,7 +157,7 @@ const BarChartVentaComponent = ({ data }) => {
                 <YAxis tickFormatter={(value) => `$${value}`} />
                 <Tooltip formatter={(value) => `$${value}`}/>
                 <Legend verticalAlign="top" />
-                <Bar dataKey="venta" fill="#82ca9d" />
+                <Bar dataKey="venta" fill="#82ca9d "isAnimationActive={true} />
             </BarChart>
         </ResponsiveContainer>
     );
@@ -185,7 +185,7 @@ const BarChartVentaYearComponent = ({ data }) => {
                 <YAxis tickFormatter={(value) => `$${value}`} />
                 <Tooltip formatter={(value) => `$${value}`}/>
                 <Legend verticalAlign="top" />
-                <Bar dataKey="venta" fill="#82ca9d" />
+                <Bar dataKey="venta" fill="#82ca9d" isAnimationActive={true}/>
             </BarChart>
         </ResponsiveContainer>
     );
@@ -213,7 +213,7 @@ const BarChartVentaUltimosTresMesesComponent = ({ data }) => {
                 <YAxis tickFormatter={(value) => `$${value}`} />
                 <Tooltip formatter={(value) => `$${value}`}/>
                 <Legend verticalAlign="top" />
-                <Bar dataKey="venta" fill="#82ca9d" />
+                <Bar dataKey="venta" fill="#82ca9d" isAnimationActive={true}/>
             </BarChart>
         </ResponsiveContainer>
     );
@@ -242,6 +242,7 @@ const PieChartAllAroComponent = ({ data }) => {
                     outerRadius={150}
                     fill="#8884d8"
                     label={({ aro, cantidad }) => `Aro ${aro}: ${cantidad}`}
+                    isAnimationActive={true}
                 >
                     {data.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -277,6 +278,7 @@ const PieChartAroComponent = ({ data }) => {
                 outerRadius={150}
                 fill="#8884d8"
                 label={({ aro, cantidad }) => `Aro ${aro}: ${cantidad}`}
+                isAnimationActive={true}
             >
                 {data.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -313,6 +315,7 @@ const PieChartAroYearComponent = ({ data }) => {
                 outerRadius={150}
                 fill="#8884d8"
                 label={({ aro, cantidad }) => `Aro ${aro}: ${cantidad}`}
+                isAnimationActive={true}
             >
                 {data.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -349,6 +352,7 @@ const PieChartAroUltimosTresMesesComponent = ({ data }) => {
                 outerRadius={150}
                 fill="#8884d8"
                 label={({ aro, cantidad }) => `Aro ${aro}: ${cantidad}`}
+                isAnimationActive={true}
             >
                 {data.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -368,15 +372,15 @@ const EstadisticasBicicletasChart = () => {
     const selectedYear = selectedDate.getFullYear();
     const [filterType, setFilterType] = useState('');
     const { bicicletasAllTipo, loading: loadingAllTipo, error: errorAllTipo } = useGetAllBicicletasTipo();
-    const { bicicletasPorTipoMes, loading: loadingPorTipoMes, error: errorPorTipoMes } = useGetBicicletasPorTipoMes(selectedMonth);
+    const { bicicletasPorTipoMes, loading: loadingPorTipoMes, error: errorPorTipoMes } = useGetBicicletasPorTipoMes(selectedMonth, selectedYear);
     const { bicicletasPorTipoYear, loading: loadingPorTipoYear, error: errorPorTipoYear } = useGetBicicletasPorTipoYear(selectedYear);
     const { bicicletasPorTipoUltimosTresMeses, loading: loadingPorTipoUltimosTresMeses, error: errorPorTipoUltimosTresMeses } = useGetBicicletasPorTipoUltimosTresMeses();
     const { bicicletasAllVenta, loading: loadingAllVenta, error: errorAllVenta } = useGetAllBicicletasVenta();
-    const { bicicletasVentaMes, loading: loadingVenta, error: errorVentaMes } = useGetBicicletasVentaMes(selectedMonth);
+    const { bicicletasVentaMes, loading: loadingVenta, error: errorVentaMes } = useGetBicicletasVentaMes(selectedMonth, selectedYear);
     const { bicicletasVentaYear, loading: loadingVentaYear, error: errorVentaYear } = useGetBicicletasVentaYear(selectedYear);
     const { bicicletasVentaUltimosTresMeses, loading: loadingVentaUltimosTresMeses, error: errorVentaUltimosTresMeses } = useGetBicicletasVentaUltimosTresMeses();
     const { bicicletasAllAro, loading: loadingAllAro, error: errorAllAro } = useGetAllBicicletasAro();
-    const { bicicletasPorAroMes, loading: loadingPorAroMes, error: errorPorAroMes } = useGetBicicletasPorAroMes(selectedMonth);
+    const { bicicletasPorAroMes, loading: loadingPorAroMes, error: errorPorAroMes } = useGetBicicletasPorAroMes(selectedMonth, selectedYear);
     const { bicicletasPorAroYear, loading: loadingPorAroYear, error: errorPorAroYear } = useGetBicicletasPorAroYear(selectedYear);
     const { bicicletasPorAroUltimosTresMeses, loading: loadingPorAroUltimosTresMeses, error: errorPorAroUltimosTresMeses } = useGetBicicletasPorAroUltimosTresMeses();
 
@@ -384,30 +388,20 @@ const EstadisticasBicicletasChart = () => {
         setFilterType(event.target.value);
     };
     
-
-//console.log para verificar los datos recibidos
-console.log("Bicicletas por tipo (todos):", bicicletasAllTipo);
-console.log("Bicicletas por tipo (mes):", bicicletasPorTipoMes);
-console.log("Bicicletas por tipo (año):", bicicletasPorTipoYear);
-console.log("Bicicletas a la venta (todos):", bicicletasAllVenta);
-console.log("Bicicletas a la venta (mes):", bicicletasVentaMes);
-console.log("Bicicletas por aro (todos):", bicicletasAllAro);
-console.log("Bicicletas por aro (mes):", bicicletasPorAroMes);
-console.log("Bicicletas por aro (año):", bicicletasPorAroYear);
-
+    
     if (loadingAllTipo || loadingPorTipoMes || loadingPorTipoYear || loadingPorTipoUltimosTresMeses
         ||loadingAllVenta || loadingVenta || loadingVentaYear || loadingVentaUltimosTresMeses
         || loadingAllAro ||loadingPorAroMes || loadingPorAroYear || loadingPorAroUltimosTresMeses) return <p>Cargando...</p>;
     if (errorAllTipo) return <p>Error al cargar las estadísticas de todas las bicicletas por tipo: {errorAllTipo.message}</p>;
-    if (errorPorTipoMes) return <p>Error al cargar las estadisticas de bicicletas por tipo y mes: {errorPorTipoMes.message}</p>;
+    if (errorPorTipoMes) return <p>Error al cargar las estadisticas de bicicletas por tipo, mes y año: {errorPorTipoMes.message}</p>;
     if (errorPorTipoYear) return <p>Error al cargar las estadisticas de bicicletas por tipo y año: {errorPorTipoYear.message}</p>;
     if (errorPorTipoUltimosTresMeses) return <p>Error al cargar las estadisticas de bicicletas por tipo y los últimos 3 meses: {errorPorTipoUltimosTresMeses.message}</p>;
     if (errorAllVenta) return <p>Error al cargar las estadísticas de todas las bicicletas a la venta: {errorAllVenta.message}</p>;
-    if (errorVentaMes) return <p>Error al cargar las estadísticas de bicicletas a la venta por mes : {errorVentaMes.message}</p>;
+    if (errorVentaMes) return <p>Error al cargar las estadísticas de bicicletas a la venta por mes y año: {errorVentaMes.message}</p>;
     if (errorVentaYear) return <p>Error al cargar las estadísticas de bicicletas a la venta por año: {errorVentaYear.message}</p>;
     if (errorVentaUltimosTresMeses) return <p>Error al cargar las estadísticas de bicicletas a la venta en los últimos tres meses: {errorVentaUltimosTresMeses.message}</p>;
     if (errorAllAro) return <p>Error al cargar las estadísticas de todas las bicicletas por aro: {errorAllAro.message}</p>;
-    if (errorPorAroMes) return <p>Error al cargar las estadísticas de bicicletas por aro y mes: {errorPorAroMes.message}</p>;
+    if (errorPorAroMes) return <p>Error al cargar las estadísticas de bicicletas por aro por mes y año: {errorPorAroMes.message}</p>;
     if (errorPorAroYear) return <p>Error al cargar las estadísticas de bicicletas por aro y año: {errorPorAroYear.message}</p>;
     if (errorPorAroUltimosTresMeses) return <p>Error al cargar las estadísticas de bicicletas por aro y los últimos tres meses: {errorPorAroUltimosTresMeses.message}</p>;
 
@@ -459,7 +453,7 @@ console.log("Bicicletas por aro (año):", bicicletasPorAroYear);
                         <option value="">Seleccionar filtro</option>
                         <option value="Meses">Filtrar por Meses</option>
                         <option value="Años">Filtrar por Años</option>
-                        <option value="TresMeses">Filtrar por Últimos tres meses</option>
+                        <option value="TresMeses">Filtrar por Últimos tres Meses</option>
                     </select>
 
                     {filterType === 'Meses' && (
@@ -483,7 +477,7 @@ console.log("Bicicletas por aro (año):", bicicletasPorAroYear);
                         />
                     )}
                 </div>
-                <div className="App">
+                <div className="App-bicicletas">
                     <div className="dataCard revenueCard">
                         <h2 style={{ textAlign: 'center' }}>Gráfico de Tipos de Bicicletas</h2>
                         {renderTipoChart()}
@@ -491,7 +485,7 @@ console.log("Bicicletas por aro (año):", bicicletasPorAroYear);
                     <div className="dataCard customerCard">
                         <h2 style={{ textAlign: 'center' }}>Gráfico de Bicicletas a la Venta por Modelo</h2>
                         {renderVentaChart()}
-                    </div>
+                    </div> 
                     <div className="dataCard categoryCard">
                         <h2 style={{ textAlign: 'center' }}>Gráfico por Aro de Bicicletas</h2>
                         {renderAroChart()}
