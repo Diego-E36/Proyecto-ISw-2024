@@ -70,9 +70,22 @@ div.tabulator-row.tabulator-selectable.tabulator-row-even{
     }
 }
 
+div.tabulator-row.tabulator-selectable.tabulator-row-even:hover{
+    background-color: #000000;
+
+    .tabulator-cell{
+        background-color: #BBBBBB;
+    }
+}
+
 div.tabulator-row.tabulator-selectable.tabulator-row-even.tabulator-selected{
     .tabulator-cell{
         background-color: #9abcea;
+    }
+}
+div.tabulator-row.tabulator-selectable.tabulator-row-even.tabulator-selected:hover{
+    .tabulator-cell{
+        background-color: #769BCC;
     }
 }
 
