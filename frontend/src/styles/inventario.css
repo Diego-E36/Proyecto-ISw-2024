@@ -14,7 +14,7 @@
     font-size: 14px;
     color: #003365;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
 
 .filter-actions button img {
@@ -24,6 +24,7 @@
 
 .filter-actions button:hover {
     background-color: #f0f0f0; /* Cambio de fondo al pasar el mouse */
+    transform: translateY(-5px);
 }
 
 .filter-actions button:active {
