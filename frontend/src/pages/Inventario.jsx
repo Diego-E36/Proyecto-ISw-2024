@@ -17,12 +17,15 @@ import useGetInventario from "../hooks/inventario/useGetInventario";
 import ViewIcon from '../assets/ViewIcon.svg';
 import MoneyIcon from '../assets/MoneyIcon.svg';
 import ToolIcon from '../assets/HandymanIcon.svg';
+import PopupDetailsInventario from "@components/PopupDetailsInventario.jsx";
 
 const Inventario = () => {
     // Obtener inventario
     const { inventario, fetchInventario, setInventario } = useGetInventario();
     const [filterNumeroSerie, setFilterNumeroSerie] = useState("");
     const [materialesFilter, setMaterialesFilter] = useState(null);
+    const [isPopupOpenDetails, setIsPopupOpenDetails] = useState(false);
+    const [selectedRow, setSelectedRow] = useState(null);
 
     // Editar inventario
     const {
@@ -52,6 +55,12 @@ const Inventario = () => {
     // Función para seleccionar inventario
     const handleSelectionChange = useCallback((selectedRows) => {
         setDataInventario(selectedRows);
+        if (selectedRows.length > 0) {
+            setSelectedRow(selectedRows[0]);
+            setIsPopupOpenDetails(true);
+        } else {
+            setSelectedRow(null);
+        }
     }, [setDataInventario]);
 
     const columns = [
@@ -129,6 +138,12 @@ const Inventario = () => {
             </div>
             <FormularioCreateInventario show={isPopupOpenCreate} setShow={setIsPopupOpenCreate} action={handleCreate}/>
             <FormularioEditInventario show={isPopupOpen} setShow={setIsPopupOpen} data={dataInventario} action={handleUpdate} />
+            {isPopupOpenDetails && selectedRow && (
+                                        <PopupDetailsInventario
+                                            data={selectedRow}
+                                            onClose={() => setIsPopupOpenDetails(false)}
+                                        />
+                                    )}
         </div>
     )
 }

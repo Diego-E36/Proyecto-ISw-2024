@@ -16,10 +16,13 @@ import useDeleteBicicleta from '../hooks/bicicletas/useDeleteBicicleta';
 import ViewIcon from '../assets/ViewIcon.svg';
 import MoneyIcon from '../assets/MoneyIcon.svg';
 import MoneyOffIcon from '../assets/MoneyOffIcon.svg';
+import PopupDetailsBicicletas from '@components/PopupDetailsBicicleta.jsx';
 const Bicicletas = () => {
     const { bicicletas, fetchBicicletas, setBicicletas } = useBicicletas();
     const [filterNumeroSerie, setFilterNumeroSerie] = useState('');
     const [ventaFilter, setVentaFilter] = useState(null);
+    const [isPopupOpenDetails, setIsPopupOpenDetails] = useState(false);
+    const [selectedRow, setSelectedRow] = useState(null);
 
     const {
         handleClickUpdate,
@@ -42,12 +45,15 @@ const Bicicletas = () => {
         setFilterNumeroSerie(e.target.value);
     };
 
-    const handleSelectionChange = useCallback(
-        (selectedRows) => {
+    const handleSelectionChange = useCallback((selectedRows) => {
             setDataBicicleta(selectedRows);
-        },
-        [setDataBicicleta]
-    );
+        if (selectedRows.length > 0) {
+            setSelectedRow(selectedRows[0]);
+            setIsPopupOpenDetails(true);
+        } else {
+            setSelectedRow(null);
+        }
+    }, [setDataBicicleta]);
 
     const columns = [
         { title: "Número de Serie", field: "numeroSerie", width: 200, responsive: 0, vertAlign: "middle" },
@@ -142,6 +148,12 @@ const Bicicletas = () => {
                 data={dataBicicleta}
                 action={handleUpdate}
             />
+            {isPopupOpenDetails && selectedRow && (
+                            <PopupDetailsBicicletas
+                                data={selectedRow}
+                                onClose={() => setIsPopupOpenDetails(false)}
+                            />
+                        )}
         </div>
     );
 };
