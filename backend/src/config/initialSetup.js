@@ -4,7 +4,6 @@ import User from "../entity/user.entity.js";
 import Bicicleta from "../entity/bicicleta.entity.js";
 import Inventario from "../entity/inventario.entity.js";
 import Proveedores from "../entity/proveedores.entity.js";
-import Servicio from "../entity/servicio.entity.js";
 
 import { AppDataSource } from "./configDb.js";
 import { encryptPassword } from "../helpers/bcrypt.helper.js";
@@ -168,37 +167,7 @@ async function createProveedoresInitial() {
     console.error("Error al crear proveedores:", error);
   }
 }
-
-async function createServicioInitial() {
-  try {
-    // Repositorio
-    const servicioRepo = AppDataSource.getRepository(Servicio);
-    // Contabilizar
-    const count = await servicioRepo.count();
-    if (count > 0) return;
-    // Crear
-    await Promise.all([
-      servicioRepo.save(
-        servicioRepo.create({
-          tipo: "Reparación",
-          valor: 10000,
-          descripcion: "Cambio de rueda",
-          duracionMins: 60,
-          estado: "Espera",
-          bicicleta: "SN0001B",
-          item: "SN0001I",
-          rut: "21.308.770-3",
-        })
-      )
-    ])
-    console.log("* => Servicios creados exitosamente");
-  } catch (error) {
-    console.error("Error al crear servicios:", error);
-  }
-}
-
 export { createUsers };
 export { createBicicletasInitial };
 export { createInventarioInitial };
 export { createProveedoresInitial };
-export { createServicioInitial };
