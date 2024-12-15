@@ -7,16 +7,21 @@ import UpdateIcon from '../assets/updateIcon.svg';
 import UpdateIconDisable from '../assets/updateIconDisabled.svg';
 import DeleteIconDisable from '../assets/deleteIconDisabled.svg';
 import EmailIcon from '@mui/icons-material/Email';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import '@styles/users.css';
 import useEditUser from '@hooks/users/useEditUser';
 import useDeleteUser from '@hooks/users/useDeleteUser';
 import useSendEmails from '../hooks/email/useSendEmail';
 import FormularioSendEmail from '@components/FormularioSendEmail.jsx';
+import ViewIcon from '../assets/ViewIcon.svg';
+import EngineerIcon from '../assets/EngineerIcon.svg';
+import AdminIcon from '../assets/AdminIcon.svg';
+import PersonAlertIcon from '../assets/PersonAlertIcon.svg';
 
 const Users = () => {
   const { users, fetchUsers, setUsers } = useUsers();
   const [filterRut, setFilterRut] = useState('');
+  const [rolFilter, setRolFilter] = useState(null);
 
   const {
     handleClickUpdate,
@@ -62,49 +67,79 @@ const Users = () => {
     { title: 'Creado', field: 'createdAt', width: 200, responsive: 2, vertAlign: "middle" },
   ];
 
+  const filteredUsers = useMemo(() => {
+    return users.filter((user) => {
+      if(rolFilter === null) return true; //Mostrar todos los usuarios
+      if(rolFilter === 0) return user.rol === "Administrador"; //Usuario es admin
+      if(rolFilter === 1) return user.rol === "Usuario"; //Usuario es operador
+      if(rolFilter === 2) return user.rol === "Invitado"; //Usuario es invitado
+      return true;
+    })
+  }, [users, rolFilter]);
+
   return (
     <div className="main-container">
       <div className="table-container">
         <div className="top-table">
           <h1 className="title-table">Usuarios</h1>
           <div className="filter-actions">
-            <Search value={filterRut} onChange={handleRutFilterChange} placeholder={'RUT'} />
+
+            <button onClick={() => setRolFilter(null)}>
+              <img src={ViewIcon}/>
+              Mostrar todos
+            </button>
+            <button onClick={() => setRolFilter(0)}>
+              <img src={AdminIcon}/>
+              Administradores
+            </button>
+            <button onClick={() => setRolFilter(1)}>
+              <img src={EngineerIcon}/>
+              Operadores
+            </button>
+            <button onClick={() => setRolFilter(2)}>
+              <img src={PersonAlertIcon}/>
+              Invitados
+            </button>
+
+            <Search value={filterRut} onChange={handleRutFilterChange} placeholder={'RUT'}/>
+
             <button onClick={handleClickUpdate} disabled={dataUser.length === 0}>
               {dataUser.length === 0 ? (
-                <img src={UpdateIconDisable} alt="edit-disabled" />
+                  <img src={UpdateIconDisable} alt="edit-disabled"/>
               ) : (
-                <img src={UpdateIcon} alt="edit" />
+                  <img src={UpdateIcon} alt="edit"/>
               )}
             </button>
             <button disabled={dataUser.length === 0} onClick={() => handleDelete(dataUser)}>
               {dataUser.length === 0 ? (
-                <img src={DeleteIconDisable} alt="delete-disabled" />
+                  <img src={DeleteIconDisable} alt="delete-disabled"/>
               ) : (
-                <img src={DeleteIcon} alt="delete" />
+                  <img src={DeleteIcon} alt="delete"/>
               )}
             </button>
-            <button className="email-user-button" disabled={dataUser.length === 0} onClick={() => setEmailPopupOpen(true)}>
-              <EmailIcon />
+            <button className="email-user-button" disabled={dataUser.length === 0}
+                    onClick={() => setEmailPopupOpen(true)}>
+              <EmailIcon/>
             </button>
           </div>
         </div>
         <Table
-          data={users}
-          columns={columns}
-          filter={filterRut}
-          dataToFilter={'rut'}
-          initialSortName={'nombreCompleto'}
-          onSelectionChange={handleSelectionChange}
+            data={filteredUsers}
+            columns={columns}
+            filter={filterRut}
+            dataToFilter={'rut'}
+            initialSortName={'nombreCompleto'}
+            onSelectionChange={handleSelectionChange}
         />
       </div>
-      <Popup show={isPopupOpen} setShow={setIsPopupOpen} data={dataUser} action={handleUpdate} />
+      <Popup show={isPopupOpen} setShow={setIsPopupOpen} data={dataUser} action={handleUpdate}/>
       {isEmailPopupOpen && (
-        <FormularioSendEmail
-          show={isEmailPopupOpen}
-          setShow={setEmailPopupOpen}
-          data={dataUser}
-          action={handleSend}
-        />
+          <FormularioSendEmail
+              show={isEmailPopupOpen}
+              setShow={setEmailPopupOpen}
+              data={dataUser}
+              action={handleSend}
+          />
       )}
     </div>
   );
