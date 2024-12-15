@@ -13,8 +13,8 @@ const useSendEmails = (fetchEmail) => {
     const sendEmails = async (formData) => {
         try {
             const response = await sendEmail(formData);
-            if (response.error) {
-                showErrorAlert(response.message || "Error al enviar el correo");
+            if (response.error || response.status === "Client error") {
+                showErrorAlert(response.message , "Error al enviar el correo");
             } else {
                 showSuccessAlert("Correo enviado exitosamente");
                 fetchEmail();
