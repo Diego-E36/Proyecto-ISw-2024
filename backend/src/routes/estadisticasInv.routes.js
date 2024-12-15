@@ -1,7 +1,19 @@
 "use strict";
 import { Router } from "express";
-import { getDistribucionProductosPorProveedorController, getEstadisticasxEstacionController, getNombreYCantidadInventarioController, getProductosBajoStockYRestockSugeridoController } 
-from "../controllers/estadisticasInv.controller.js";
+import { getDistribucionProductosPorProveedorController,
+        getEstadisticasxEstacionController, 
+        getInventarioBajoStockRestockMesYearController,
+        getInventarioBajoStockRestockUltimosTresMesesController,
+        getInventarioBajoStockRestockYearController,
+        getInventarioNombreCantidadMesYearController,
+        getInventarioNombreCantidadUltimosTresMesesController,
+        getInventarioNombreCantidadYearController,
+        getInventarioProveedorMesYearController,
+        getInventarioProveedorUltimosTresMesesController,
+        getInventarioProveedorYearController,
+        getNombreYCantidadInventarioController, 
+        getProductosBajoStockYRestockSugeridoController 
+        } from "../controllers/estadisticasInv.controller.js";
 import { authenticateJwt } from "../middlewares/authentication.middleware.js";
 import { isAdmin } from "../middlewares/authorization.middleware.js";
 
@@ -15,8 +27,17 @@ router
 // Define rutas para las estadísticas del inventario
 router
     .get("/inv", getNombreYCantidadInventarioController)
+    .get("/nombrecantidad/:mes/:year", getInventarioNombreCantidadMesYearController)
+    .get("/yearnombrecantidad/:year", getInventarioNombreCantidadYearController)
+    .get("/nombrecantidadtresmeses", getInventarioNombreCantidadUltimosTresMesesController)
     .get("/proveedor", getDistribucionProductosPorProveedorController)
+    .get("/proveedor/:mes/:year", getInventarioProveedorMesYearController)
+    .get("/yearproveedor/:year", getInventarioProveedorYearController)
+    .get("/proveedortresmeses", getInventarioProveedorUltimosTresMesesController)
     .get("/bajostock", getProductosBajoStockYRestockSugeridoController)
+    .get("/bajostock/:mes/:year", getInventarioBajoStockRestockMesYearController)
+    .get("/yearbajostock/:year", getInventarioBajoStockRestockYearController)
+    .get("/bajostocktresmeses", getInventarioBajoStockRestockUltimosTresMesesController)
     .get("/estaciones", getEstadisticasxEstacionController) //aún no se agrega
     .get("/estacion/:estacion", getEstadisticasxEstacionController);
 export default router;

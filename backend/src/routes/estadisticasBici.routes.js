@@ -27,15 +27,15 @@ router
 // Define rutas para las estadísticas de bicicletas
 router
     .get("/alltipo", getAllBicicletasTipoController)
-    .get("/tipobici/:mes", getBicicletasPorTipoMesController)
+    .get("/tipobici/:mes/:year", getBicicletasPorTipoMesController)
     .get("/tipotresmeses", getBicicletasPorTipoUltimosTresMesesController)
     .get("/anobici/:year", getBicicletasPorTipoAñoController)
     .get("/allventa", getAllBicicletasVentaController)
-    .get("/ventabici/:mes", getBicicletasVentasMesController)
+    .get("/ventabici/:mes/:year", getBicicletasVentasMesController)
     .get("/ventatresmeses", getBicicletasVentaUltimosTresMesesController)
     .get("/anobiciventa/:year", getBicicletasVentaYearController)
     .get("/allaros", getAllBicicletasPorAroController)
-    .get("/arobici/:mes", getBicicletasPorAroMesController)
+    .get("/arobici/:mes/:year", getBicicletasPorAroMesController)
     .get("/arotresmeses", getBicicletasPorAroUltimosTresMesesController)
     .get("/anobiciaro/:year", getBicicletasPorAroYearController);
 

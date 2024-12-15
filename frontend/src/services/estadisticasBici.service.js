@@ -16,10 +16,10 @@ export async function getAllBicicletasTipo() {
     }
 }
 
-//Servicio para obtener bicicletas por tipo filtrado por meses
-export async function getBicicletasPorTipoMes(mes) {
+//Servicio para obtener bicicletas por tipo filtrado por meses y año
+export async function getBicicletasPorTipoMes(mes, year) {
     try {
-        const { data: bicicletasPorTipoData } = await axios.get(`/estadisticasBici/tipobici/${mes}`, {
+        const { data: bicicletasPorTipoData } = await axios.get(`/estadisticasBici/tipobici/${mes}/${year}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -76,15 +76,14 @@ export async function getAllBicicletasVenta() {
     }
 }
 
-//Servicio para obtener bicicletas a la venta filtrado por meses
-export async function getBicicletasVentaMes(mes) {
+//Servicio para obtener bicicletas a la venta filtrado por meses y año
+export async function getBicicletasVentaMes(mes, year) {
     try {
-        const { data: bicicletasVentaData } = await axios.get(`/estadisticasBici/ventabici/${mes}`, {
+        const { data: bicicletasVentaData } = await axios.get(`/estadisticasBici/ventabici/${mes}/${year}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         });
-        console.log("Datos recibidos del backend:", bicicletasVentaData);
         if (bicicletasVentaData.status === 204) {
             console.warn("No hay datos para el mes seleccionado:", mes);
             return [];
@@ -142,10 +141,10 @@ export async function getAllBicicletasPorAro() {
     }
 }
 
-//Servicio para obtener bicicletas por aro filtrado por meses
-export async function getBicicletasPorAroMes(mes) {
+//Servicio para obtener bicicletas por aro filtrado por meses y año
+export async function getBicicletasPorAroMes(mes, year) {
     try {
-        const { data: bicicletasPorAroData } = await axios.get(`/estadisticasBici/arobici/${mes}`, {
+        const { data: bicicletasPorAroData } = await axios.get(`/estadisticasBici/arobici/${mes}/${year}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }

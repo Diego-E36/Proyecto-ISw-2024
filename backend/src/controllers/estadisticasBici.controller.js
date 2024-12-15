@@ -33,24 +33,31 @@ export async function getAllBicicletasTipoController(req, res) {
     }
 }
 
-// Obtener bicicletas por tipo filtrado por meses
+// Obtener bicicletas por tipo filtrado por meses y año
 export async function getBicicletasPorTipoMesController(req, res) {
-    const { mes } = req.params;
+    const mes = parseInt(req.params.mes, 10);
+    const year = parseInt(req.params.year, 10);
+    const añoActual = new Date().getFullYear();
+
     // Valida que el mes que sea un número válido entre 1 y 12
-    const mesNumero = parseInt(mes, 10);
-    if (isNaN(mesNumero) || mesNumero < 1 || mesNumero > 12) {
-        return res.status(400).json({ error: "El parámetro 'mes' debe ser un número entre 1 y 12" });
+    if (isNaN(mes) || mes < 1 || mes > 12) {
+        return handleErrorClient(res, 400, "El mes debe ser un número entre 1 y 12");
+    }
+
+    //Valida el año sea entre 2023 y año actual
+    if (isNaN(year) || year < 2023 || year > añoActual) {
+        return handleErrorClient(res, 400, `El año debe ser un número entre 2023 y ${añoActual}`);
     }
     
     try {
-        const [bicicletasPorTipo, error] = await getBicicletasPorTipoMes(mesNumero);
+        const [bicicletasPorTipo, error] = await getBicicletasPorTipoMes(mes, year);
 
         if (error) {
-            return handleErrorClient(res, 404, "Error al obtener bicicletas por tipo y mes", error);
+            return handleErrorClient(res, 404, "Error al obtener bicicletas por tipo, por mes y año", error);
         }
 
         if (!bicicletasPorTipo || bicicletasPorTipo.length === 0) {
-            return handleSuccess(res, 204, "No hay bicicletas registradas para este mes");
+            return handleSuccess(res, 204, "No hay bicicletas registradas para este mes y año");
         }
 
         handleSuccess(res, 200, "Bicicletas por tipo obtenidas con éxito", bicicletasPorTipo);
@@ -61,17 +68,16 @@ export async function getBicicletasPorTipoMesController(req, res) {
 
 //Obtener bicicletas por tipo filtrado por año
 export async function getBicicletasPorTipoAñoController(req, res) {
-    const { year } = req.params;
-    const añoNumero = parseInt(year, 10);
+    const year = parseInt(req.params.year, 10);
     const añoActual = new Date().getFullYear();
 
     // Valida que el año sea un número válido y no exceda el año actual
-    if (!year ||  isNaN(añoNumero) || añoNumero < 2023 || añoNumero > añoActual) {
-        return res.status(400).json({ error: `El parámetro 'año' debe ser un número entre 2023 y ${añoActual}` });
+    if (isNaN(year) || year < 2023 || year > añoActual) {
+        return handleErrorClient(res, 400, `El año debe ser un número entre 2023 y ${añoActual}`);
     }
 
     try {
-        const [bicicletasPorTipoAño, error] = await getBicicletasPorTipoAño(añoNumero);
+        const [bicicletasPorTipoAño, error] = await getBicicletasPorTipoAño(year);
 
         if (error) {
             return handleErrorClient(res, 404, "Error al obtener bicicletas por tipo y año", error);
@@ -125,17 +131,25 @@ export async function getAllBicicletasVentaController(req, res) {
     }
 }
 
-// Obtener bicicletas a la venta filtrado por meses
+// Obtener bicicletas a la venta filtrado por meses y año
 export async function getBicicletasVentasMesController(req, res) {
-    const { mes } = req.params;
-    // Valida que el mes que sea un número válido entre 1 y 12
-    const mesNumero = parseInt(mes, 10);
-    if (isNaN(mesNumero) || mesNumero < 1 || mesNumero > 12) {
-        return res.status(400).json({ error: "El parámetro 'mes' debe ser un número entre 1 y 12" });
+    const mes = parseInt(req.params.mes, 10);
+    const year = parseInt(req.params.year, 10);
+    const añoActual = new Date().getFullYear();
+
+    //Valida que el mes que sea un número válido entre 1 y 12
+    if (isNaN(mes) || mes < 1 || mes > 12) {
+        return handleErrorClient(res, 400, "El mes debe ser un número entre 1 y 12");
     }
 
+    //Valida el año sea entre 2023 y año actual
+    if (isNaN(year) || year < 2023 || year > añoActual) {
+        return handleErrorClient(res, 400, `El año debe ser un número entre 2023 y ${añoActual}`);
+    }
+
+
     try {
-        const [bicicletasVendidas, error] = await getBicicletasVentaMes(mesNumero);
+        const [bicicletasVendidas, error] = await getBicicletasVentaMes(mes, year);
 
         if (error) {
             return handleErrorClient(res, 404, "Error al obtener bicicletas a la venta", error);
@@ -153,17 +167,16 @@ export async function getBicicletasVentasMesController(req, res) {
 
 //Obtener bicicletas a la venta filtrado por año
 export async function getBicicletasVentaYearController(req, res) {
-const { year } = req.params;
-    const añoNumero = parseInt(year, 10);
+    const year = parseInt(req.params.year, 10);
     const añoActual = new Date().getFullYear();
 
     // Valida que el año sea un número válido y no exceda el año actual
-    if (!year ||  isNaN(añoNumero) || añoNumero < 2023 || añoNumero > añoActual) {
-        return res.status(400).json({ error: `El parámetro 'año' debe ser un número entre 2023 y ${añoActual}` });
+    if (isNaN(year) || year < 2023 || year > añoActual) {
+        return handleErrorClient(res, 400, `El año debe ser un número entre 2023 y ${añoActual}`);
     }
 
     try {
-        const [bicicletasVentaYear, error] = await getBicicletasVentaYear(añoNumero);
+        const [bicicletasVentaYear, error] = await getBicicletasVentaYear(year);
 
         if (error) {
             return handleErrorClient(res, 404, "Error al obtener bicicletas a la venta por año", error);
@@ -217,17 +230,24 @@ export async function getAllBicicletasPorAroController(req, res) {
     }
 }
 
-//Obtener bicicletas por Aro filtrado por meses
+//Obtener bicicletas por Aro filtrado por meses y año
 export async function getBicicletasPorAroMesController(req, res) {
-    const { mes } = req.params;
-    // Valida que el mes que sea un número válido entre 1 y 12
-    const mesNumero = parseInt(mes, 10);
-    if (isNaN(mesNumero) || mesNumero < 1 || mesNumero > 12) {
-        return res.status(400).json({ error: "El parámetro 'mes' debe ser un número entre 1 y 12" });
+    const mes = parseInt(req.params.mes, 10);
+    const year = parseInt(req.params.year, 10);
+    const añoActual = new Date().getFullYear();
+
+    //Valida que el mes que sea un número válido entre 1 y 12
+    if (isNaN(mes) || mes < 1 || mes > 12) {
+        return handleErrorClient(res, 400, "El mes debe ser un número entre 1 y 12");
+    }
+
+    //Valida el año sea entre 2023 y año actual
+    if (isNaN(year) || year < 2023 || year > añoActual) {
+        return handleErrorClient(res, 400, `El año debe ser un número entre 2023 y ${añoActual}`);
     }
 
     try {
-        const [bicicletasPorAro, error] = await getBicicletasPorAroMes(mesNumero);
+        const [bicicletasPorAro, error] = await getBicicletasPorAroMes(mes, year);
 
         if (error) {
             return handleErrorClient(res, 404, "Error al obtener bicicletas por aro y mes", error);
@@ -245,17 +265,16 @@ export async function getBicicletasPorAroMesController(req, res) {
 
 //Obtener bicicletas por aro filtrado por año
 export async function getBicicletasPorAroYearController(req, res) {
-    const { year } = req.params;
-    const añoNumero = parseInt(year, 10);
+    const year = parseInt(req.params.year, 10);
     const añoActual = new Date().getFullYear();
 
     // Valida que el año sea un número válido y no exceda el año actual
-    if (!year ||  isNaN(añoNumero) || añoNumero < 2023 || añoNumero > añoActual) {
-        return res.status(400).json({ error: `El parámetro 'año' debe ser un número entre 2023 y ${añoActual}` });
+    if (isNaN(year) || year < 2023 || year > añoActual) {
+        return handleErrorClient(res, 400, `El año debe ser un número entre 2023 y ${añoActual}`);
     }
 
     try {
-        const [bicicletasPorAroYear, error] = await getBicicletasPorAroYear(añoNumero);
+        const [bicicletasPorAroYear, error] = await getBicicletasPorAroYear(year);
 
         if (error) {
             return handleErrorClient(res, 404, "Error al obtener bicicletas por aro en el año", error);

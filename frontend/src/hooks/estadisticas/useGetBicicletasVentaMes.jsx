@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import estadisticasBiciService from '@services/estadisticasBici.service.js';
 
-const useGetBicicletasVentaMes = (mes) => {
+const useGetBicicletasVentaMes = (mes, year) => {
     const [bicicletasVentaMes, setBicicletasVentaMes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -10,12 +10,7 @@ const useGetBicicletasVentaMes = (mes) => {
     useEffect(() => {
         const fetchBicicletasVentaMes = async () => {
             try {
-                const data = await estadisticasBiciService.getBicicletasVentaMes(mes);
-        
-                if (!data || data.length === 0) {
-                    console.info("No hay datos para el mes seleccionado:", mes);
-                }
-        
+                const data = await estadisticasBiciService.getBicicletasVentaMes(mes, year);
                 setBicicletasVentaMes(data);
             } catch (error) {
                 setError(error.message);
@@ -24,11 +19,9 @@ const useGetBicicletasVentaMes = (mes) => {
                 setLoading(false);
             }
         };
-    
-        if (mes && !isNaN(mes)) {
-            fetchBicicletasVentaMes();
-        }
-    }, [mes]);
+
+        fetchBicicletasVentaMes();
+    }, [mes, year]);
 
     return { bicicletasVentaMes, loading, error };
 };
