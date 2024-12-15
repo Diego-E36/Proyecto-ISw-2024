@@ -76,7 +76,7 @@ export async function updateBicicletaService(query, body) {
             where: [{ bicicleta: bicicletaFound.numeroSerie }]
         });
 
-        if(serviciosFound) return [null, "Bicicleta asociada a un Servicio"];
+        if(serviciosFound && serviciosFound.estado !== "Finalizado") return [null, "Bicicleta asociada a un Servicio"];
 
         const dataBicicleta = {
             numeroSerie: body.numeroSerie,

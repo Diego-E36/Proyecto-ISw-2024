@@ -39,6 +39,10 @@ export async function createServicioService(dataServicio) {
             return [null, "No se puede crear un servicio con una bicicleta a la venta"]
         }
 
+        const stockEdit = inventario.cantidadStock-dataServicio.cantidad
+
+        if (stockEdit <= 0) return [null, "Cantidad mayor que el stock"];
+
         const newServicio = servicioRepository.create({
             bicicleta: bicicleta.numeroSerie,
             item: inventario.numeroSerie,
@@ -46,7 +50,8 @@ export async function createServicioService(dataServicio) {
             tipo: dataServicio.tipo,
             valor: dataServicio.valor,
             descripcion: dataServicio.descripcion,
-            duracionMins: dataServicio.duracionMins
+            duracionMins: dataServicio.duracionMins,
+            cantidad: dataServicio.cantidad
         });
 
         const servicioSaved = await servicioRepository.save(newServicio);
@@ -58,15 +63,10 @@ export async function createServicioService(dataServicio) {
         })
         const relacionSaved = await relacionRepository.save(newRelacion);
             if(relacionSaved) {
-            const stockEdit = inventario.cantidadStock-dataServicio.cantidad
-            if(stockEdit >= 0){
                 await updateInvService({ id: inventario.id }, { cantidadStock: stockEdit });
                 const updatedInv = await inventarioRepository.findOne({ where: { numeroSerie: dataServicio.item } });
                 await createHistorialService({ id: inventario.id, cantidadStock: stockEdit });
                 await createNotificactionService(updatedInv, "updateStock", dataServicio.cantidad);
-                } else {
-                    return [null, "Cantidad mayor que el stock"] 
-                }
             }
         }
 
@@ -138,6 +138,7 @@ export async function updateServicioService(query, body) {
                 valor: body.valor,
                 descripcion: body.descripcion,
                 duracionMins: body.duracionMins,
+                cantidad: body.cantidad,
                 updatedAt: new Date(),
             };
     

@@ -94,7 +94,7 @@ export const servicioBodySchema = Joi.object({
         }),
     cantidad: Joi.number()
         .integer()
-        .min(1)
+        .min(0)
         .messages({
             "number.base": "La cantidad debe ser un número.",
             "number.integer": "La cantidad debe ser un número entero.",

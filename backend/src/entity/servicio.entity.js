@@ -45,6 +45,10 @@ const ServicioSchema = new EntitySchema({
             type: "int",
             nullable: false,
         },
+        cantidad: {
+            type: "int",
+            nullable: false,
+        },
         createdAt: {
             type: "timestamp with time zone",
             default: () => "CURRENT_TIMESTAMP",
