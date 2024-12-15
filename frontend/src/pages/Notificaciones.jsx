@@ -12,6 +12,9 @@ import useGetNotificacion from '../hooks/notificaciones/useGetNotificacion';
 import useDeleteNotificacion from '../hooks/notificaciones/useDeleteNotificacion';
 import useMarkAsReadNotificacion from '../hooks/notificaciones/useMarkAsRead';
 
+import '@styles/notificaciones.css';
+
+
 
 const Notificaciones = () => {
     const { notificaciones, fetchNotificaciones, setNotificaciones } = useGetNotificacion();
