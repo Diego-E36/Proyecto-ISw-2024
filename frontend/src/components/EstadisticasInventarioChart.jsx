@@ -364,10 +364,21 @@ const BarChartBajoStockRestockTresMeses = ({ data }) => {
 
 const EstadisticasInventarioChart = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const selectedMonth = selectedDate.getMonth() + 1;
-    const selectedYear = selectedDate.getFullYear();
     const [filterType, setFilterType] = useState('');
 
+    // Verifica si selectedDate es válido; si no, usa una fecha por defecto.
+    const validDate = selectedDate instanceof Date && !isNaN(selectedDate);
+    const selectedMonth = validDate ? selectedDate.getMonth() + 1 : null;
+    const selectedYear = validDate ? selectedDate.getFullYear() : null;
+
+    const handleDateChange = (date) => {
+        // Asegúrate de que `date` es una instancia válida de Date
+        if (date && date instanceof Date && !isNaN(date)) {
+            setSelectedDate(date);
+        } else {
+            setSelectedDate(null); // O algún otro valor por defecto, según la lógica de tu aplicación
+        }
+    };
     const { inventario, loading: loadingInventario, error: errorInventario } = useGetNombreYCantidadInventario();
     const { inventarioNombreCantidadMesYear, loading: loadingInventarioNombreCantidadMesYear, error: errorInventarioNombreCantidadMesYear } = useGetInventarioNombreCantidadMesYear(selectedMonth, selectedYear);
     const { inventarioNombreCantidadYear, loading: loadingInventarioNombreCantidadYear, error: errorInventarioNombreCantidadYear } = useGetInventarioNombreCantidadYear(selectedYear);
@@ -455,7 +466,7 @@ const EstadisticasInventarioChart = () => {
                 <DatePicker
                     className="month-selector"
                     selected={selectedDate}
-                    onChange={(date) => setSelectedDate(date)}
+                    onChange={handleDateChange}
                     dateFormat="MM/yyyy"
                     showMonthYearPicker
                     locale={es}
@@ -465,7 +476,7 @@ const EstadisticasInventarioChart = () => {
                 <DatePicker
                     className="year-selector"
                     selected={selectedDate}
-                    onChange={(date) => setSelectedDate(date)}
+                    onChange={handleDateChange}
                     dateFormat="yyyy"
                     showYearPicker
                     locale={es}
