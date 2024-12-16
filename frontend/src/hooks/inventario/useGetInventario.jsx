@@ -19,7 +19,7 @@ const useInventario = () => {
                 nombre_proveedor: inventario.nombre_proveedor,
                 restockSugerido: inventario.restockSugerido,
                 umbralMinimo: inventario.umbralMinimo,
-                // boolMateriales: inventario.boolMateriales,
+                createdAt: inventario.createdAt,
                 updatedAt: inventario.updatedAt
             }));
             dataLogged(formattedDataInv);

@@ -16,6 +16,7 @@ const useGetBicicletas = () => {
                 tipo: bicicleta.tipo,
                 aro: bicicleta.aro,
                 venta: bicicleta.venta,
+                createdAt: bicicleta.createdAt,
                 updatedAt: bicicleta.updatedAt
             }));
             dataLogged(formattedData);

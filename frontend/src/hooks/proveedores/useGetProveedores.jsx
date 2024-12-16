@@ -16,6 +16,7 @@ const useGetProveedores = () => {
                 nombre: proveedor.nombre,
                 email: proveedor.email,
                 telefono: proveedor.telefono,
+                createdAt: proveedor.createdAt,
                 updatedAt: proveedor.updatedAt
             }));
             dataLogged(formattedData);
