@@ -56,14 +56,11 @@ const Bicicletas = () => {
     }, [setDataBicicleta]);
 
     const columns = [
-        { title: "Número de Serie", field: "numeroSerie", width: 200, responsive: 0, vertAlign: "middle" },
-        { title: "Marca", field: "marca", width: 200, responsive: 0, vertAlign: "middle" },
-        { title: "Modelo", field: "modelo", width: 200, responsive: 0, vertAlign: "middle" },
-        { title: "Color", field: "color", width: 200, responsive: 0, vertAlign: "middle" },
-        { title: "Tipo", field: "tipo", width: 200, responsive: 0, vertAlign: "middle" },
-        { title: "Aro", field: "aro", width: 200, responsive: 0, vertAlign: "middle" },
-        { title: "Venta", field: "venta", width: 200, responsive: 0, vertAlign: "middle" },
-        { title: "Actualizado", field: "updatedAt", width: 200, responsive: 0, resizable: false, vertAlign: "middle" },
+        { title: "Número de Serie", field: "numeroSerie", width: 242, responsive: 0, vertAlign: "middle", resizable: false },
+        { title: "Marca", field: "marca", width: 241, responsive: 0, vertAlign: "middle", resizable: false  },
+        { title: "Modelo", field: "modelo", width: 241, responsive: 0, vertAlign: "middle", resizable: false  },
+        { title: "Color", field: "color", width: 241, responsive: 0, vertAlign: "middle", resizable: false  },
+        { title: "Venta", field: "venta", width: 241, responsive: 0, vertAlign: "middle", resizable: false },
     ];
 
     // Filtrar bicicletas según el filtro actual de valor de venta
