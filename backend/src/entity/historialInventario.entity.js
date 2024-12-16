@@ -38,16 +38,16 @@ const HistorialInventarioSchema = new EntitySchema({
             unique: true,
         }
     ],
-    relations: [
-        {
-            target: "Inventario",
-            type: "many-to-one",
-            joinColumn: {
-                name: "id_inventario",
-                referencedColumnName: "id",
-            },
-        }
-    ]
+    // relations: [
+    //     {
+    //         target: "Inventario",
+    //         type: "many-to-one",
+    //         joinColumn: {
+    //             name: "id_inventario",
+    //             referencedColumnName: "id",
+    //         },
+    //     }
+    // ]
 });
 
 export default HistorialInventarioSchema;
