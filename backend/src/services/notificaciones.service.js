@@ -6,26 +6,40 @@ export async function createNotificactionService(data, operationType, stock) {
     try {
         const notificationRepository = AppDataSource.getRepository(Notificaciones);
         console.log(data)
-        console.log(stock)
         let message;
         switch (operationType) {
             case "create":
-                message = `Se ha creado ${data.nombreStock} en la base de datos con ID ${data.numeroSerie}.`;
+                message = `Se ha creado ${data.nombreStock} en la base de datos con Numero de serie ${data.numeroSerie}.`;
+                if (data.cantidadStock <= data.umbralMinimo) {
+                    await createNotificactionService(data, "below", 0);
+                }
+                break;
+            case "createServicio":
+                message = `Se ha creado un servicio de ${data.tipo} en la base de datos con la bicicleta ${data.bicicleta}`
+                break;
+            case "createBicicleta":
+                message = `Se ha ingresado una bicicleta en la base de datos con Numero de serie ${data.numeroSerie}`
+                break;
+            case "updateServicio":
+                message = `Se ha actualizado el servicio de ${data.tipo} en la base de datos`
+                break;
+            case "updateBicicleta":
+                message = `Se ha actualizado una bicicleta en la base de datos con Numero de serie ${data.numeroSerie}`
                 break;
             case "update":
-                message = `Se ha actualizado ${data.nombreStock} en la base de datos con ID ${data.numeroSerie}.`;
+                message = `Se ha actualizado ${data.nombreStock} en la base de datos con Numero de serie ${data.numeroSerie}.`;
                 if (data.cantidadStock <= data.umbralMinimo) {
-                    await createNotificactionService(data, "below", stock);
+                    await createNotificactionService(data, "below", 0);
                 }
                 break;
             case "updateStock":
                 message = `se han restado ${stock} unidades de ${data.nombreStock} en la base de datos`
                 if (data.cantidadStock <= data.umbralMinimo) {
-                    await createNotificactionService(data, "below", stock);
+                    await createNotificactionService(data, "below", 0);
                 }
                 break; 
             case "delete":
-                message = `Se ha eliminado ${data.nombreStock} de la base de datos con ID ${data.numeroSerie}.`;
+                message = `Se ha eliminado ${data.nombreStock} de la base de datos con Numero de serie ${data.numeroSerie}.`;
                 break;
             case "below":
                 message = `${data.nombreStock} está bajo umbral de inventario con ${data.cantidadStock} unidades`;
@@ -44,26 +58,6 @@ export async function createNotificactionService(data, operationType, stock) {
         return [notificationSaved, null];
     } catch (error) {
         console.error("Error al crear notificación:", error);
-        return [null, "Error interno del servidor"];
-    }
-}
-
-export async function getUnreadNotificationsService() {
-    try{
-        const notificationRepository = AppDataSource.getRepository(Notificaciones);
-
-        // Obtener solo los materiales que están por debajo del umbral
-        const unreadNotifications = await notificationRepository.createQueryBuilder("notificaciones")
-        .where("notificaciones.status = :status", { status: "unread" })
-        .getMany();
-
-        if (!unreadNotifications || unreadNotifications.length === 0) return [null , "No hay notificaciones"];
-
-        const notificationData = unreadNotifications.map(({ ...noti }) => noti);
-
-        return [notificationData, null];
-    } catch (error) {
-        console.error("Error al verificar notificaciones:", error);
         return [null, "Error interno del servidor"];
     }
 }
@@ -108,10 +102,6 @@ export async function getAllNotificationsService() {
         console.error("Error al obtener las notificaciones:", error);
         return [null, "Error interno del servidor"];
     }
-}
-
-export async function setNotificationPreferencesService() {
-
 }
 
 export async function deleteNotificationService(query) {
