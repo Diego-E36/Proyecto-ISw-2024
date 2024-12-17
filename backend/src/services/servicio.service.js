@@ -30,6 +30,7 @@ export async function createServicioService(dataServicio) {
 
         const user = await userRepository.findOne({ where: { rut: format(dataServicio.rut) } });
         if (!user) return [null, "Usuario no encontrado"];
+        if (user.rol === "invitado") return [null, "Persona no ha sido autorizada por un administador"];
 
         const bicicleta = await bicicletaRepository.findOne({ where: { numeroSerie: dataServicio.bicicleta } });
         
@@ -112,7 +113,8 @@ export async function updateServicioService(query, body) {
     
             const user = await userRepository.findOne({ where: { rut: format(body.rut) } });
             if (!user) return [null, "Usuario no encontrado"];
-    
+            if (user.rol === "invitado") return [null, "Persona no ha sido autorizada por un administador"];
+
             const bicicleta = await bicicletaRepository.findOne({ where: { numeroSerie: body.bicicleta } });
             if (!bicicleta) return [null, "Bicicleta no encontrada"];
 

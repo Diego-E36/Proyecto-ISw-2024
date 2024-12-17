@@ -32,6 +32,8 @@ export async function createServicio(req, res){
 
         if(errorServicio === "No se puede crear un servicio con una bicicleta a la venta") return handleErrorClient(res, 418, "Bicicleta a la venta", errorServicio);
 
+        if(errorServicio === "Persona no ha sido autorizada por un administador") return handleErrorClient(res, 401, "Persona no autorizada", errorServicio);
+
         if(errorServicio) return handleErrorClient(res, 400, errorServicio);
 
         await createNotificactionService(servicioCreated, "createServicio");
@@ -71,6 +73,7 @@ export async function updateServicio(req, res){
         const [servicio, errorServicio] = await updateServicioService({ id }, body);
 
         if(errorServicio === "No se puede crear un servicio con una bicicleta a la venta") return handleErrorClient(res, 418, "Bicicleta a la venta", errorServicio);
+        if(errorServicio === "Persona no ha sido autorizada por un administador") return handleErrorClient(res, 401, "Persona no autorizada", errorServicio);
 
         if(errorServicio) return handleErrorClient(res, 404, errorServicio);
 
