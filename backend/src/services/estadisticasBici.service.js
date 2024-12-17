@@ -83,9 +83,10 @@ export async function getBicicletasPorTipoUltimosTresMeses() {
 
         const bicicletasPorTipoUltimosTresMeses = await bicicletaRepository.createQueryBuilder("bicicleta")
             .select("bicicleta.tipo, COUNT(*) as cantidad")
+            .addSelect("TO_CHAR(bicicleta.createdAt, 'Month')", "mes")
             .where("bicicleta.createdAt >= DATE_TRUNC('month', NOW()) - INTERVAL '3 months'")
             .andWhere("bicicleta.createdAt < DATE_TRUNC('month', NOW())")
-            .groupBy("bicicleta.tipo")
+            .groupBy("bicicleta.tipo, TO_CHAR(bicicleta.createdAt, 'Month')")
             .getRawMany();
             console.log("Resultados de la consulta:", bicicletasPorTipoUltimosTresMeses);
 
@@ -179,11 +180,14 @@ export async function getBicicletasVentaUltimosTresMeses() {
         const bicicletaRepository = AppDataSource.getRepository(Bicicletas);
 
         const bicicletasVentaUltimosTresMeses = await bicicletaRepository.createQueryBuilder("bicicleta")
-            .select(["bicicleta.modelo", "bicicleta.venta"])
-            .where("bicicleta.venta > 0")
-            .andWhere("bicicleta.createdAt >= DATE_TRUNC('month', NOW()) - INTERVAL '3 months'")
-            .andWhere("bicicleta.createdAt < DATE_TRUNC('month', NOW())")
-            .getMany();
+        .select([
+            "bicicleta.modelo AS modelo",  
+            "bicicleta.venta AS venta",    
+            "TO_CHAR(bicicleta.createdAt, 'Month') AS mes"])
+        .where("bicicleta.venta > 0")
+        .andWhere("bicicleta.createdAt >= DATE_TRUNC('month', NOW()) - INTERVAL '3 months'")
+        .andWhere("bicicleta.createdAt < DATE_TRUNC('month', NOW())")
+        .getRawMany();
 
         return [bicicletasVentaUltimosTresMeses, null];
     } catch (error) {
@@ -273,9 +277,10 @@ export async function getBicicletasPorAroUltimosTresMeses() {
 
         const bicicletasPorAroUltimosTresMeses = await bicicletaRepository.createQueryBuilder("bicicleta")
             .select("CAST(bicicleta.aro AS VARCHAR) AS aro, COUNT(*) as cantidad")
+            .addSelect("TO_CHAR(bicicleta.createdAt, 'Month')", "mes")
             .where("bicicleta.createdAt >= DATE_TRUNC('month', NOW()) - INTERVAL '3 months'")
             .andWhere("bicicleta.createdAt < DATE_TRUNC('month', NOW())")
-            .groupBy("bicicleta.aro")
+            .groupBy("bicicleta.aro, TO_CHAR(bicicleta.createdAt, 'Month')")
             .getRawMany();
 
         return [bicicletasPorAroUltimosTresMeses, null];
