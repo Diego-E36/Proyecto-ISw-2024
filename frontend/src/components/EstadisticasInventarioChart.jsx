@@ -14,7 +14,6 @@ import useProductosBajoStockYRestockSugerido from '@hooks/estadisticas/useGetPro
 import useGetInventarioBajoStockRestockMesYear from '@hooks/estadisticas/useGetInventarioBajoStockRestockMesYear.jsx';
 import useGetInventarioBajoStockRestockYear from '@hooks/estadisticas/useGetInventarioBajoStockRestockYear.jsx';
 import useGetInventarioBajoStockRestockUltimosTresMeses from '@hooks/estadisticas/useGetInventarioBajoStockRestockUltimosTresMeses.jsx';
-
 import '@styles/Charts.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -204,7 +203,6 @@ const BarChartProveedorYear = ({ data }) => {
 };
 
 const BarChartProveedorTresMeses = ({ data }) => {
-    console.log("Datos recibidos 3 meses prov:", data); // Depuración
     if (!data || data.length === 0) {
         return (
             <div className='no-data-message-title'>
@@ -213,7 +211,6 @@ const BarChartProveedorTresMeses = ({ data }) => {
         );
     }
     const dataTransformada = transformarMeses(data);
-    console.log("Datos transformados:", dataTransformada); // Depuración
     return (
         <ResponsiveContainer width="100%" height={500}>
             <BarChart data={dataTransformada} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
@@ -330,7 +327,6 @@ const BarChartBajoStockRestockYear = ({ data }) => {
 };
 
 const BarChartBajoStockRestockTresMeses = ({ data }) => {
-    console.log("Datos recibidos 3 meses bajostock:", data); // Depuración
     if (!data || data.length === 0) {
         return (
             <div className='no-data-message-title'>
@@ -340,8 +336,6 @@ const BarChartBajoStockRestockTresMeses = ({ data }) => {
     }
     
     const dataTransformada = transformarMeses(data);
-
-    console.log("Datos transformados 3 meses bajostock:", dataTransformada); // Depuración
 
     return (
         <ResponsiveContainer width="100%" height={500}>
@@ -361,24 +355,25 @@ const BarChartBajoStockRestockTresMeses = ({ data }) => {
 };
 
 
+const minDate = new Date(2023, 0, 1); 
+const maxDate = new Date();           
+
 
 const EstadisticasInventarioChart = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [filterType, setFilterType] = useState('');
-
-    // Verifica si selectedDate es válido; si no, usa una fecha por defecto.
     const validDate = selectedDate instanceof Date && !isNaN(selectedDate);
     const selectedMonth = validDate ? selectedDate.getMonth() + 1 : null;
     const selectedYear = validDate ? selectedDate.getFullYear() : null;
 
     const handleDateChange = (date) => {
-        // Asegúrate de que `date` es una instancia válida de Date
-        if (date && date instanceof Date && !isNaN(date)) {
-            setSelectedDate(date);
+        if (date === null || !date) {
+            setSelectedDate(new Date());
         } else {
-            setSelectedDate(null); // O algún otro valor por defecto, según la lógica de tu aplicación
+            setSelectedDate(date);
         }
     };
+
     const { inventario, loading: loadingInventario, error: errorInventario } = useGetNombreYCantidadInventario();
     const { inventarioNombreCantidadMesYear, loading: loadingInventarioNombreCantidadMesYear, error: errorInventarioNombreCantidadMesYear } = useGetInventarioNombreCantidadMesYear(selectedMonth, selectedYear);
     const { inventarioNombreCantidadYear, loading: loadingInventarioNombreCantidadYear, error: errorInventarioNombreCantidadYear } = useGetInventarioNombreCantidadYear(selectedYear);
@@ -470,6 +465,8 @@ const EstadisticasInventarioChart = () => {
                     dateFormat="MM/yyyy"
                     showMonthYearPicker
                     locale={es}
+                    minDate={minDate}
+                    maxDate={maxDate}
                 />
             )}
             {filterType === 'Year' && (
@@ -480,6 +477,8 @@ const EstadisticasInventarioChart = () => {
                     dateFormat="yyyy"
                     showYearPicker
                     locale={es}
+                    minDate={minDate}
+                    maxDate={maxDate}
                 />
             )}
             </div>
