@@ -1,6 +1,6 @@
 "use strict";
 import { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LabelList } from 'recharts';
 import useGetBicicletasVentaMes from '@hooks/estadisticas/useGetBicicletasVentaMes.jsx';
 import useGetBicicletasPorTipoMes from '@hooks/estadisticas/useGetBicicletasPorTipoMes.jsx';
 import useGetBicicletasPorAroMes from '@hooks/estadisticas/useGetBicicletasPorAroMes.jsx';
@@ -114,6 +114,27 @@ const BarChartTipoAnoComponent = ({ data }) => {
     );
 }; 
 
+const mesesEspañol = {
+    January: "Enero",
+    February: "Febrero",
+    March: "Marzo",
+    April: "Abril",
+    May: "Mayo",
+    June: "Junio",
+    July: "Julio",
+    August: "Agosto",
+    September: "Septiembre",
+    October: "Octubre",
+    November: "Noviembre",
+    December: "Diciembre"
+};
+
+const transformarMeses = (data) =>
+    data.map((item) => ({
+        ...item,
+        mes: mesesEspañol[item.mes.trim()] || item.mes.trim() 
+    }));
+
 const BarChartTipoUltimosTresMesesComponent = ({ data }) => {
     if (!data || data.length === 0) {
         return (
@@ -122,15 +143,19 @@ const BarChartTipoUltimosTresMesesComponent = ({ data }) => {
             </div>
         );
     }
+    const dataTransformada = transformarMeses(data);
+
     return (
         <ResponsiveContainer width="100%" height={500}>
-            <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+            <BarChart data={dataTransformada} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="tipo" angle={-40} textAnchor="end" interval={0} height={100} />
                 <YAxis />
                 <Tooltip />
                 <Legend verticalAlign="top" />
-                <Bar dataKey="cantidad" fill="#8884d8" isAnimationActive={true}/>
+                <Bar dataKey="cantidad" fill="#8884d8" isAnimationActive={true}>
+                    <LabelList dataKey="mes" position="top" />
+                </Bar>
             </BarChart>
         </ResponsiveContainer>
     );
@@ -244,21 +269,26 @@ const BarChartVentaUltimosTresMesesComponent = ({ data }) => {
             </div>
         );
     }
+
+//Transforma los datos 
+const dataTransformada = transformarMeses(data).map(bici => ({
+modelo: bici.modelo, 
+venta: bici.venta,
+mes: bici.mes
+}));
+
     return (
         <ResponsiveContainer width="100%" height={500}>
             <BarChart
-                data={data.map(bici => ({
-                    modelo: bici.modelo,
-                    venta: bici.venta
-                }))}
-                margin={{ top: 20, right: 30, left: 20, bottom: 120 }}
-            >
+                data={dataTransformada} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="modelo" angle={-40} textAnchor="end" interval={0} height={100} />
                 <YAxis tickFormatter={(value) => `$${value}`} />
                 <Tooltip formatter={(value) => `$${value}`}/>
                 <Legend verticalAlign="top" />
-                <Bar dataKey="venta" fill="#82ca9d" isAnimationActive={true}/>
+                <Bar dataKey="venta" fill="#82ca9d" isAnimationActive={true}>
+                    <LabelList dataKey="mes" position="top" />
+                </Bar>
             </BarChart>
         </ResponsiveContainer>
     );
