@@ -1,7 +1,6 @@
 "use strict";
 import { Router } from "express";
 import { getDistribucionProductosPorProveedorController,
-        getEstadisticasxEstacionController, 
         getInventarioBajoStockRestockMesYearController,
         getInventarioBajoStockRestockUltimosTresMesesController,
         getInventarioBajoStockRestockYearController,
@@ -38,6 +37,4 @@ router
     .get("/bajostock/:mes/:year", getInventarioBajoStockRestockMesYearController)
     .get("/yearbajostock/:year", getInventarioBajoStockRestockYearController)
     .get("/bajostocktresmeses", getInventarioBajoStockRestockUltimosTresMesesController)
-    .get("/estaciones", getEstadisticasxEstacionController) //aún no se agrega
-    .get("/estacion/:estacion", getEstadisticasxEstacionController);
 export default router;
