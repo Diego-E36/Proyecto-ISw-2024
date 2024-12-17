@@ -1,7 +1,7 @@
 "use strict";
 import { Router } from "express";
 import { getDistribucionProductosPorProveedorController,
-    getInventarioBajoStockRestockDiaController,
+        getInventarioBajoStockRestockDiaController,
         getInventarioBajoStockRestockMesYearController,
         getInventarioBajoStockRestockUltimosTresMesesController,
         getInventarioBajoStockRestockYearController,

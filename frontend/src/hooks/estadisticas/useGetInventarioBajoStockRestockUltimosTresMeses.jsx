@@ -9,13 +9,10 @@ const useGetInventarioBajoStockRestockUltimosTresMeses = () => {
 
     useEffect(() => {
         const fetchInventarioBajoStockRestockUltimosTresMeses = async () => {
-            console.log("Fetching data..."); //Depuración
             try {
                 const data = await estadisticasInvService.getInventarioBajoStockRestockUltimosTresMeses();
-                console.log("Datos recuperados desde el backend en hook 3 meses:", data); //Depuración
                 setInventarioBajoStockRestockUltimosTresMeses(data);
             } catch (error) {
-                console.error("Error al obtener inventario con bajo stock y restock sugerido:", error); //Depuración
                 setError(error.message);
                 setInventarioBajoStockRestockUltimosTresMeses([]);
             } finally {
