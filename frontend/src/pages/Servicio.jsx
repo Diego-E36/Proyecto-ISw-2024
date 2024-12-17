@@ -48,12 +48,11 @@ const Servicios = () => {
     }, [setDataServicio]);
 
     const columns = [
-        { title: "RUT", field: "rut", width: 208, responsive: 0 , rezisable: false, vertAlign: "middle"},
-        { title: "Bicicleta", field: "bicicleta", width: 300, responsive: 0 , rezisable: false, vertAlign: "middle"},
-        { title: "Estado", field: "estado", width: 300, responsive: 0 , rezisable: false, vertAlign: "middle"},
-        { title: "Cantidad Usada", field: "cantidad", width: 200, responsive: 0 , rezisable: false, vertAlign: "middle"},
-        { title: "Creada", field: "createdAt", width: 200, responsive: 0 , rezisable: false, vertAlign: "middle"},
-        { title: "Actualizada", field: "updatedAt", width: 200, responsive: 0 , rezisable: false, vertAlign: "middle"},
+        { title: "RUT", field: "rut", width: 208, responsive: 0 , resizable: false, vertAlign: "middle"},
+        { title: "Bicicleta", field: "bicicleta", width: 300, responsive: 0 , resizable: false, vertAlign: "middle"},
+        { title: "Estado", field: "estado", width: 298, responsive: 0 , resizable: false, vertAlign: "middle"},
+        { title: "Creada", field: "createdAt", width: 200, responsive: 0 , resizable: false, vertAlign: "middle"},
+        { title: "Actualizada", field: "updatedAt", width: 200, responsive: 0 , resizable: false, vertAlign: "middle"},
     ];
 
     return (
