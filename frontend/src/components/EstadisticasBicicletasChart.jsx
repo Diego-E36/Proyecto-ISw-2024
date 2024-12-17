@@ -451,9 +451,9 @@ const minDate = new Date(2023, 0, 1);
 const maxDate = new Date();           
 
 const FORMATS = {
-    DIA: 'DD/MM/YYYY',
-    MESES: 'MM/YYYY',
-    YEAR: 'YYYY'
+    DIA: 'DD/MM/AAAA',
+    MESES: 'MM/AAAA',
+    YEAR: 'AAAA'
 };
 
 const EstadisticasBicicletasChart = () => {
@@ -496,28 +496,35 @@ const EstadisticasBicicletasChart = () => {
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             const dateParts = inputValue.split('/').map(part => parseInt(part, 10));
+            
             if (dateParts.length === 3) {
                 const [day, month, year] = dateParts;
-
+    
                 if (day < 1 || day > 31) {
-                    setDateError('El día debe estar entre 1 y 31');
+                    setDateError('El día debe estar entre 1 y 31.');
                     return;
                 }
-
                 if (month < 1 || month > 12) {
-                    setDateError('El mes debe estar entre 1 y 12');
+                    setDateError('El mes debe estar entre 1 y 12.');
                     return;
                 }
-
                 if (year < 2023 || year > new Date().getFullYear()) {
-                    setDateError('El año debe estar entre 2023 y el año actual');
+                    setDateError('El año debe estar entre 2023 y el año actual.');
+                    return;
+                }
+    
+                const futuro = new Date(year, month - 1, day);
+                const today = new Date();
+    
+                if (futuro > today) {
+                    setDateError('La fecha no puede ser mayor a la fecha actual.');
                     return;
                 }
 
-                // Si la fecha es válida, se establece en el estado
-                setSelectedDate(new Date(year, month - 1, day));
+                setSelectedDate(futuro);
                 setDateError('');
-            } else {
+            } 
+            else {
                 setDateError('Formato de fecha incorrecto.');
             }
         }
@@ -623,7 +630,7 @@ const EstadisticasBicicletasChart = () => {
                     </select>
 
                     {filterType === 'Dia' && (
-                        <div className="datepicker-container">
+                    <div className="datepicker-container">
                         <DatePicker
                             className="day-selector"
                             selected={selectedDate}
@@ -633,7 +640,7 @@ const EstadisticasBicicletasChart = () => {
                             locale={es}
                             minDate={minDate}
                             maxDate={maxDate}
-                            placeholderText="DD/MM/YYYY"
+                            placeholderText="DD/MM/AAAA"
                             value={inputValue}
                             onChangeRaw={handleInputChange}
                         />
@@ -652,7 +659,7 @@ const EstadisticasBicicletasChart = () => {
                             local={es}
                             minDate={minDate}
                             maxDate={maxDate}
-                            placeholderText="MM/YYYY"
+                            placeholderText="MM/AAAA"
                             onChangeRaw={handleInputChange}
                         />
                         {dateError && <p className="error-message">{dateError}</p>}
@@ -670,7 +677,7 @@ const EstadisticasBicicletasChart = () => {
                             local={es}
                             minDate={minDate}
                             maxDate={maxDate}
-                            placeholderText="YYYY"
+                            placeholderText="AAAA"
                             onChangeRaw={handleInputChange}
                         />
                         {dateError && <p className="error-message">{dateError}</p>}
