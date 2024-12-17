@@ -13,7 +13,7 @@ const useMarkAsReadNotificacion = (fetchNotificacion) => {
                 console.log(notificacionId)
                 const response = await markAsRead(dataNotificaciones[0].id);
                 if (response.error || response.status === "Client error") {
-                    showSuccessAlert(response.message, response.details);
+                    showErrorAlert(response.message, response.details);
                 } else {
                     showSuccessAlert('¡Actualizado!', 'La notificación esta leida.');
                     await fetchNotificacion();

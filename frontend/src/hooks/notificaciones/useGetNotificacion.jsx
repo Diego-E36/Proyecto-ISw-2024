@@ -37,9 +37,10 @@ const useGetNotificacion = () => {
         fetchNotificaciones();
     }, []);
 
+    // Filtra y cuenta las no leídas
+    const unreadCount = notificaciones.filter(n => n.status === "No leído").length;
 
-
-    return { notificaciones, fetchNotificaciones, setNotificaciones };
+    return { notificaciones, fetchNotificaciones, setNotificaciones, unreadCount };
 }
 
 export default useGetNotificacion;

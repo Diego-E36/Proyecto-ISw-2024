@@ -11,7 +11,13 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Badge from '@mui/material/Badge';
+
+
+import useGetNotificacion from '../hooks/notificaciones/useGetNotificacion';
+
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -20,6 +26,8 @@ const Navbar = () => {
     const userRole = user?.rol;
     const [menuOpen, setMenuOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
+
+    const { unreadCount } = useGetNotificacion();
 
     useEffect(() => {
         if (darkMode) {
@@ -81,19 +89,28 @@ const Navbar = () => {
     return (
         <>
             <nav className="horizontal-navbar">
-                <div className="navbar-content">
-                    <div className="navbar-title">Bikeep</div>
-                    <div className="navbar-icons">
-                        {(userRole === 'administrador' || userRole === 'usuario') && (
+            <div className="navbar-content">
+                <div className="navbar-title">Bikeep</div>
+                <div className="navbar-icons">
+                    {(userRole === 'administrador' || userRole === 'usuario') && (
+                        <Badge badgeContent={unreadCount} color="error">
+                        {unreadCount > 0 ? (
+                            <NotificationsActiveIcon
+                                className="icon unread-icon"
+                                onClick={() => navigate('/notificaciones')}
+                            />
+                        ) : (
                             <NotificationsIcon
                                 className="icon"
                                 onClick={() => navigate('/notificaciones')}
-                            />)
-                        }
-                        <Brightness4Icon className="icon" onClick={toggleDarkMode} />
-                    </div>
+                            />
+                        )}
+                    </Badge>
+                    )}
+                    <Brightness4Icon className="icon" onClick={toggleDarkMode} />
                 </div>
-            </nav>
+            </div>
+        </nav>
         <nav className="navbar">
             <div className={`nav-menu ${menuOpen ? 'activado' : ''}`}>
                 <ul>
