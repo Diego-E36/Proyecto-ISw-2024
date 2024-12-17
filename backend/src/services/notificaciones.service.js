@@ -74,6 +74,8 @@ export async function markAsReadService(query) {
         if (!notification) {
             throw new Error(`La notificación con ID ${query.id} no existe.`);
         }
+
+        if (notification.status == "read") return [ null, "La notificación ya esta leida"]
         // Marcar la notificación como leída
         notification.status = "read";
         // Guardar la notificación actualizada en la base de datos

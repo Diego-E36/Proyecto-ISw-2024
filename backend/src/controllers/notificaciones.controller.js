@@ -46,7 +46,7 @@ export async function markAsRead(req, res) {
         
         const [notificacion, errorNoti] = await markAsReadService({ id });
         
-        if (errorNoti) return handleErrorClient(res, 404, errorNoti);
+        if (errorNoti) return handleErrorClient(res, 404, "Error", errorNoti);
 
         handleSuccess(res, 200, "Notificación leída", notificacion);
     } catch (error){
