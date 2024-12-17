@@ -19,6 +19,26 @@ export async function getAllBicicletasTipo() {
     }
 }
 
+//Servicio para obtener bicicletas por tipo filtrado por día, mes y año
+export async function getBicicletasPorTipoDia(dia, mes, year) {
+    try {
+        const bicicletaRepository = AppDataSource.getRepository(Bicicletas);
+
+        const bicicletasPorTipoDia = await bicicletaRepository.createQueryBuilder("bicicleta")
+            .select("bicicleta.tipo, COUNT(*) as cantidad")
+            .where("EXTRACT(DAY FROM bicicleta.createdAt) = :dia", { dia })
+            .andWhere("EXTRACT(MONTH FROM bicicleta.createdAt) = :mes", { mes })
+            .andWhere("EXTRACT(YEAR FROM bicicleta.createdAt) = :year", { year })
+            .groupBy("bicicleta.tipo")
+            .getRawMany();
+
+        return [bicicletasPorTipoDia, null];
+    } catch (error) {
+        console.error("Error al obtener bicicletas por tipo con día, mes y año:", error);
+        return [null, "Error interno del servidor"];
+    }
+}
+
 //Servicio para obtener bicicletas por tipo filtrado por meses y año
 export async function getBicicletasPorTipoMes(mes, year) {
     try {
@@ -89,6 +109,27 @@ export async function getAllBicicletasVenta() {
         return [bicicletasVenta, null];
     } catch (error) {
         console.error("Error al obtener todas las bicicletas a la venta:", error);
+        return [null, "Error interno del servidor"];
+    }
+}
+
+//Servicio para obtener bicicletasa la venta filtrado por día, mes y año
+export async function getBicicletasVentaDia(dia, mes, year) {
+    try {
+        const bicicletaRepository = AppDataSource.getRepository(Bicicletas);
+
+        const bicicletasVendidasDia = await bicicletaRepository.createQueryBuilder("bicicleta")
+            .select(["bicicleta.modelo", "bicicleta.venta"])
+            .where("EXTRACT(DAY FROM bicicleta.createdAt) = :dia ", { dia })
+            .andWhere("EXTRACT(MONTH FROM bicicleta.createdAt) = :mes ", { mes })
+            .andWhere("EXTRACT(YEAR FROM bicicleta.createdAt) = :year ", { year })
+            .andWhere("bicicleta.venta IS NOT NULL")
+            .andWhere("bicicleta.venta > 0")
+            .getMany();
+
+        return [bicicletasVendidasDia, null];
+    } catch (error) {
+        console.error("Error al obtener bicicletas a la venta por día, mes y año:", error);
         return [null, "Error interno del servidor"];
     }
 }
@@ -164,6 +205,26 @@ export async function getAllBicicletasPorAro() {
         return [bicicletasPorAro, null];
     } catch (error) {
         console.error("Error al obtener todas las bicicletas por aro:", error);
+        return [null, "Error interno del servidor"];
+    }
+}
+
+//Servicio para obtener bicicletas por aro filtrado por día, mes y año
+export async function getBicicletasPorAroDia(dia, mes, year) {
+    try {
+        const bicicletaRepository = AppDataSource.getRepository(Bicicletas);
+
+        const bicicletasPorAroDia = await bicicletaRepository.createQueryBuilder("bicicleta")
+            .select("CAST(bicicleta.aro AS VARCHAR) AS aro, COUNT(*) as cantidad")
+            .where("EXTRACT(DAY FROM bicicleta.createdAt) = :dia", { dia })
+            .andWhere("EXTRACT(MONTH FROM bicicleta.createdAt) = :mes", { mes })
+            .andWhere("EXTRACT(YEAR FROM bicicleta.createdAt) = :year", { year })
+            .groupBy("bicicleta.aro")
+            .getRawMany();
+
+        return [bicicletasPorAroDia, null];
+    } catch (error) {
+        console.error("Error al obtener bicicletas con aro y día:", error);
         return [null, "Error interno del servidor"];
     }
 }

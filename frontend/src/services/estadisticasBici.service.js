@@ -16,6 +16,21 @@ export async function getAllBicicletasTipo() {
     }
 }
 
+//Servicio para obtener bicicletas por tipo filtrado por día, mes y año
+export async function getBicicletasPorTipoDia(dia, mes, year) {
+    try {
+        const { data: bicicletasPorTipoData } = await axios.get(`/estadisticasBici/tipobicidia/${dia}/${mes}/${year}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return bicicletasPorTipoData.data || [];
+    } catch (error) {
+        console.error("Error al obtener bicicletas por tipo y día:", error);
+        return error.response.data;
+    }
+}
+
 //Servicio para obtener bicicletas por tipo filtrado por meses y año
 export async function getBicicletasPorTipoMes(mes, year) {
     try {
@@ -72,6 +87,21 @@ export async function getAllBicicletasVenta() {
         return bicicletasVentaData.data || [];
     } catch (error) {
         console.error("Error al obtener todas las bicicletas a la venta:", error);
+        return error.response.data;
+    }
+}
+
+//Servicio para obtener bicicletas a la venta filtrado por día, mes y año
+export async function getBicicletasVentaDia(dia, mes, year) {
+    try {
+        const { data: bicicletasVentaData } = await axios.get(`/estadisticasBici/ventabicidia/${dia}/${mes}/${year}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return bicicletasVentaData.data || [];
+    } catch (error) {
+        console.error("Error al obtener bicicletas a la venta por día:", error);
         return error.response.data;
     }
 }
@@ -141,6 +171,21 @@ export async function getAllBicicletasPorAro() {
     }
 }
 
+//Servicio para obtener bicicletas por aro filtrado por día, mes y año
+export async function getBicicletasPorAroDia(dia, mes, year) {
+    try {
+        const { data: bicicletasPorAroData } = await axios.get(`/estadisticasBici/arobicidia/${dia}/${mes}/${year}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return bicicletasPorAroData.data || [];
+    } catch (error) {
+        console.error("Error al obtener bicicletas por aro y día:", error);
+        return error.response.data;
+    }
+}
+
 //Servicio para obtener bicicletas por aro filtrado por meses y año
 export async function getBicicletasPorAroMes(mes, year) {
     try {
@@ -189,14 +234,17 @@ export async function getBicicletasPorAroUltimosTresMeses() {
 
 export default {
     getAllBicicletasTipo,
+    getBicicletasPorTipoDia,
     getBicicletasPorTipoMes,
     getBicicletasPorTipoYear,
     getBicicletasPorTipoUltimosTresMeses,
     getAllBicicletasVenta,
+    getBicicletasVentaDia,
     getBicicletasVentaMes,
     getBicicletasVentaYear,
     getBicicletasVentaUltimosTresMeses,
     getAllBicicletasPorAro,
+    getBicicletasPorAroDia,
     getBicicletasPorAroMes,
     getBicicletasPorAroYear,
     getBicicletasPorAroUltimosTresMeses
