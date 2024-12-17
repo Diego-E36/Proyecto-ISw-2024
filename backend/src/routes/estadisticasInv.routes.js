@@ -1,12 +1,15 @@
 "use strict";
 import { Router } from "express";
 import { getDistribucionProductosPorProveedorController,
+    getInventarioBajoStockRestockDiaController,
         getInventarioBajoStockRestockMesYearController,
         getInventarioBajoStockRestockUltimosTresMesesController,
         getInventarioBajoStockRestockYearController,
+        getInventarioNombreCantidadDiaController,
         getInventarioNombreCantidadMesYearController,
         getInventarioNombreCantidadUltimosTresMesesController,
         getInventarioNombreCantidadYearController,
+        getInventarioProveedorDiaController,
         getInventarioProveedorMesYearController,
         getInventarioProveedorUltimosTresMesesController,
         getInventarioProveedorYearController,
@@ -18,22 +21,23 @@ import { isAdmin } from "../middlewares/authorization.middleware.js";
 
 const router = Router();
 
-// Aplica middleware de autenticación y autorización
 router
     .use(authenticateJwt)
     .use(isAdmin);
 
-// Define rutas para las estadísticas del inventario
 router
     .get("/inv", getNombreYCantidadInventarioController)
+    .get("/dianombrecantidad/:dia/:mes/:year", getInventarioNombreCantidadDiaController)
     .get("/nombrecantidad/:mes/:year", getInventarioNombreCantidadMesYearController)
     .get("/yearnombrecantidad/:year", getInventarioNombreCantidadYearController)
     .get("/nombrecantidadtresmeses", getInventarioNombreCantidadUltimosTresMesesController)
     .get("/proveedor", getDistribucionProductosPorProveedorController)
+    .get("/diaproveedor/:dia/:mes/:year", getInventarioProveedorDiaController)
     .get("/proveedor/:mes/:year", getInventarioProveedorMesYearController)
     .get("/yearproveedor/:year", getInventarioProveedorYearController)
     .get("/proveedortresmeses", getInventarioProveedorUltimosTresMesesController)
     .get("/bajostock", getProductosBajoStockYRestockSugeridoController)
+    .get("/diabajostock/:dia/:mes/:year", getInventarioBajoStockRestockDiaController)
     .get("/bajostock/:mes/:year", getInventarioBajoStockRestockMesYearController)
     .get("/yearbajostock/:year", getInventarioBajoStockRestockYearController)
     .get("/bajostocktresmeses", getInventarioBajoStockRestockUltimosTresMesesController)
