@@ -7,7 +7,6 @@ import { authenticateJwt } from "../middlewares/authentication.middleware.js";
 import {
     deleteNotification,
     getAllNotifications,
-    getUnreadNotifications,
     markAsRead
 } from "../controllers/notificaciones.controller.js";
 
@@ -19,7 +18,6 @@ router
     .use(isAdmin) // A partir de aquí, solo los administradores
     .get("/all", getAllNotifications)
     .delete("/:id", deleteNotification)
-    .get("/", getUnreadNotifications)
     .patch("/:id", markAsRead);
     
 

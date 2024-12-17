@@ -7,6 +7,10 @@ import{
     updateBicicletaService,
 } from "../services/bicicleta.service.js";
 
+import {
+    createNotificactionService
+} from "../services/notificaciones.service.js"
+
 import{
     handleErrorClient,
     handleErrorServer,
@@ -74,7 +78,14 @@ export async function createBici(req, res) {
         }
 
         // Crear nueva bicicleta si no hay duplicado
-        const newBici = await createBicicletaService(bicicleta);
+        const [ newBici, errorBicicleta ] = await createBicicletaService(bicicleta);
+
+        if(errorBicicleta === "No se puede crear una bicicleta a la venta") return handleErrorClient(res, 418, "no se pudo crear una bicicleta", errorBicicleta);
+
+        if(errorBicicleta) return handleErrorClient(res, 400, errorBicicleta);
+
+        await createNotificactionService(newBici, "createBicicleta")
+
         handleSuccess(res, 201, "Bicicleta creada", newBici);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
@@ -99,7 +110,7 @@ export async function updateBici(req, res){
 
         if (errorBicicleta) return handleErrorClient(res, 404, errorBicicleta);
 
-
+        await createNotificactionService(bicicleta, "updateBicicleta")
 
         handleSuccess(res, 200, "Bicicleta actualizada", bicicleta);
     } catch (error) {

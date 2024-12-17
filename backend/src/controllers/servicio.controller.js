@@ -5,6 +5,10 @@ import {
     updateServicioService,
 } from "../services/servicio.service.js";
 
+import {
+    createNotificactionService
+} from "../services/notificaciones.service.js"
+
 import{
     handleErrorClient,
     handleErrorServer,
@@ -29,6 +33,8 @@ export async function createServicio(req, res){
         if(errorServicio === "No se puede crear un servicio con una bicicleta a la venta") return handleErrorClient(res, 418, "Bicicleta a la venta", errorServicio);
 
         if(errorServicio) return handleErrorClient(res, 400, errorServicio);
+
+        await createNotificactionService(servicioCreated, "createServicio");
 
         handleSuccess(res, 201, "Servicio creado", servicioCreated);
     }catch(error){
@@ -67,6 +73,8 @@ export async function updateServicio(req, res){
         if(errorServicio === "No se puede crear un servicio con una bicicleta a la venta") return handleErrorClient(res, 418, "Bicicleta a la venta", errorServicio);
 
         if(errorServicio) return handleErrorClient(res, 404, errorServicio);
+
+        await createNotificactionService(servicio, "updateServicio")
 
         handleSuccess(res, 200, "Servicio actualizado", servicio);
     }catch(error){
