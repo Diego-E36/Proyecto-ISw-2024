@@ -7,7 +7,7 @@ const PopupDetailsBicicletas = ({ data, onClose }) => {
             <div className='popup-content'>
                 <h2>Detalles de la bicicleta</h2>
                 <button className='close-button' onClick={onClose}> <img src={CloseIcon} alt="Close" /></button>
-                <p><strong>Numero de serie:</strong> {data.numeroSerie}</p>
+                <p><strong>Número de serie:</strong> {data.numeroSerie}</p>
                 <p><strong>Marca:</strong> {data.marca}</p>
                 <p><strong>Modelo:</strong> {data.modelo}</p>
                 <p><strong>Color:</strong> {data.color}</p>
