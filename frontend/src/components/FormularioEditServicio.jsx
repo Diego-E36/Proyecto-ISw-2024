@@ -40,13 +40,13 @@ export default function EditServicio({ show, setShow, data, action }) {
                                     ),
                                     name: "rut",
                                     defaultValue: servicioData.rut || "",
-                                    placeholder: "xxxxxxxx-x",
+                                    placeholder: "XXXXXXXX-X",
                                     fieldType: "input",
                                     type: "text",
                                     minLength: 9,
                                     maxLength: 12,
                                     pattern: patternRut,
-                                    patternMessage: "Debe ser xx.xxx.xxx-x o xxxxxxxx-x",
+                                    patternMessage: "El formato del RUT debe ser XX.XXX.XXX-X o XXXXXXXX-X",
                                 },
                                 {
                                     label: (
@@ -71,7 +71,7 @@ export default function EditServicio({ show, setShow, data, action }) {
                                 {
                                     label: (
                                         <span>
-                                            Item
+                                            Ítem
                                             <span className='tooltip-icon'>
                                                 <img src={QuestionIcon} />
                                                 <span className='tooltip-text'>El parámetro ingresado debe ser el número de serie de un item de inventario.</span>

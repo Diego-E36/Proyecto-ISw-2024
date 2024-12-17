@@ -36,14 +36,14 @@ export default function createServicio({ show, setShow, action }) {
                                     ),
                                     name: "rut",
                                     defaultValue: "",
-                                    placeholder: "xxxxxxxx-x",
+                                    placeholder: "XXXXXXXX-X",
                                     fieldType: "input",
                                     type: "text",
                                     required: true,
                                     minLength: 9,
                                     maxLength: 12,
                                     pattern: rutPattern,
-                                    patternMessage: "Formato rut inválido"
+                                    patternMessage: "El formato del RUT debe ser XX.XXX.XXX-X o XXXXXXXX-X"
                                 },
                                 {
                                     label: (
@@ -70,7 +70,7 @@ export default function createServicio({ show, setShow, action }) {
                                 {
                                     label: (
                                         <span>
-                                            Item
+                                            Ítem
                                             <span className='tooltip-icon'>
                                                 <img src={QuestionIcon} />
                                                 <span className='tooltip-text'>El parámetro ingresado debe ser el número de serie de un item de inventario.</span>
