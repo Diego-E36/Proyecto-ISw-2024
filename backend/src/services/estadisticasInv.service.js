@@ -1,15 +1,13 @@
 "use strict";
 import { AppDataSource } from "../config/configDb.js";
 import Inventario from "../entity/inventario.entity.js";
-import { Between } from "typeorm";
 import HistorialInventario from "../entity/historialInventario.entity.js";
 
-// Servicio para obtener el nombre del producto y la cantidad
+//Servicio para obtener el nombre del producto y la cantidad
 export async function getNombreYCantidadInventario() {
     try {
         const inventarioRepository = AppDataSource.getRepository(Inventario);
 
-        // Obtener el nombre del producto y la cantidad
         const inventario = await inventarioRepository.find({
             select: ["nombreStock", "cantidadStock"]
         });
@@ -21,7 +19,28 @@ export async function getNombreYCantidadInventario() {
     }
 }
 
-// Servicio para obtener nombre de stock inventario, cantidad del historial filtrado por mes y año
+//Servicio para obtener el nombre del producto y la cantidad filtrado por día, mes y año
+export async function getInventarioNombreCantidadDia(dia, mes, year){
+    try {
+        const historialRepository = AppDataSource.getRepository(HistorialInventario);
+
+        const inventarioNombreCantidadDia = await historialRepository.createQueryBuilder("historial")
+        .select("inventario.nombreStock", "nombre")
+        .addSelect("historial.cantidad", "cantidad")
+        .innerJoin("inventario", "inventario", "historial.id_inventario = inventario.id")
+        .where("EXTRACT(DAY FROM historial.createdAt) = :dia", { dia })
+        .andWhere("EXTRACT(MONTH FROM historial.createdAt) = :mes", { mes })
+        .andWhere("EXTRACT(YEAR FROM historial.createdAt) = :year", { year })
+        .getRawMany();
+    
+        return [inventarioNombreCantidadDia, null];
+    } catch (error) {
+        console.error("Error al obtener nombre de stock de inventario y cantidad filtrado por día, mes y año:", error);
+        return [null, "Error interno del servidor"];
+    }
+}
+
+//Servicio para obtener nombre de stock inventario, cantidad del historial filtrado por mes y año
 export async function getInventarioNombreCantidadMesYear(mes, year) {
     try {
         const historialRepository = AppDataSource.getRepository(HistorialInventario);
@@ -41,7 +60,7 @@ export async function getInventarioNombreCantidadMesYear(mes, year) {
     }
 }
 
-// Servicio para obtener nombre de stock inventario, cantidad del historial filtrado por año
+//Servicio para obtener nombre de stock inventario, cantidad del historial filtrado por año
 export async function getInventarioNombreCantidadYear(year) {
     try {
         const historialRepository = AppDataSource.getRepository(HistorialInventario);
@@ -60,7 +79,7 @@ export async function getInventarioNombreCantidadYear(year) {
     }
 }
 
-// Servicio para obtener nombre de stock inventario, cantidad del historial filtrado por últimos 3 meses sin contar actual
+//Servicio para obtener nombre de stock inventario, cantidad del historial filtrado por últimos 3 meses sin contar actual
 export async function getInventarioNombreCantidadUltimosTresMeses() {
     try {
         const historialRepository = AppDataSource.getRepository(HistorialInventario);
@@ -81,12 +100,11 @@ export async function getInventarioNombreCantidadUltimosTresMeses() {
     }
 }
 
-// Servicio para obtener la distribución de productos por proveedor
+//Servicio para obtener la distribución de productos por proveedor
 export async function getDistribucionProductosPorProveedor() {
     try {
         const inventarioRepository = AppDataSource.getRepository(Inventario);
 
-        // Obtener la distribución de productos por proveedor
         const productosPorProveedor = await inventarioRepository.createQueryBuilder("inventario")
             .select("inventario.nombre_proveedor, COUNT(*) as cantidad")
             .groupBy("inventario.nombre_proveedor")
@@ -99,7 +117,27 @@ export async function getDistribucionProductosPorProveedor() {
     }
 }
 
-// Servicio para obtener productos por proveedor y cantidad filtrado por mes y año
+//Servicio para obtener productos por proveedor y cantidad filtrado por día, mes y año
+export async function getInventarioProveedorDia(dia, mes, year) {
+    try {
+        const inventarioRepository = AppDataSource.getRepository(Inventario);
+
+        const inventarioProveedorDia = await inventarioRepository.createQueryBuilder("inventario")
+        .select("inventario.nombre_proveedor, COUNT(*) as cantidad")
+        .where("EXTRACT(DAY FROM inventario.createdAt) = :dia", { dia })
+        .andWhere("EXTRACT(MONTH FROM inventario.createdAt) = :mes", { mes })
+        .andWhere("EXTRACT(YEAR FROM inventario.createdAt) = :year", { year })
+        .groupBy("inventario.nombre_proveedor")
+        .getRawMany();
+
+        return [inventarioProveedorDia, null];
+    } catch (error) {
+        console.error("Error al obtener el nombre del proveedor y la cantidad por día, mes y año:", error);
+        return [null, "Error interno del servidor"];
+    }
+}
+
+//Servicio para obtener productos por proveedor y cantidad filtrado por mes y año
 export async function getInventarioProveedorMesYear(mes, year) {
     try {
         const inventarioRepository = AppDataSource.getRepository(Inventario);
@@ -118,7 +156,7 @@ export async function getInventarioProveedorMesYear(mes, year) {
     }
 } 
 
-// Servicio para obtener productos por proveedor y cantidad filtrado por año
+//Servicio para obtener productos por proveedor y cantidad filtrado por año
 export async function getInventarioProveedorYear(year) {
     try {
         const inventarioRepository = AppDataSource.getRepository(Inventario);
@@ -156,12 +194,11 @@ export async function getInventarioProveedorUltimosTresMeses() {
     }
 }
 
-// Servicio para obtener productos con bajo stock y restock sugerido, con umbralMinimo
+//Servicio para obtener productos con bajo stock y restock sugerido, con umbralMinimo
 export async function getProductosBajoStockYRestockSugerido() {
     try {
         const inventarioRepository = AppDataSource.getRepository(Inventario);
 
-        // Obtener productos con bajo stock
         const productosBajoStock = await inventarioRepository.createQueryBuilder("inventario")
         .select(["inventario.nombreStock", "inventario.cantidadStock", "inventario.restockSugerido", "inventario.umbralMinimo"])
         .where("inventario.cantidadStock < inventario.umbralMinimo")
@@ -175,12 +212,31 @@ export async function getProductosBajoStockYRestockSugerido() {
     }
 }
 
-// Servicio para obtener productos con bajo stock y restock sugerido filtrado por mes y año
+//Servicio para obtener productos con bajo stock y restock sugerido filtrado por día, mes y año
+export async function getInventarioBajoStockRestockDia(dia, mes, year) {
+    try {
+        const inventarioRepository = AppDataSource.getRepository(Inventario);
+
+        const inventarioBajoStockRestockDia = await inventarioRepository.createQueryBuilder("inventario")
+        .select(["inventario.nombreStock", "inventario.cantidadStock", "inventario.restockSugerido", "inventario.umbralMinimo"])
+        .where("inventario.cantidadStock < inventario.umbralMinimo")
+        .andWhere("EXTRACT(DAY FROM inventario.createdAt) = :dia", { dia })
+        .andWhere("EXTRACT(MONTH FROM inventario.createdAt) = :mes", { mes })
+        .andWhere("EXTRACT(YEAR FROM inventario.createdAt) = :year", { year })
+        .getMany();
+
+        return [inventarioBajoStockRestockDia, null];
+    } catch (error) {
+        console.error("Error al obtener productos con bajo stock y restock sugerido por día, mes y año:", error);
+        return [null, "Error interno del servidor"];
+    }
+}
+
+//Servicio para obtener productos con bajo stock y restock sugerido filtrado por mes y año
 export async function getInventarioBajoStockRestockMesYear(mes, year) {
     try {
         const inventarioRepository = AppDataSource.getRepository(Inventario);
 
-        // Obtener productos con bajo stock y restock sugerido
         const inventarioBajoStockRestockMesYear = await inventarioRepository.createQueryBuilder("inventario")
         .select(["inventario.nombreStock", "inventario.cantidadStock", "inventario.restockSugerido", "inventario.umbralMinimo"])
         .where("inventario.cantidadStock < inventario.umbralMinimo")
@@ -195,12 +251,11 @@ export async function getInventarioBajoStockRestockMesYear(mes, year) {
     }
 }
 
-// Servicio para obtener productos con bajo stock y restock sugerido filtrado por año
+//Servicio para obtener productos con bajo stock y restock sugerido filtrado por año
 export async function getInventarioBajoStockRestockYear(year) {
     try {
         const inventarioRepository = AppDataSource.getRepository(Inventario);
 
-        // Obtener productos con bajo stock y restock sugerido
         const inventarioBajoStockRestockYear = await inventarioRepository.createQueryBuilder("inventario")
         .select(["inventario.nombreStock", "inventario.cantidadStock", "inventario.restockSugerido", "inventario.umbralMinimo"])
         .where("inventario.cantidadStock < inventario.umbralMinimo")

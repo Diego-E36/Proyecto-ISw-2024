@@ -15,6 +15,20 @@ export async function getNombreYCantidadInventario() {
     }
 }
 
+export async function getInventarioNombreCantidadDia(dia, mes, year) {
+    try {
+        const { data: inventarioNombreCantidadData } = await axios.get(`/estadisticas/dianombrecantidad/${dia}/${mes}/${year}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return inventarioNombreCantidadData.data || [];
+    } catch (error) {
+        console.error("Error al obtener el nombre y la cantidad del inventario por día, mes y año:", error);
+        return error.response.data;
+    }
+}
+
 export async function getInventarioNombreCantidadMesYear(mes, year) {
     try {
         const { data: inventarioNombreCantidadData } = await axios.get(`/estadisticas/nombrecantidad/${mes}/${year}`, {
@@ -67,6 +81,20 @@ export async function getDistribucionProductosPorProveedor() {
         return distribucionData.data;
     } catch (error) {
         console.error("Error al obtener la distribución de productos por proveedor:", error);
+        return error.response.data;
+    }
+}
+
+export async function getInventarioProveedorDia(dia, mes, year) {
+    try {
+        const { data: inventarioProveedorData } = await axios.get(`/estadisticas/diaproveedor/${dia}/${mes}/${year}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return inventarioProveedorData.data || [];
+    } catch (error) {
+        console.error("Error al obtener el inventario por proveedor por día, mes y año:", error);
         return error.response.data;
     }
 }
@@ -127,6 +155,20 @@ export async function getProductosBajoStockYRestockSugerido() {
     }
 }
 
+export async function getInventarioBajoStockRestockDia(dia, mes, year) {
+    try {
+        const { data: bajoStockRestockData } = await axios.get(`/estadisticas/diabajostock/${dia}/${mes}/${year}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return bajoStockRestockData.data || [];
+    } catch (error) {
+        console.error("Error al obtener el inventario con bajo stock y restock sugerido por día, mes y año:", error);
+        return error.response.data;
+    }
+}
+
 export async function getInventarioBajoStockRestockMesYear(mes, year) {
     try {
         const { data: bajoStockRestockData } = await axios.get(`/estadisticas/bajostock/${mes}/${year}`, {
@@ -173,14 +215,17 @@ export async function getInventarioBajoStockRestockUltimosTresMeses() {
 
 export default {
     getNombreYCantidadInventario,
+    getInventarioNombreCantidadDia,
     getInventarioNombreCantidadMesYear,
     getInventarioNombreCantidadYear,
     getInventarioNombreCantidadUltimosTresMeses,
     getDistribucionProductosPorProveedor,
+    getInventarioProveedorDia,
     getInventarioProveedorMesYear,
     getInventarioProveedorYear,
     getInventarioProveedorUltimosTresMeses,
     getProductosBajoStockYRestockSugerido,
+    getInventarioBajoStockRestockDia,
     getInventarioBajoStockRestockMesYear,
     getInventarioBajoStockRestockYear,
     getInventarioBajoStockRestockUltimosTresMeses
