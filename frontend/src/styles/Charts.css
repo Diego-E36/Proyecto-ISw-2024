@@ -67,7 +67,7 @@
     font-size: 2rem; 
     margin: 3rem 0; 
     text-align: left;
-    white-space: normal; /*texto se ajusta al ancho del contenedor*/
+    white-space: normal;
 }
 
 /*titulos de los gráficos sin datos*/
@@ -110,6 +110,7 @@
     border-radius: 0.5rem; 
 }
 
+/*estilo para el desplegable del año*/
 .year-selector{
     font-size: 1rem; 
     padding: 0.5rem; 
@@ -126,6 +127,14 @@
     margin-left: 0.5rem;
 }
 
+/*estilo para el desplegable del dia*/
+.day-selector {
+    font-size: 1rem; 
+    padding: 0.5rem; 
+    margin-bottom: 1rem; 
+    border-radius: 0.5rem; 
+}
+
 /*estilo para el contenedor de los desplegables*/
 .selectors-container {
     display: flex;
@@ -137,6 +146,22 @@
 .recharts-responsive-container {
     width: 100%;
     height: 100%;
+}
+
+/*estilo para el datepicker*/
+.datepicker-container {
+    display: flex;
+    align-items: center; 
+    gap: 20px; 
+    min-width: 300px;
+}
+
+/*estilo para el texto de error*/
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 0;
+    white-space: nowrap;
 }
 
 /* DARKMODE */
