@@ -26,11 +26,9 @@ const useEditUser = (setUsers) => {
                 if (user.id === formattedUser.id) {
                     console.log("Reemplazando con:", formattedUser);
                 }
+                setDataUser([]);
                 return user.email === formattedUser.email ? formattedUser : user;
             }));
-            
-
-            setDataUser([]);
             } catch (error) {
                 console.error('Error al actualizar el usuario:', error);
                 showErrorAlert('Cancelado','Ocurrió un error al actualizar el usuario.');
