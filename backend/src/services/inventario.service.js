@@ -25,7 +25,7 @@ export async function updateInvService(query, body) {
 
         // Verificar si el proveedor ya existe
         const proveedorFind = await proveedorRepo.findOne({ where: { nombre: body.nombre_proveedor } });
-
+        
         if (!proveedorFind) return [null, "Proveedor no encontrado"];
 
         const dataInvUpdated = {
