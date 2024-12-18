@@ -90,22 +90,15 @@ export async function createProv(req, res) {
         const proveedor = req.body;
 
         // Validacion de esquema
-        const { bodyError } = provBodyValidation.validate(proveedor);
+        const { error:bodyError } = provBodyValidation.validate(proveedor);
         if (bodyError) return handleErrorClient(res, 400, "Error de validación en los datos enviados", bodyError.message);
 
-        // Ruts duplicados
-        const [existingProveedor, errorExistingProveedor] = await getProvService({ rut: proveedor.rut });
+        // Error al crear proveedor
+        const [newProveedor, errorNewProveedor] = await createProvService(proveedor);
 
-        if (errorExistingProveedor && errorExistingProveedor !== "Proveedor no encontrado") {
-            return handleErrorServer(res, 500, "Error interno del servidor");
-        }
+        if (errorNewProveedor) return handleErrorClient(res, 400, errorNewProveedor);
 
-        if (existingProveedor) {
-            return handleErrorClient(res, 400, "Ya existe un proveedor con ese rut");
-        }
-
-        // En caso de no haber duplicados
-        const newProveedor = await createProvService(proveedor);
+        // En caso de no haber errores
         handleSuccess(res, 201, "Proveedor creado", newProveedor);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
