@@ -82,11 +82,6 @@ export async function updateInv(req, res) {
             return handleErrorClient(res, 418, "Error de validación en los datos enviados", bodyError);
         }
 
-        // Verificar si el id_proveedor existe en la tabla proveedores
-        const [proveedor, errorProveedor] = await getProvService({ id: body.id_proveedor });
-        // Devolver error si no existe el proveedor
-        if (errorProveedor) return handleErrorClient(res, 418, errorProveedor);
-
         const [inventario, errorInv] = await updateInvService({ id }, body);
 
         if (errorInv) return handleErrorClient(res, 500, "Error modificando el inventario", errorInv);
