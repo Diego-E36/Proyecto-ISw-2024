@@ -33,7 +33,7 @@ export async function createNotificactionService(data, operationType, stock) {
                 }
                 break;
             case "updateStock":
-                message = `se han restado ${stock} unidades de ${data.nombreStock} en la base de datos`
+                message = `Se han restado ${stock} unidades de ${data.nombreStock} en la base de datos`
                 if (data.cantidadStock <= data.umbralMinimo) {
                     await createNotificactionService(data, "below", 0);
                 }
