@@ -1,7 +1,7 @@
 /*cuadro principal*/
 .App-bicicletas {
     min-height: 100vh;
-    width: 100%;
+    /*width: 100%;*/
     height: 120vh;
     display: grid;
     grid-template-rows: auto auto;
@@ -15,7 +15,7 @@
 /*cuadro principal*/
 .App-inventario {
     min-height: 100vh;
-    width: 100%;
+    width: 140vh;
     height: 120vh;
     display: grid;
     grid-template-rows: auto auto;
@@ -37,7 +37,7 @@
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    overflow: visible;
+    /*overflow: visible;*/
 }
 
 /*titulos de los gráficos*/
@@ -52,7 +52,7 @@
 .revenueCard {
     grid-column: 1 / 3;
     width: 100%;
-    height: 32rem; 
+    height: 33rem; 
 }
 
 /*cuadros gráficos de abajo */
