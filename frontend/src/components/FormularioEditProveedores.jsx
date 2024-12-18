@@ -15,7 +15,7 @@ export default function EditProveedor({ show, setShow, data, action }) {
     // Patrones para validación de campos
     const rutPattern = /^(?:(?:[1-9]\d{0}|[1-2]\d{1})(\.\d{3}){2}|[1-9]\d{6}|[1-2]\d{7}|29\.999\.999|29999999)-[\dkK]$/
     const nombrePattern = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/
-    const telefonoPattern = /^[+]?[0-9]+$/
+    const telefonoPattern = /^\+[0-9]+$/
 
     return (
         <div>
@@ -74,7 +74,7 @@ export default function EditProveedor({ show, setShow, data, action }) {
                                     minLength: 9,
                                     maxLength: 12,
                                     pattern: telefonoPattern,
-                                    patternMessage: "El teléfono solo puede contener números y el símbolo +"
+                                    patternMessage: "El teléfono solo puede contener números y el símbolo comenzar con +"
                                 }
                             ]}
                             onSubmit={handleSubmit}
