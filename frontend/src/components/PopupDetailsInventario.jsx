@@ -5,9 +5,9 @@ const PopupDetailsInventario = ({ data, onClose }) => {
     return (
         <div className='popup-container'>
             <div className='popup-content'>
-                <h2>Detalles de la bicicleta</h2>
+                <h2>Detalles del Ítem</h2>
                 <button className='close-button' onClick={onClose}> <img src={CloseIcon} alt="Close" /></button>
-                <p><strong>Numero de serie:</strong> {data.numeroSerie}</p>
+                <p><strong>Número de serie:</strong> {data.numeroSerie}</p>
                 <p><strong>Stock:</strong> {data.cantidadStock}</p>
                 <p><strong>Descripción:</strong> {data.descripcionUnidad}</p>
                 <p><strong>Valor:</strong> {data.precioUnidad}</p>
