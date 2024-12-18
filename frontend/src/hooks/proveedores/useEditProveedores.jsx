@@ -21,6 +21,11 @@ const useEditProveedores = (setProveedores) => {
             try {
                 const dataUpdate = { ...updatedProveedorData }; // Copiar los datos actualizados
                 const updatedProveedor = await updateProveedores(dataUpdate, dataProveedor[0].id); // Actualizar el proveedor
+                if (updatedProveedor.status === 'Client error' || updatedProveedor.error){
+                    // Mostrar una alerta de error
+                    showErrorAlert('Error', updatedProveedor.message);
+                    return;
+                } 
                 // Mostrar una alerta de éxito
                 showSuccessAlert('¡Actualizado!', 'El proveedor ha sido actualizado correctamente.');
                 setIsPopupOpen(false);

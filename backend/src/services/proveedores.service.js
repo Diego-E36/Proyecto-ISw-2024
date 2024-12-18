@@ -2,6 +2,7 @@
 import Proveedores from "../entity/proveedores.entity.js";
 import Inventario from "../entity/inventario.entity.js";
 import { AppDataSource } from "../config/configDb.js";
+import { format } from "rut.js";
 
 export async function updateProvService(query, body) {
     try {
@@ -10,21 +11,45 @@ export async function updateProvService(query, body) {
         const provRepository = AppDataSource.getRepository(Proveedores);
         
         const provFound = await provRepository.findOne({
-            where: [{ id: id }, { rut: rut }],
+            where: [{ id: id }, { rut: format(rut) }],
         });
         
         if (!provFound) return [null, "Proveedor no encontrado"];
-        
-        const existingProv = await provRepository.findOne({
-            where: [{ rut: body.rut }]
+
+        const existingRut = await provRepository.findOne({
+            where: [{rut: format(body.rut)}],
         });
-        
-        if (existingProv && existingProv.id !== provFound.id) {
+
+        const existingName = await provRepository.findOne({
+            where: [{nombre: body.nombre}],
+        });
+
+        const existingEmail = await provRepository.findOne({
+            where: [{email: body.email}],
+        });
+
+        const exisitingPhone = await provRepository.findOne({
+            where: [{telefono: body.telefono}],
+        });
+
+        if (existingRut && existingRut.id !== provFound.id) {
             return [null, "Ya existe un proveedor con ese rut"];
+        }
+
+        if (existingName && existingName.id !== provFound.id) {
+            return [null, "Ya existe un proveedor con ese nombre"];
+        }
+
+        if (existingEmail && existingEmail.id !== provFound.id) {
+            return [null, "Ya existe un proveedor con ese email"];
+        }
+
+        if (exisitingPhone && exisitingPhone.id !== provFound.id) {
+            return [null, "Ya existe un proveedor con ese teléfono"];
         }
         
         const dataProvUpdated = {
-            rut: body.rut,
+            rut: format(body.rut),
             nombre: body.nombre,
             email: body.email,
             telefono: body.telefono,
@@ -57,7 +82,7 @@ export async function getProvService(query) {
         const provRepository = AppDataSource.getRepository(Proveedores);
         
         const provFound = await provRepository.findOne({
-            where: [{ id: id }, { rut: rut }],
+            where: [{ id: id }, { rut: format(rut) }],
         });
         
         if (!provFound) return [null, "Proveedor no encontrado"];
@@ -98,7 +123,7 @@ export async function deleteProvService(query) {
         
         // Verificar si el proveedor existe
         const provFound = await provRepository.findOne({
-            where: [{ id: id }, { rut: rut }],
+            where: [{ id: id }, { rut: format(rut) }],
         });
         
         if (!provFound) return [null, "caso 1"];
@@ -129,9 +154,41 @@ export async function deleteProvService(query) {
 export async function createProvService(body) {
     try {
         const provRepository = AppDataSource.getRepository(Proveedores);
+
+        const existingRut = await provRepository.findOne({
+            where: [{rut: format(body.rut)}],
+        });
+
+        const existingName = await provRepository.findOne({
+            where: [{nombre: body.nombre}],
+        });
+        
+        const existingEmail = await provRepository.findOne({
+            where: [{email: body.email}],
+        });
+
+        const exisitingPhone = await provRepository.findOne({
+            where: [{telefono: body.telefono}],
+        });
+
+        if (existingRut) {
+            return [null, "Ya existe un proveedor con ese rut"];
+        }
+
+        if (existingName) {
+            return [null, "Ya existe un proveedor con ese nombre"];
+        }
+
+        if (existingEmail) {
+            return [null, "Ya existe un proveedor con ese email"];
+        }
+
+        if (exisitingPhone) {
+            return [null, "Ya existe un proveedor con ese teléfono"];
+        }
         
         const newProv = provRepository.create({
-            rut: body.rut,
+            rut: format(body.rut),
             nombre: body.nombre,
             email: body.email,
             telefono: body.telefono,

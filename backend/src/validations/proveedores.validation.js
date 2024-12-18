@@ -73,13 +73,13 @@ export const provBodyValidation = Joi.object({
     telefono: Joi.string()
     .min(9)
     .max(12)
-    .pattern(/^[+]?[0-9]+$/)
+    .pattern(/^\+[0-9]+$/)
     .messages({
         "string.empty": "El telefono no puede estar vacío.",
         "string.base": "El telefono debe ser de tipo string.",
         "string.min": "El telefono debe tener como mínimo 9 caracteres.",
         "string.max": "El telefono debe tener como máximo 12 caracteres.",
-        "string.pattern.base": "El telefono solo puede contener números y el símbolo +.",
+        "string.pattern.base": "El telefono solo puede contener números y comenzar con el símbolo +.",
     }),
 })
 .or(

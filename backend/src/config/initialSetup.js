@@ -155,7 +155,7 @@ async function createProveedoresInitial() {
     await Promise.all([
       proveedoresRepo.save(
         proveedoresRepo.create({
-          rut: "15123456-7",
+          rut: "15.123.456-7",
           nombre: "UtenciliosCorp",
           email: "utencilios@gmail.cl",
           telefono: "+56912345678",
