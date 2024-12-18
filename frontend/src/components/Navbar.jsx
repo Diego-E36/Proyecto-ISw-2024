@@ -106,7 +106,7 @@ const Navbar = () => {
             <div className="navbar-content">
                 <div className="navbar-title">Bikeep</div>
                 <div className="navbar-icons">
-                    {(userRole === 'administrador' || userRole === 'usuario') && (
+                    {(userRole === 'administrador') && (
                         <Badge badgeContent={unreadCount} color="error">
                         {unreadCount > 0 ? (
                             <NotificationsActiveIcon
