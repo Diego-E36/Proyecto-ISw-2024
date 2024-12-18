@@ -25,13 +25,28 @@ export async function getInventarioNombreCantidadDia(dia, mes, year){
         const historialRepository = AppDataSource.getRepository(HistorialInventario);
 
         const inventarioNombreCantidadDia = await historialRepository.createQueryBuilder("historial")
-        .select("inventario.nombreStock", "nombre")
-        .addSelect("historial.cantidad", "cantidad")
-        .innerJoin("inventario", "inventario", "historial.id_inventario = inventario.id")
-        .where("EXTRACT(DAY FROM historial.createdAt) = :dia", { dia })
-        .andWhere("EXTRACT(MONTH FROM historial.createdAt) = :mes", { mes })
-        .andWhere("EXTRACT(YEAR FROM historial.createdAt) = :year", { year })
-        .getRawMany();
+            .select("inventario.nombreStock", "nombre")
+            .addSelect("historial.cantidad", "cantidad")
+            .addSelect("historial.createdAt", "fecha")
+            .innerJoin("inventario", "inventario", "historial.id_inventario = inventario.id")
+            .where("EXTRACT(DAY FROM historial.createdAt) = :dia", { dia })
+            .andWhere("EXTRACT(MONTH FROM historial.createdAt) = :mes", { mes })
+            .andWhere("EXTRACT(YEAR FROM historial.createdAt) = :year", { year })
+            .andWhere("inventario.cantidadStock > 0")
+                .andWhere(qb => {
+                    const subQuery = qb.subQuery()
+                        .select("MAX(subHistorial.createdAt)")
+                        .from(HistorialInventario, "subHistorial")
+                        .where("subHistorial.id_inventario = historial.id_inventario")
+                        .andWhere("EXTRACT(DAY FROM subHistorial.createdAt) = :dia", { dia })
+                        .andWhere("EXTRACT(MONTH FROM subHistorial.createdAt) = :mes", { mes })
+                        .andWhere("EXTRACT(YEAR FROM subHistorial.createdAt) = :year", { year })
+                    .getQuery();
+                return `historial.createdAt = (${subQuery})`;
+                })
+            .getRawMany();
+
+
     
         return [inventarioNombreCantidadDia, null];
     } catch (error) {
@@ -47,10 +62,22 @@ export async function getInventarioNombreCantidadMesYear(mes, year) {
 
         const inventarioNombreCantidad = await historialRepository.createQueryBuilder("historial")
             .select("inventario.nombreStock", "nombre") 
-            .addSelect("historial.cantidad", "cantidad") 
+            .addSelect("historial.cantidad", "cantidad")
+            .addSelect("historial.createdAt", "fecha") 
             .innerJoin("inventario", "inventario", "historial.id_inventario = inventario.id")
             .where("EXTRACT(MONTH FROM historial.createdAt) = :mes", { mes })
             .andWhere("EXTRACT(YEAR FROM historial.createdAt) = :year", { year })
+            .andWhere("inventario.cantidadStock > 0")
+            .andWhere(qb => {
+                const subQuery = qb.subQuery()
+                .select("MAX(subHistorial.createdAt)") 
+                .from(HistorialInventario, "subHistorial")
+                .where("subHistorial.id_inventario = historial.id_inventario")
+                .andWhere("EXTRACT(MONTH FROM subHistorial.createdAt) = :mes", { mes })
+                .andWhere("EXTRACT(YEAR FROM subHistorial.createdAt) = :year", { year })
+                .getQuery();
+            return `historial.createdAt = (${subQuery})`;
+            })
             .getRawMany();
 
         return [inventarioNombreCantidad, null];
@@ -68,8 +95,19 @@ export async function getInventarioNombreCantidadYear(year) {
         const inventarioNombreCantidadYear = await historialRepository.createQueryBuilder("historial")
             .select("inventario.nombreStock", "nombre")
             .addSelect("historial.cantidad", "cantidad")
+            .addSelect("historial.createdAt", "fecha") 
             .innerJoin("inventario", "inventario", "historial.id_inventario = inventario.id")
             .where("EXTRACT(YEAR FROM historial.createdAt) = :year", { year })
+            .andWhere("inventario.cantidadStock > 0")
+            .andWhere(qb => {
+                const subQuery = qb.subQuery()
+                    .select("MAX(subHistorial.createdAt)") 
+                    .from(HistorialInventario, "subHistorial")
+                    .where("subHistorial.id_inventario = historial.id_inventario")
+                    .andWhere("EXTRACT(YEAR FROM subHistorial.createdAt) = :year", { year })
+                    .getQuery();
+                return `historial.createdAt = (${subQuery})`;
+            })
             .getRawMany();
 
         return [inventarioNombreCantidadYear, null];
@@ -85,13 +123,25 @@ export async function getInventarioNombreCantidadUltimosTresMeses() {
         const historialRepository = AppDataSource.getRepository(HistorialInventario);
         
         const inventarioNombreCantidadUltimosTresMeses = await historialRepository.createQueryBuilder("historial")
-        .select("inventario.nombreStock", "nombre")
-        .addSelect("historial.cantidad", "cantidad")
-        .addSelect("TO_CHAR(historial.createdAt, 'Month')", "mes")
-        .innerJoin("inventario", "inventario", "historial.id_inventario = inventario.id")
-        .where("historial.createdAt >= DATE_TRUNC('month', NOW()) - INTERVAL '3 months'")
-        .andWhere("historial.createdAt < DATE_TRUNC('month', NOW())")
-        .getRawMany();
+            .select("inventario.nombreStock", "nombre")
+            .addSelect("historial.cantidad", "cantidad")
+            .addSelect("TO_CHAR(historial.createdAt, 'Month')", "mes")
+            .addSelect("historial.createdAt", "fecha")
+            .innerJoin("inventario", "inventario", "historial.id_inventario = inventario.id")
+            .where("historial.createdAt >= DATE_TRUNC('month', NOW()) - INTERVAL '3 months'")
+            .andWhere("historial.createdAt < DATE_TRUNC('month', NOW())")
+            .andWhere(qb => {
+                const subQuery = qb.subQuery()
+                    .select("MAX(subHistorial.createdAt)")
+                    .from(HistorialInventario, "subHistorial")
+                    .where("subHistorial.id_inventario = historial.id_inventario")
+                    .andWhere("subHistorial.createdAt >= DATE_TRUNC('month', NOW()) - INTERVAL '3 months'")
+                    .andWhere("subHistorial.createdAt < DATE_TRUNC('month', NOW())")
+                    .getQuery();
+                return `historial.createdAt = ${subQuery}`;
+            })
+            .getRawMany();
+
 
     return [inventarioNombreCantidadUltimosTresMeses, null];
     } catch (error) {
