@@ -35,12 +35,12 @@ export const invBodyValidation = Joi.object({
         }),
     nombreStock: Joi.string()
         .min(5)
-        .max(255)
+        .max(50)
         .pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)
         .messages({
             "string.pattern.base": "El nombre del stock solo puede contener letras, números y espacios.",
             "string.min": "El nombre del stock debe tener como mínimo 5 caracteres.",
-            "string.max": "El nombre del stock debe tener como máximo 255 caracteres.",
+            "string.max": "El nombre del stock debe tener como máximo 50 caracteres.",
         }),
     cantidadStock: Joi.number()
         .integer()
