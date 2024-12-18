@@ -17,7 +17,7 @@ const useCreateProveedores = (fetchProveedores) => {
     const createProveedor = async (proveedor) => {
         try {
             const response = await createProveedores(proveedor);
-            if (response.error) {
+            if (response.status === 'Client error') {
                 showErrorAlert(response.message);
             } else {
                 showSuccessAlert('Proveedor creado exitosamente');
