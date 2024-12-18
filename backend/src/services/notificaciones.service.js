@@ -5,7 +5,7 @@ import Notificaciones from "../entity/notificaciones.entity.js";
 export async function createNotificactionService(data, operationType, stock) {
     try {
         const notificationRepository = AppDataSource.getRepository(Notificaciones);
-        console.log(data)
+        
         let message;
         switch (operationType) {
             case "create":
