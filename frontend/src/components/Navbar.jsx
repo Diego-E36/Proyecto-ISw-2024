@@ -19,6 +19,8 @@ import Badge from '@mui/material/Badge';
 import useGetNotificacion from '../hooks/notificaciones/useGetNotificacion';
 
 
+
+
 const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -27,7 +29,7 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
 
-    const { unreadCount } = useGetNotificacion();
+    const { unreadCount, setUnreadCount, updateUnreadCount } = useGetNotificacion();
 
     useEffect(() => {
         if (darkMode) {
@@ -85,6 +87,18 @@ const Navbar = () => {
             }
         });
     }, [location.pathname]);
+
+
+
+    // Reset unread count when navigating to '/notificaciones'
+    useEffect(() => {
+        if (location.pathname === '/notificaciones') {
+            setUnreadCount(0);
+        } else if(location.pathname){
+            setUnreadCount(updateUnreadCount)
+        }
+    }, [location.pathname, setUnreadCount]);
+
 
     return (
         <>

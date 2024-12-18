@@ -5,6 +5,9 @@ import { format as formatTempo } from "@formkit/tempo";
 const useGetNotificacion = () => {
     const [notificaciones, setNotificaciones] = useState([]);
 
+    const [unreadCount, setUnreadCount] = useState(0); // Estado para el conteo de no leídas
+
+
     const fetchNotificaciones = async () => {
 
         const translateStatus = (status) => {
@@ -33,14 +36,27 @@ const useGetNotificacion = () => {
         }
     };
 
+     // Método para actualizar el conteo manualmente
+    const updateUnreadCount = () => {
+        const UnreadCount = notificaciones.filter(n => n.status === 'No leído').length;
+        setUnreadCount(UnreadCount);
+    };
+
+
     useEffect(() => {
         fetchNotificaciones();
     }, []);
 
-    // Filtra y cuenta las no leídas
-    const unreadCount = notificaciones.filter(n => n.status === "No leído").length;
+    
 
-    return { notificaciones, fetchNotificaciones, setNotificaciones, unreadCount };
+    return { 
+        notificaciones, 
+        fetchNotificaciones, 
+        setNotificaciones,
+        unreadCount, 
+        setUnreadCount,  
+        updateUnreadCount  
+    };
 }
 
 export default useGetNotificacion;

@@ -6,11 +6,9 @@ const useMarkAsReadNotificacion = (fetchNotificacion) => {
     const [dataNotificaciones, setDataNotificaciones] = useState([]);
 
 
-
     const handleMarkAsRead = async (notificacionId) => {
         if (notificacionId) {
             try {
-                console.log(notificacionId)
                 const response = await markAsRead(dataNotificaciones[0].id);
                 if (response.error || response.status === "Client error") {
                     showErrorAlert(response.message, response.details);

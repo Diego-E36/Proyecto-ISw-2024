@@ -1,6 +1,6 @@
 import Table from '../components/Table';
 
-import { useCallback, useMemo, useState } from 'react';
+import {  useCallback, useMemo, useState } from 'react';
 
 import DeleteIcon from '../assets/deleteIcon.svg';
 import DeleteIconDisable from '../assets/deleteIconDisabled.svg';
@@ -29,8 +29,7 @@ const Notificaciones = () => {
     const { handleDelete } = useDeleteNotificacion(fetchNotificaciones, setDataNotificaciones);
 
     const columns = [
-        { title: "ID", field: "id", width: 55, responsive: 0, resizable: false, vertAlign: "middle" , sorter: "number"},
-        { title: "Mensaje", field: "message", width: 701, responsive: 0, resizable: false, vertAlign: "middle", headerSort: false},
+        { title: "Mensaje", field: "message", width: 756, responsive: 0, resizable: false, vertAlign: "middle", headerSort: false},
         { title: "Estado", field: "status", width: 150, responsive: 0, resizable: false, vertAlign: "middle", headerSort: false},
         { title: "Creado", field: "createdAt", width: 300, responsive: 0, resizable: false, vertAlign: "middle"},
     ];
