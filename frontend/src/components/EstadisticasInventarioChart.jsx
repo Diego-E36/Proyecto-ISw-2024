@@ -31,10 +31,10 @@ const BarChartAllNombreCantidadComponent = ({ data }) => {
         );
     }
     return (
-    <ResponsiveContainer width="100%" height={500}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+    <ResponsiveContainer width="100%" height={490}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 50, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombreStock" angle={-40} textAnchor="end" interval={0} height={100} />
+            <XAxis dataKey="nombreStock" angle={-52} textAnchor="end" interval={0} height={100} />
             <YAxis />
             <Tooltip />
             <Legend verticalAlign="top" />
@@ -54,10 +54,10 @@ const BarChartNombreCantidadDia = ({ data }) => {
         );
     }
     return (
-    <ResponsiveContainer width="100%" height={500}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+    <ResponsiveContainer width="100%" height={490}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 50, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombre" angle={-40} textAnchor="end" interval={0} height={100} />
+            <XAxis dataKey="nombre" angle={-52} textAnchor="end" interval={0} height={100} tick={{ fontSize: 16 }}/>
             <YAxis />
             <Tooltip />
             <Legend verticalAlign="top" />
@@ -76,10 +76,10 @@ const BarChartNombreCantidadMesYear = ({ data }) => {
         );
     }
     return (
-    <ResponsiveContainer width="100%" height={500}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+    <ResponsiveContainer width="100%" height={490}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 50, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombre" angle={-40} textAnchor="end" interval={0} height={100} />
+            <XAxis dataKey="nombre" angle={-52} textAnchor="end" interval={0} height={100} />
             <YAxis />
             <Tooltip />
             <Legend verticalAlign="top" />
@@ -99,10 +99,10 @@ const BarChartNombreCantidadYear = ({ data }) => {
         );
     }
     return (
-    <ResponsiveContainer width="100%" height={500}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+    <ResponsiveContainer width="100%" height={490}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 50, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombre" angle={-40} textAnchor="end" interval={0} height={100} />
+            <XAxis dataKey="nombre" angle={-52} textAnchor="end" interval={0} height={100} />
             <YAxis />
             <Tooltip />
             <Legend verticalAlign="top" />
@@ -149,7 +149,7 @@ const BarChartNombreCantidadUltimosTresMeses = ({ data }) => {
         <ResponsiveContainer width="100%" height={500}>
             <BarChart data={dataTransformada} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="nombre" angle={-40} textAnchor="end" interval={0} height={100} />
+                <XAxis dataKey="nombre" angle={-52} textAnchor="end" interval={0} height={100} />
                 <YAxis />
                 <Tooltip />
                 <Legend verticalAlign="top" />
@@ -170,11 +170,11 @@ const DistribucionProductosPorProveedorChart = ({ data }) => {
         );
     }
     return (
-    <ResponsiveContainer width="100%" height={500}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+    <ResponsiveContainer width="100%" height={490}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 40, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombre_proveedor" angle={-40} textAnchor="end" interval={0} height={100} />
-            <YAxis />
+            <XAxis dataKey="nombre_proveedor" angle={-52} textAnchor="end" interval={0} height={100} />
+            <YAxis allowDataOverflow={true}/>
             <Tooltip />
             <Legend verticalAlign="top" />
             <Bar dataKey="cantidad" fill="#8884d8" isAnimationActive={true}/>
@@ -192,11 +192,11 @@ const BarChartProveedorDia = ({ data }) => {
         );
     }
     return (
-    <ResponsiveContainer width="100%" height={500}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+    <ResponsiveContainer width="100%" height={490}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 40, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombre_proveedor" angle={-40} textAnchor="end" interval={0} height={100} />
-            <YAxis />
+            <XAxis dataKey="nombre_proveedor" angle={-52} textAnchor="end" interval={0} height={100} />
+            <YAxis allowDataOverflow={true}/>
             <Tooltip />
             <Legend verticalAlign="top" />
             <Bar dataKey="cantidad" fill="#8884d8" isAnimationActive={true}/>
@@ -214,11 +214,11 @@ const BarChartProveedorMesYear = ({ data }) => {
         );
     }
     return (
-    <ResponsiveContainer width="100%" height={500}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+    <ResponsiveContainer width="100%" height={490}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 40, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombre_proveedor" angle={-40} textAnchor="end" interval={0} height={100} />
-            <YAxis />
+            <XAxis dataKey="nombre_proveedor" angle={-52} textAnchor="end" interval={0} height={100} />
+            <YAxis allowDataOverflow={true}/>
             <Tooltip />
             <Legend verticalAlign="top" />
             <Bar dataKey="cantidad" fill="#8884d8" isAnimationActive={true}/>
@@ -236,11 +236,11 @@ const BarChartProveedorYear = ({ data }) => {
         );
     }
     return (
-    <ResponsiveContainer width="100%" height={500}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+    <ResponsiveContainer width="100%" height={490}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 40, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombre_proveedor" angle={-40} textAnchor="end" interval={0} height={100} />
-            <YAxis />
+            <XAxis dataKey="nombre_proveedor" angle={-52} textAnchor="end" interval={0} height={100} />
+            <YAxis allowDataOverflow={true}/>
             <Tooltip />
             <Legend verticalAlign="top" />
             <Bar dataKey="cantidad" fill="#8884d8" isAnimationActive={true}/>
@@ -259,11 +259,11 @@ const BarChartProveedorTresMeses = ({ data }) => {
     }
     const dataTransformada = transformarMeses(data);
     return (
-        <ResponsiveContainer width="100%" height={500}>
-            <BarChart data={dataTransformada} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+        <ResponsiveContainer width="100%" height={490}>
+            <BarChart data={dataTransformada} margin={{ top: 20, right: 30, left: 40, bottom: 120 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="nombre_proveedor" angle={-40} textAnchor="end" interval={0} height={100} />
-                <YAxis />
+                <XAxis dataKey="nombre_proveedor" angle={-51} textAnchor="end" interval={0} height={100} />
+                <YAxis allowDataOverflow={true}/>
                 <Tooltip />
                 <Legend verticalAlign="top" />
                 <Bar dataKey="cantidad" fill="#8884d8" isAnimationActive={true}>
@@ -283,10 +283,10 @@ const ProductosBajoStockYRestockChart = ({ data }) => {
         );
     }
     return (
-    <ResponsiveContainer width="100%" height={500}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+    <ResponsiveContainer width="100%" height={490}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 40, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombreStock" angle={-40} textAnchor="end" interval={0} height={100} />
+            <XAxis dataKey="nombreStock" angle={-51} textAnchor="end" interval={0} height={100} />
             <YAxis />
             <Tooltip />
             <Legend verticalAlign="top" />
@@ -316,10 +316,10 @@ const BarChartBajoStockRestockDia = ({ data }) => {
         );
     }
     return (
-    <ResponsiveContainer width="100%" height={500}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+    <ResponsiveContainer width="100%" height={490}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 40, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombreStock" angle={-40} textAnchor="end" interval={0} height={100} />
+            <XAxis dataKey="nombreStock" angle={-51} textAnchor="end" interval={0} height={100} />
             <YAxis />
             <Tooltip />
             <Legend verticalAlign="top" />
@@ -349,10 +349,10 @@ const BarChartBajoStockRestockMesYear = ({ data }) => {
         );
     }
     return (
-    <ResponsiveContainer width="100%" height={500}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+    <ResponsiveContainer width="100%" height={490}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 40, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombreStock" angle={-40} textAnchor="end" interval={0} height={100} />
+            <XAxis dataKey="nombreStock" angle={-51} textAnchor="end" interval={0} height={100} />
             <YAxis />
             <Tooltip />
             <Legend verticalAlign="top" />
@@ -382,10 +382,10 @@ const BarChartBajoStockRestockYear = ({ data }) => {
         );
     }
     return (
-    <ResponsiveContainer width="100%" height={500}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+    <ResponsiveContainer width="100%" height={490}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 40, bottom: 120 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombreStock" angle={-40} textAnchor="end" interval={0} height={100} />
+            <XAxis dataKey="nombreStock" angle={-51} textAnchor="end" interval={0} height={100} />
             <YAxis />
             <Tooltip />
             <Legend verticalAlign="top" />
@@ -418,10 +418,10 @@ const BarChartBajoStockRestockTresMeses = ({ data }) => {
     const dataTransformada = transformarMeses(data);
 
     return (
-        <ResponsiveContainer width="100%" height={500}>
-            <BarChart data={dataTransformada} margin={{ top: 20, right: 30, left: 20, bottom: 120 }}>
+        <ResponsiveContainer width="100%" height={490}>
+            <BarChart data={dataTransformada} margin={{ top: 20, right: 30, left: 40, bottom: 120 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="inventario_nombreStock" angle={-40} textAnchor="end" interval={0} height={100} />
+                <XAxis dataKey="inventario_nombreStock" angle={-51} textAnchor="end" interval={0} height={100} />
                 <YAxis />
                 <Tooltip />
                 <Legend verticalAlign="top" />
